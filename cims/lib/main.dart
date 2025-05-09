@@ -2,6 +2,7 @@ import 'package:cims/census.dart';
 import 'package:cims/form_list.dart';
 import 'package:cims/login.dart';
 import 'package:cims/rap_create.dart';
+import 'package:cims/rap_list.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:flutter/material.dart';
 
@@ -23,8 +24,9 @@ class MainApp extends StatelessWidget {
         '/rapId': (context) => const RapIdEntryScreen(),
         '/formlist': (context) => const FormListScreen(),
         '/census': (context) => const CensusFormsScreen(),
+        '/rapList': (context) => const RapListScreen(),
       },
-      initialRoute: '/rapId',
+      initialRoute: '/login',
     );
   }
 }

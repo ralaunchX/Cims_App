@@ -21,8 +21,6 @@ class _FormListScreenState extends State<FormListScreen> {
   @override
   void initState() {
     super.initState();
-    final savedValue = AppPrefs().prefs;
-    inspect(savedValue);
   }
 
   @override

@@ -22,50 +22,61 @@ class _RapIdEntryScreenState extends State<RapIdEntryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Enter RAP Details'),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                initialValue: rapId,
-                decoration: const InputDecoration(labelText: 'RAP ID'),
-                onChanged: (val) => rapId = val,
-                validator: (val) =>
-                    val == null || val.isEmpty ? 'Required' : null,
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                initialValue: interviewerName,
-                decoration:
-                    const InputDecoration(labelText: 'Interviewer Name'),
-                onChanged: (val) => interviewerName = val,
-                validator: (val) =>
-                    val == null || val.isEmpty ? 'Required' : null,
-              ),
-              const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    await AppPrefs().setRapId(rapId);
-                    await AppPrefs().setInterviewerName(interviewerName, rapId);
-                    Keys.rapId = rapId;
+    // ignore: deprecated_member_use
+    return WillPopScope(
+      onWillPop: onPop,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Enter RAP Details'),
+          centerTitle: true,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  initialValue: rapId,
+                  decoration: const InputDecoration(labelText: 'RAP ID'),
+                  onChanged: (val) => rapId = val,
+                  validator: (val) =>
+                      val == null || val.isEmpty ? 'Required' : null,
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  initialValue: interviewerName,
+                  decoration:
+                      const InputDecoration(labelText: 'Interviewer Name'),
+                  onChanged: (val) => interviewerName = val,
+                  validator: (val) =>
+                      val == null || val.isEmpty ? 'Required' : null,
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      await AppPrefs().setRapId(rapId);
+                      await AppPrefs()
+                          .setInterviewerName(interviewerName, rapId);
+                      Keys.rapId = rapId;
 
-                    Navigator.pushReplacementNamed(context, '/formlist');
-                  }
-                },
-                child: const Text('Continue'),
-              ),
-            ],
+                      Navigator.pushReplacementNamed(context, '/formlist',
+                          result: true);
+                    }
+                  },
+                  child: const Text('Continue'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Future<bool> onPop() async {
+    Navigator.pop(context, true);
+    return true;
   }
 }

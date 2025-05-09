@@ -1,4 +1,6 @@
 class AppConstants {
+  static const user = 'user1';
+  static const password = '12345';
   static const List<String> idTypes = ['None', 'ID', 'Passport'];
 
   static const List<String> maritalStatuses = [

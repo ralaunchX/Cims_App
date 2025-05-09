@@ -22,10 +22,12 @@ class _CensusFormsScreenState extends State<CensusFormsScreen> {
     {
       'title': 'Census Household Form',
       'widget': const CensusHouseholdFormScreen(),
+      'key': Keys.censusHousehold
     },
     {
       'title': 'Census Institution Form',
       'widget': const CensusInstitutionFormScreen(),
+      'key': Keys.censusInstitution
     },
   ];
 
@@ -39,6 +41,11 @@ class _CensusFormsScreenState extends State<CensusFormsScreen> {
           return Padding(
             padding: const EdgeInsets.only(bottom: 4),
             child: ListTile(
+              tileColor: AppPrefs()
+                      .prefs!
+                      .containsKey('${Keys.rapId}_${censusForms[index]['key']}')
+                  ? Colors.green
+                  : Colors.transparent,
               leading: const Icon(Icons.description),
               title: Text(censusForms[index]['title']),
               onTap: () {
@@ -366,7 +373,10 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                           censusHouseKey, jsonEncode(household.toJson()));
 
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Form Submitted')),
+                        const SnackBar(
+                          content: Text('Household Form Submitted'),
+                          backgroundColor: Colors.green,
+                        ),
                       );
                     }
                   },
@@ -634,7 +644,9 @@ class _CensusInstitutionFormScreenState
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                            content: Text('Institution Form Submitted')),
+                          content: Text('Institution Form Submitted'),
+                          backgroundColor: Colors.green,
+                        ),
                       );
                     }
                   },

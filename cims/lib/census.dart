@@ -5,6 +5,7 @@ import 'package:cims/data_model/census_household.dart';
 import 'package:cims/data_model/census_institution.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
+import 'package:cims/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,13 +49,16 @@ class _CensusFormsScreenState extends State<CensusFormsScreen> {
                   : Colors.transparent,
               leading: const Icon(Icons.description),
               title: Text(censusForms[index]['title']),
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                final result = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) => censusForms[index]['widget'],
                   ),
                 );
+                if (result == true) {
+                  setState(() {});
+                }
               },
             ),
           );
@@ -288,8 +292,25 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               TextFormField(
-                initialValue: gpsCoordinates,
-                decoration: const InputDecoration(labelText: 'GPS Coordinates'),
+                controller: TextEditingController(text: gpsCoordinates),
+                decoration: InputDecoration(
+                  labelText: 'GPS Coordinates',
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.location_on),
+                    onPressed: () async {
+                      try {
+                        final coords = await Utility.getCurrentCoordinates();
+                        setState(() {
+                          gpsCoordinates = coords!;
+                        });
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(e.toString())),
+                        );
+                      }
+                    },
+                  ),
+                ),
                 onChanged: (val) => setState(() => gpsCoordinates = val),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
@@ -378,6 +399,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                           backgroundColor: Colors.green,
                         ),
                       );
+                      Navigator.pop(context, true);
                     }
                   },
                   child: const Text('Submit'),
@@ -582,10 +604,25 @@ class _CensusInstitutionFormScreenState
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               TextFormField(
-                initialValue: gpsCoordinates,
-                decoration: const InputDecoration(labelText: 'GPS Coordinates'),
-                onChanged: (val) => setState(() => gpsCoordinates = val),
-                validator: (val) => val!.isEmpty ? 'Required' : null,
+                controller: TextEditingController(text: gpsCoordinates),
+                decoration: InputDecoration(
+                  labelText: 'GPS Coordinates',
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.location_on),
+                    onPressed: () async {
+                      try {
+                        final coords = await Utility.getCurrentCoordinates();
+                        setState(() {
+                          gpsCoordinates = coords!;
+                        });
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(e.toString())),
+                        );
+                      }
+                    },
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
               const Text('Community Form',
@@ -648,6 +685,7 @@ class _CensusInstitutionFormScreenState
                           backgroundColor: Colors.green,
                         ),
                       );
+                      Navigator.pop(context, true);
                     }
                   },
                   child: const Text('Submit'),

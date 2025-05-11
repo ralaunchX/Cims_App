@@ -1,0 +1,2 @@
+/Users/rounak/Cims_App/cims/android/app/.cxx/Debug/4g4u3l1l/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/rounak/Cims_App/cims/android/app/.cxx/Debug/4g4u3l1l/armeabi-v7a/CMakeFiles/rebuild_cache.dir

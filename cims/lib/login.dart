@@ -53,7 +53,7 @@ class LoginPage extends StatelessWidget {
 
                   if (username == AppConstants.user &&
                       password == AppConstants.password) {
-                    Navigator.pushNamed(context, '/rapList');
+                    Navigator.popAndPushNamed(context, '/rapList');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

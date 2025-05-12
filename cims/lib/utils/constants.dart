@@ -2,8 +2,9 @@ class AppConstants {
   static const user = 'user1';
   static const password = '12345';
   static const List<String> idTypes = ['None', 'ID', 'Passport'];
-
+  static const String dropDownNotSelected = '----';
   static const List<String> maritalStatuses = [
+    dropDownNotSelected,
     'Single',
     'Married',
     'Divorced',
@@ -12,6 +13,7 @@ class AppConstants {
   ];
 
   static const List<String> marriageTypes = [
+    dropDownNotSelected,
     'In Community of Property',
     'Out of Community of Property',
     'Customary',
@@ -20,10 +22,14 @@ class AppConstants {
     'Other',
   ];
 
-  static const List<String> districts = ['Botha-Bothe', 'Leribe'];
+  static const List<String> districts = [
+    dropDownNotSelected,
+    'Botha-Bothe',
+    'Leribe'
+  ];
 
   static const List<String> routes = [
-    'Select a Route',
+    dropDownNotSelected,
     '1. WTW',
     '2. Ha Molapo - Ha Phakela',
     '3. Ha Khabo - Pitsi’s Nek',
@@ -52,6 +58,7 @@ class AppConstants {
   ];
 
   static const List<String> communityCouncils = [
+    dropDownNotSelected,
     'Community Council 1',
     'Community Council 2',
     'Community Council 3',
@@ -63,11 +70,18 @@ class AppConstants {
   ];
 
   static const List<String> institutionTypes = [
+    dropDownNotSelected,
     'Business',
     'Church',
     'Community Organisation',
     'Graveyard',
     'School',
     'Other',
+  ];
+  static const List<String> genderList = [
+    dropDownNotSelected,
+    'Male',
+    'Female',
+    'Other'
   ];
 }

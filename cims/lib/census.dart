@@ -7,6 +7,8 @@ import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
 import 'package:cims/utils/utility.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'utils/constants.dart';
@@ -35,7 +37,7 @@ class _CensusFormsScreenState extends State<CensusFormsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Census Forms')),
+      appBar: AppBar(title: Text('Census Forms ${Keys.rapId}')),
       body: ListView.builder(
         itemCount: censusForms.length,
         itemBuilder: (context, index) {
@@ -83,11 +85,12 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
 
   String idType = 'None';
   String spouseIdType = 'None';
-  String maritalStatus = 'Single';
-  String marriageType = 'In Community of Property';
-  String district = 'Botha-Bothe';
-  String route = 'Select a Route';
-  String communityCouncil = 'Community Council 1';
+  String maritalStatus = AppConstants.dropDownNotSelected;
+  String marriageType = AppConstants.dropDownNotSelected;
+  String district = AppConstants.dropDownNotSelected;
+  String route = AppConstants.dropDownNotSelected;
+  String communityCouncil = AppConstants.dropDownNotSelected;
+  String gender = AppConstants.dropDownNotSelected;
 
   String idNumber = '';
   String idExpiryDate = '';
@@ -97,7 +100,6 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
   String spouseSurname = '';
   String householdHeadFirstName = '';
   String householdHeadSurname = '';
-  String gender = 'Male';
   String contactCell = '';
   String principalChief = '';
   String villageChief = '';
@@ -105,8 +107,61 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
 
   bool get showIdFields => idType != 'None';
   bool get showSpouseIdFields => spouseIdType != 'None';
-  bool get showSpouseForm => maritalStatus != 'Single';
+  bool get showSpouseForm =>
+      maritalStatus != 'Single' &&
+      maritalStatus != AppConstants.dropDownNotSelected;
+
+  final FocusNode idTypeFocus = FocusNode();
+  final FocusNode spouseIdTypeFocus = FocusNode();
+  final FocusNode maritalStatusFocus = FocusNode();
+  final FocusNode marriageTypeFocus = FocusNode();
+  final FocusNode districtFocus = FocusNode();
+  final FocusNode routeFocus = FocusNode();
+  final FocusNode communityCouncilFocus = FocusNode();
+  final FocusNode genderFocus = FocusNode();
+
+  final FocusNode idNumberFocus = FocusNode();
+  final FocusNode idExpiryDateFocus = FocusNode();
+  final FocusNode spouseIdNumberFocus = FocusNode();
+  final FocusNode spouseIdExpiryDateFocus = FocusNode();
+  final FocusNode spouseFirstNameFocus = FocusNode();
+  final FocusNode spouseSurnameFocus = FocusNode();
+  final FocusNode householdHeadFirstNameFocus = FocusNode();
+  final FocusNode householdHeadSurnameFocus = FocusNode();
+  final FocusNode contactCellFocus = FocusNode();
+  final FocusNode principalChiefFocus = FocusNode();
+  final FocusNode villageChiefFocus = FocusNode();
+  final FocusNode gpsCoordinatesFocus = FocusNode();
+
+  String rapId = Keys.rapId;
   String censusHouseKey = '${Keys.rapId}_${Keys.censusHousehold}';
+
+  @override
+  void dispose() {
+    idTypeFocus.dispose();
+    spouseIdTypeFocus.dispose();
+    maritalStatusFocus.dispose();
+    marriageTypeFocus.dispose();
+    districtFocus.dispose();
+    routeFocus.dispose();
+    communityCouncilFocus.dispose();
+    genderFocus.dispose();
+
+    idNumberFocus.dispose();
+    idExpiryDateFocus.dispose();
+    spouseIdNumberFocus.dispose();
+    spouseIdExpiryDateFocus.dispose();
+    spouseFirstNameFocus.dispose();
+    spouseSurnameFocus.dispose();
+    householdHeadFirstNameFocus.dispose();
+    householdHeadSurnameFocus.dispose();
+    contactCellFocus.dispose();
+    principalChiefFocus.dispose();
+    villageChiefFocus.dispose();
+    gpsCoordinatesFocus.dispose();
+
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -161,6 +216,8 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
               const Text('Household Head Details',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               TextFormField(
+                focusNode: householdHeadFirstNameFocus,
+                textInputAction: TextInputAction.next,
                 initialValue: householdHeadFirstName,
                 decoration: const InputDecoration(
                     labelText: 'Household Head First Name'),
@@ -169,23 +226,32 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               TextFormField(
+                focusNode: householdHeadSurnameFocus,
+                textInputAction: TextInputAction.next,
                 initialValue: householdHeadSurname,
                 decoration: const InputDecoration(labelText: 'Head Surname'),
                 onChanged: (val) => setState(() => householdHeadSurname = val),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               DropdownButtonFormField<String>(
+                focusNode: genderFocus,
                 decoration: const InputDecoration(labelText: 'Gender'),
                 value: gender,
-                items: ['Male', 'Female', 'Other']
+                items: AppConstants.genderList
                     .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                     .toList(),
                 onChanged: (value) {
                   setState(() => gender = value!);
                 },
-                validator: (val) => val == null ? 'Required' : null,
+                validator: (val) {
+                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                    return 'Please select Gender';
+                  }
+                  return null;
+                },
               ),
               DropdownButtonFormField<String>(
+                focusNode: idTypeFocus,
                 decoration: const InputDecoration(labelText: 'ID Type'),
                 value: idType,
                 items: AppConstants.idTypes
@@ -199,19 +265,37 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
               ),
               if (showIdFields) ...[
                 TextFormField(
+                  focusNode: idNumberFocus,
+                  textInputAction: TextInputAction.next,
                   initialValue: idNumber,
                   decoration: const InputDecoration(labelText: 'ID Number'),
                   onChanged: (val) => setState(() => idNumber = val),
                   validator: (val) => val!.isEmpty ? 'Required' : null,
                 ),
                 TextFormField(
+                  focusNode: idExpiryDateFocus,
+                  textInputAction: TextInputAction.next,
                   initialValue: idExpiryDate,
-                  decoration:
-                      const InputDecoration(labelText: 'ID Expiry Date'),
+                  decoration: const InputDecoration(
+                    labelText: 'ID Expiry Date',
+                    helperText: 'Format: dd-MM-yyyy',
+                  ),
                   onChanged: (val) => setState(() => idExpiryDate = val),
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return 'Required';
+                    }
+                    try {
+                      DateFormat('dd-MM-yyyy').parseStrict(val);
+                    } catch (_) {
+                      return 'Invalid date format. Use dd-MM-yyyy';
+                    }
+                    return null;
+                  },
                 ),
               ],
               DropdownButtonFormField<String>(
+                focusNode: maritalStatusFocus,
                 decoration: const InputDecoration(labelText: 'Marital Status'),
                 value: maritalStatus,
                 items: AppConstants.maritalStatuses
@@ -221,9 +305,15 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                 onChanged: (value) {
                   setState(() => maritalStatus = value!);
                 },
-                validator: (val) => val == null ? 'Required' : null,
+                validator: (val) {
+                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                    return 'Please select marital status';
+                  }
+                  return null;
+                },
               ),
               DropdownButtonFormField<String>(
+                focusNode: marriageTypeFocus,
                 decoration: const InputDecoration(labelText: 'Marriage Type'),
                 value: marriageType,
                 items: AppConstants.marriageTypes
@@ -233,18 +323,30 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                 onChanged: (value) {
                   setState(() => marriageType = value!);
                 },
-                validator: (val) => val == null ? 'Required' : null,
+                validator: (val) {
+                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                    return 'Please select marriage type';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
+                focusNode: contactCellFocus,
                 initialValue: contactCell,
                 decoration: const InputDecoration(labelText: 'Contact Cell'),
+                onFieldSubmitted: (_) {
+                  FocusScope.of(context).requestFocus(communityCouncilFocus);
+                },
                 onChanged: (val) => setState(() => contactCell = val),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
               const SizedBox(height: 20),
               const Text('Household Location Details',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               DropdownButtonFormField<String>(
+                focusNode: communityCouncilFocus,
                 decoration:
                     const InputDecoration(labelText: 'Community Council'),
                 value: communityCouncil,
@@ -252,39 +354,63 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                     .map((e) =>
                         DropdownMenuItem<String>(value: e, child: Text(e)))
                     .toList(),
+                validator: (val) {
+                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                    return 'Please select community council';
+                  }
+                  return null;
+                },
                 onChanged: (value) {
                   setState(() => communityCouncil = value!);
                 },
               ),
               DropdownButtonFormField<String>(
+                focusNode: districtFocus,
                 decoration: const InputDecoration(labelText: 'District'),
                 value: district,
                 items: AppConstants.districts
                     .map((e) =>
                         DropdownMenuItem<String>(value: e, child: Text(e)))
                     .toList(),
+                validator: (val) {
+                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                    return 'Please select District';
+                  }
+                  return null;
+                },
                 onChanged: (value) {
                   setState(() => district = value!);
                 },
               ),
               DropdownButtonFormField<String>(
+                focusNode: routeFocus,
                 decoration: const InputDecoration(labelText: 'Route Name'),
                 value: route,
                 items: AppConstants.routes
                     .map((e) =>
                         DropdownMenuItem<String>(value: e, child: Text(e)))
                     .toList(),
+                validator: (val) {
+                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                    return 'Please select Route';
+                  }
+                  return null;
+                },
                 onChanged: (value) {
                   setState(() => route = value!);
                 },
               ),
               TextFormField(
+                focusNode: principalChiefFocus,
+                textInputAction: TextInputAction.next,
                 initialValue: principalChief,
                 decoration: const InputDecoration(labelText: 'Principal Chief'),
                 onChanged: (val) => setState(() => principalChief = val),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               TextFormField(
+                focusNode: villageChiefFocus,
+                textInputAction: TextInputAction.next,
                 initialValue: villageChief,
                 decoration:
                     const InputDecoration(labelText: 'Village Chief/Headman'),
@@ -292,9 +418,18 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               TextFormField(
+                focusNode: gpsCoordinatesFocus,
+                textInputAction: TextInputAction.next,
                 controller: TextEditingController(text: gpsCoordinates),
+                onFieldSubmitted: (_) {
+                  showSpouseForm
+                      ? FocusScope.of(context)
+                          .requestFocus(spouseFirstNameFocus)
+                      : FocusScope.of(context).unfocus();
+                },
                 decoration: InputDecoration(
                   labelText: 'GPS Coordinates',
+                  helperText: 'Click on Location Icon To Autofill',
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.location_on),
                     onPressed: () async {
@@ -320,6 +455,8 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 TextFormField(
+                  focusNode: spouseFirstNameFocus,
+                  textInputAction: TextInputAction.next,
                   initialValue: spouseFirstName,
                   decoration:
                       const InputDecoration(labelText: 'Spouse First Name'),
@@ -327,6 +464,8 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                   validator: (val) => val!.isEmpty ? 'Required' : null,
                 ),
                 TextFormField(
+                  focusNode: spouseSurnameFocus,
+                  textInputAction: TextInputAction.next,
                   initialValue: spouseSurname,
                   decoration:
                       const InputDecoration(labelText: 'Spouse Surname'),
@@ -334,6 +473,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                   validator: (val) => val!.isEmpty ? 'Required' : null,
                 ),
                 DropdownButtonFormField<String>(
+                  focusNode: spouseIdTypeFocus,
                   decoration:
                       const InputDecoration(labelText: 'Spouse ID Type'),
                   value: spouseIdType,
@@ -347,6 +487,8 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                 ),
                 if (showSpouseIdFields) ...[
                   TextFormField(
+                    focusNode: spouseIdNumberFocus,
+                    textInputAction: TextInputAction.next,
                     initialValue: spouseIdNumber,
                     decoration:
                         const InputDecoration(labelText: 'Spouse ID Number'),
@@ -354,11 +496,26 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                     validator: (val) => val!.isEmpty ? 'Required' : null,
                   ),
                   TextFormField(
+                    focusNode: spouseIdExpiryDateFocus,
+                    textInputAction: TextInputAction.next,
                     initialValue: spouseIdExpiryDate,
                     decoration: const InputDecoration(
-                        labelText: 'Spouse ID Expiry Date'),
+                      labelText: 'Spouse ID Expiry Date',
+                      helperText: 'Format: dd-MM-yyyy',
+                    ),
                     onChanged: (val) =>
                         setState(() => spouseIdExpiryDate = val),
+                    validator: (val) {
+                      if (val == null || val.isEmpty) {
+                        return 'Required';
+                      }
+                      try {
+                        DateFormat('dd-MM-yyyy').parseStrict(val);
+                      } catch (_) {
+                        return 'Invalid date format. Use dd-MM-yyyy';
+                      }
+                      return null;
+                    },
                   ),
                 ],
               ],
@@ -368,6 +525,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       final household = CensusHousehold(
+                        rapId: rapId,
                         householdHeadFirstName: householdHeadFirstName,
                         householdHeadSurname: householdHeadSurname,
                         gender: gender,
@@ -399,7 +557,9 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                           backgroundColor: Colors.green,
                         ),
                       );
-                      Navigator.pop(context, true);
+                      Future.delayed(const Duration(milliseconds: 500), () {
+                        Navigator.pop(context, true);
+                      });
                     }
                   },
                   child: const Text('Submit'),
@@ -426,19 +586,21 @@ class CensusInstitutionFormScreen extends StatefulWidget {
 class _CensusInstitutionFormScreenState
     extends State<CensusInstitutionFormScreen> {
   final _formKey = GlobalKey<FormState>();
+  String rapId = Keys.rapId;
+  String censusInstituteKey = '${Keys.rapId}_${Keys.censusInstitution}';
 
   String institutionName = '';
-  String institutionType = 'Business';
+  String institutionType = AppConstants.dropDownNotSelected;
   String responsibleFirstName = '';
   String responsibleSurname = '';
   String physicalAddress = '';
   String postalAddress = '';
   String contactCell = '';
 
-  String communityCouncil = 'Community Council 1';
-  String district = 'Botha-Bothe';
+  String communityCouncil = AppConstants.dropDownNotSelected;
+  String district = AppConstants.dropDownNotSelected;
   String villageName = '';
-  String route = 'Select a Route';
+  String route = AppConstants.dropDownNotSelected;
   String principalChief = '';
   String villageChief = '';
   String gpsCoordinates = '';
@@ -447,7 +609,46 @@ class _CensusInstitutionFormScreenState
   String communityResponsibleSurname = '';
   String communityContactCell = '';
 
-  String censusInstituteKey = '${Keys.rapId}_${Keys.censusInstitution}';
+  final FocusNode institutionNameFocus = FocusNode();
+  final FocusNode institutionTypeFocus = FocusNode();
+  final FocusNode responsibleFirstNameFocus = FocusNode();
+  final FocusNode responsibleSurnameFocus = FocusNode();
+  final FocusNode physicalAddressFocus = FocusNode();
+  final FocusNode postalAddressFocus = FocusNode();
+  final FocusNode contactCellFocus = FocusNode();
+
+  final FocusNode communityCouncilFocus = FocusNode();
+  final FocusNode districtFocus = FocusNode();
+  final FocusNode villageNameFocus = FocusNode();
+  final FocusNode routeFocus = FocusNode();
+  final FocusNode principalChiefFocus = FocusNode();
+  final FocusNode villageChiefFocus = FocusNode();
+  final FocusNode gpsCoordinatesFocus = FocusNode();
+
+  final FocusNode communityResponsibleFirstNameFocus = FocusNode();
+  final FocusNode communityResponsibleSurnameFocus = FocusNode();
+  final FocusNode communityContactCellFocus = FocusNode();
+  @override
+  void dispose() {
+    institutionNameFocus.dispose();
+    institutionTypeFocus.dispose();
+    responsibleFirstNameFocus.dispose();
+    responsibleSurnameFocus.dispose();
+    physicalAddressFocus.dispose();
+    postalAddressFocus.dispose();
+    contactCellFocus.dispose();
+    communityCouncilFocus.dispose();
+    districtFocus.dispose();
+    villageNameFocus.dispose();
+    routeFocus.dispose();
+    principalChiefFocus.dispose();
+    villageChiefFocus.dispose();
+    gpsCoordinatesFocus.dispose();
+    communityResponsibleFirstNameFocus.dispose();
+    communityResponsibleSurnameFocus.dispose();
+    communityContactCellFocus.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -501,12 +702,15 @@ class _CensusInstitutionFormScreenState
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               TextFormField(
                 initialValue: institutionName,
+                focusNode: institutionNameFocus,
+                textInputAction: TextInputAction.next,
                 decoration:
                     const InputDecoration(labelText: 'Institution Name'),
                 onChanged: (val) => setState(() => institutionName = val),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               DropdownButtonFormField<String>(
+                focusNode: institutionTypeFocus,
                 decoration:
                     const InputDecoration(labelText: 'Institution Type'),
                 value: institutionType,
@@ -517,11 +721,17 @@ class _CensusInstitutionFormScreenState
                 onChanged: (value) {
                   setState(() => institutionType = value!);
                 },
-                validator: (val) =>
-                    (val == null || val == 'Select Type') ? 'Required' : null,
+                validator: (val) {
+                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                    return 'Please Select Type';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
                 initialValue: responsibleFirstName,
+                focusNode: responsibleFirstNameFocus,
+                textInputAction: TextInputAction.next,
                 decoration:
                     const InputDecoration(labelText: 'Responsible First Name'),
                 onChanged: (val) => setState(() => responsibleFirstName = val),
@@ -529,6 +739,8 @@ class _CensusInstitutionFormScreenState
               ),
               TextFormField(
                 initialValue: responsibleSurname,
+                focusNode: responsibleSurnameFocus,
+                textInputAction: TextInputAction.next,
                 decoration:
                     const InputDecoration(labelText: 'Responsible Surname'),
                 onChanged: (val) => setState(() => responsibleSurname = val),
@@ -536,6 +748,8 @@ class _CensusInstitutionFormScreenState
               ),
               TextFormField(
                 initialValue: physicalAddress,
+                focusNode: physicalAddressFocus,
+                textInputAction: TextInputAction.next,
                 decoration:
                     const InputDecoration(labelText: 'Physical Address'),
                 onChanged: (val) => setState(() => physicalAddress = val),
@@ -543,20 +757,27 @@ class _CensusInstitutionFormScreenState
               ),
               TextFormField(
                 initialValue: postalAddress,
+                focusNode: postalAddressFocus,
+                textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(labelText: 'Postal Address'),
                 onChanged: (val) => setState(() => postalAddress = val),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               TextFormField(
                 initialValue: contactCell,
+                focusNode: contactCellFocus,
+                textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(labelText: 'Contact Cell'),
                 onChanged: (val) => setState(() => contactCell = val),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
               const SizedBox(height: 20),
               const Text('Institution Location Details',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               DropdownButtonFormField<String>(
+                focusNode: communityCouncilFocus,
                 decoration:
                     const InputDecoration(labelText: 'Community Council'),
                 value: communityCouncil,
@@ -565,8 +786,15 @@ class _CensusInstitutionFormScreenState
                         DropdownMenuItem<String>(value: e, child: Text(e)))
                     .toList(),
                 onChanged: (value) => setState(() => communityCouncil = value!),
+                validator: (val) {
+                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                    return 'Please select Council';
+                  }
+                  return null;
+                },
               ),
               DropdownButtonFormField<String>(
+                focusNode: districtFocus,
                 decoration: const InputDecoration(labelText: 'District'),
                 value: district,
                 items: AppConstants.districts
@@ -574,14 +802,23 @@ class _CensusInstitutionFormScreenState
                         DropdownMenuItem<String>(value: e, child: Text(e)))
                     .toList(),
                 onChanged: (value) => setState(() => district = value!),
+                validator: (val) {
+                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                    return 'Please select District';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
+                focusNode: villageNameFocus,
+                textInputAction: TextInputAction.next,
                 initialValue: villageName,
                 decoration: const InputDecoration(labelText: 'Village Name'),
                 onChanged: (val) => setState(() => villageName = val),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               DropdownButtonFormField<String>(
+                focusNode: routeFocus,
                 decoration: const InputDecoration(labelText: 'Route Name'),
                 value: route,
                 items: AppConstants.routes
@@ -589,8 +826,16 @@ class _CensusInstitutionFormScreenState
                         DropdownMenuItem<String>(value: e, child: Text(e)))
                     .toList(),
                 onChanged: (value) => setState(() => route = value!),
+                validator: (val) {
+                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                    return 'Please select Route';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
+                focusNode: principalChiefFocus,
+                textInputAction: TextInputAction.next,
                 initialValue: principalChief,
                 decoration: const InputDecoration(labelText: 'Principal Chief'),
                 onChanged: (val) => setState(() => principalChief = val),
@@ -598,15 +843,24 @@ class _CensusInstitutionFormScreenState
               ),
               TextFormField(
                 initialValue: villageChief,
+                focusNode: villageChiefFocus,
+                textInputAction: TextInputAction.next,
                 decoration:
                     const InputDecoration(labelText: 'Village Chief/Headman'),
                 onChanged: (val) => setState(() => villageChief = val),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               TextFormField(
+                focusNode: gpsCoordinatesFocus,
+                textInputAction: TextInputAction.next,
                 controller: TextEditingController(text: gpsCoordinates),
+                onFieldSubmitted: (_) {
+                  FocusScope.of(context)
+                      .requestFocus(communityResponsibleFirstNameFocus);
+                },
                 decoration: InputDecoration(
                   labelText: 'GPS Coordinates',
+                  helperText: 'Click on Location Icon To Autofill',
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.location_on),
                     onPressed: () async {
@@ -629,6 +883,8 @@ class _CensusInstitutionFormScreenState
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               TextFormField(
                 initialValue: communityResponsibleFirstName,
+                focusNode: communityResponsibleFirstNameFocus,
+                textInputAction: TextInputAction.next,
                 decoration:
                     const InputDecoration(labelText: 'Responsible First Name'),
                 onChanged: (val) =>
@@ -636,6 +892,8 @@ class _CensusInstitutionFormScreenState
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               TextFormField(
+                focusNode: communityResponsibleSurnameFocus,
+                textInputAction: TextInputAction.next,
                 initialValue: communityResponsibleSurname,
                 decoration:
                     const InputDecoration(labelText: 'Responsible Surname'),
@@ -644,10 +902,14 @@ class _CensusInstitutionFormScreenState
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               TextFormField(
+                focusNode: communityContactCellFocus,
+                textInputAction: TextInputAction.next,
                 initialValue: communityContactCell,
                 decoration: const InputDecoration(labelText: 'Contact Cell'),
                 onChanged: (val) => setState(() => communityContactCell = val),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
               const SizedBox(height: 30),
               Center(
@@ -655,6 +917,7 @@ class _CensusInstitutionFormScreenState
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       final institution = CensusInstitution(
+                        rapId: rapId,
                         name: institutionName,
                         type: institutionType,
                         responsibleFirstName: responsibleFirstName,
@@ -685,7 +948,9 @@ class _CensusInstitutionFormScreenState
                           backgroundColor: Colors.green,
                         ),
                       );
-                      Navigator.pop(context, true);
+                      Future.delayed(const Duration(milliseconds: 500), () {
+                        Navigator.pop(context, true);
+                      });
                     }
                   },
                   child: const Text('Submit'),

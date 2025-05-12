@@ -26,7 +26,7 @@ class _FormListScreenState extends State<FormListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Form List')),
+      appBar: AppBar(title: Text('Form List ${Keys.rapId}')),
       body: ListView.builder(
         itemCount: forms.length,
         itemBuilder: (context, index) {

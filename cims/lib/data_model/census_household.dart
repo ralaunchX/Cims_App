@@ -1,4 +1,6 @@
 class CensusHousehold {
+  final String rapId;
+
   final String householdHeadFirstName;
   final String householdHeadSurname;
   final String gender;
@@ -23,6 +25,7 @@ class CensusHousehold {
   final String spouseIdExpiryDate;
 
   CensusHousehold({
+    required this.rapId,
     required this.householdHeadFirstName,
     required this.householdHeadSurname,
     required this.gender,
@@ -47,6 +50,7 @@ class CensusHousehold {
 
   factory CensusHousehold.fromJson(Map<String, dynamic> json) {
     return CensusHousehold(
+      rapId: json['rapId'] ?? '',
       householdHeadFirstName: json['householdHeadFirstName'] ?? '',
       householdHeadSurname: json['householdHeadSurname'] ?? '',
       gender: json['gender'] ?? '',
@@ -72,6 +76,7 @@ class CensusHousehold {
 
   Map<String, dynamic> toJson() {
     return {
+      'rapId': rapId,
       'householdHeadFirstName': householdHeadFirstName,
       'householdHeadSurname': householdHeadSurname,
       'gender': gender,

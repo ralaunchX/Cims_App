@@ -1,4 +1,5 @@
 class CensusInstitution {
+  final String rapId;
   final String name;
   final String type;
   final String responsibleFirstName;
@@ -17,6 +18,7 @@ class CensusInstitution {
   final String communityResponsibleSurname;
   final String communityContactCell;
   CensusInstitution({
+    required this.rapId,
     required this.name,
     required this.type,
     required this.responsibleFirstName,
@@ -37,6 +39,7 @@ class CensusInstitution {
   });
 
   Map<String, dynamic> toJson() => {
+        'rapId': rapId,
         'name': name,
         'type': type,
         'responsibleFirstName': responsibleFirstName,
@@ -58,6 +61,7 @@ class CensusInstitution {
 
   factory CensusInstitution.fromJson(Map<String, dynamic> json) {
     return CensusInstitution(
+      rapId: json['rapId'] ?? '',
       name: json['name'] ?? '',
       type: json['type'] ?? '',
       responsibleFirstName: json['responsibleFirstName'] ?? '',

@@ -135,6 +135,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
 
   String rapId = Keys.rapId;
   String censusHouseKey = '${Keys.rapId}_${Keys.censusHousehold}';
+  late TextEditingController gpsCoordinatesController;
 
   @override
   void dispose() {
@@ -159,6 +160,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
     principalChiefFocus.dispose();
     villageChiefFocus.dispose();
     gpsCoordinatesFocus.dispose();
+    gpsCoordinatesController.dispose();
 
     super.dispose();
   }
@@ -200,6 +202,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
       villageChief = householdData.villageChief;
       gpsCoordinates = householdData.gpsCoordinates;
     }
+    gpsCoordinatesController = TextEditingController(text: gpsCoordinates);
   }
 
   @override
@@ -420,7 +423,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
               TextFormField(
                 focusNode: gpsCoordinatesFocus,
                 textInputAction: TextInputAction.next,
-                controller: TextEditingController(text: gpsCoordinates),
+                controller: gpsCoordinatesController,
                 onFieldSubmitted: (_) {
                   showSpouseForm
                       ? FocusScope.of(context)
@@ -434,11 +437,16 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                     icon: const Icon(Icons.location_on),
                     onPressed: () async {
                       try {
+                        gpsCoordinatesController.text = 'Wait...';
+
                         final coords = await Utility.getCurrentCoordinates();
                         setState(() {
                           gpsCoordinates = coords!;
+                          gpsCoordinatesController.text = gpsCoordinates;
                         });
                       } catch (e) {
+                        gpsCoordinatesController.text = gpsCoordinates;
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(e.toString())),
                         );
@@ -628,6 +636,9 @@ class _CensusInstitutionFormScreenState
   final FocusNode communityResponsibleFirstNameFocus = FocusNode();
   final FocusNode communityResponsibleSurnameFocus = FocusNode();
   final FocusNode communityContactCellFocus = FocusNode();
+
+  late TextEditingController gpsCoordinatesController;
+
   @override
   void dispose() {
     institutionNameFocus.dispose();
@@ -647,6 +658,7 @@ class _CensusInstitutionFormScreenState
     communityResponsibleFirstNameFocus.dispose();
     communityResponsibleSurnameFocus.dispose();
     communityContactCellFocus.dispose();
+    gpsCoordinatesController.dispose();
     super.dispose();
   }
 
@@ -685,6 +697,7 @@ class _CensusInstitutionFormScreenState
       communityResponsibleSurname = instituteData.communityResponsibleSurname;
       communityContactCell = instituteData.communityContactCell;
     }
+    gpsCoordinatesController = TextEditingController(text: gpsCoordinates);
   }
 
   @override
@@ -853,7 +866,7 @@ class _CensusInstitutionFormScreenState
               TextFormField(
                 focusNode: gpsCoordinatesFocus,
                 textInputAction: TextInputAction.next,
-                controller: TextEditingController(text: gpsCoordinates),
+                controller: gpsCoordinatesController,
                 onFieldSubmitted: (_) {
                   FocusScope.of(context)
                       .requestFocus(communityResponsibleFirstNameFocus);
@@ -865,11 +878,16 @@ class _CensusInstitutionFormScreenState
                     icon: const Icon(Icons.location_on),
                     onPressed: () async {
                       try {
+                        gpsCoordinatesController.text = 'Wait...';
+
                         final coords = await Utility.getCurrentCoordinates();
                         setState(() {
                           gpsCoordinates = coords!;
+                          gpsCoordinatesController.text = gpsCoordinates;
                         });
                       } catch (e) {
+                        gpsCoordinatesController.text = gpsCoordinates;
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(e.toString())),
                         );

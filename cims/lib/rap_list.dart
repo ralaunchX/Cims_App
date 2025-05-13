@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cims/form_list.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
+import 'package:cims/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -103,20 +104,43 @@ class _RapListScreenState extends State<RapListScreen> {
                       String currentRapId = filteredRapIds[index];
                       return Card(
                         elevation: 1,
-                        shape: const RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.grey, width: 0.5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side:
+                              const BorderSide(color: Colors.grey, width: 0.5),
                         ),
                         child: ListTile(
                           tileColor: Colors.blue[200],
                           contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 4),
+                              horizontal: 16, vertical: 8),
                           title: Text(
                             currentRapId,
                             style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                          trailing:
+                          trailing: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
                               const Icon(Icons.arrow_forward_ios, size: 16),
+                              PopupMenuButton<String>(
+                                icon: const Icon(Icons.more_vert, size: 16),
+                                onSelected: (value) async {
+                                  if (value == 'download') {
+                                    Utility.downloadJson(context, currentRapId);
+                                  }
+                                },
+                                itemBuilder: (context) => [
+                                  const PopupMenuItem(
+                                    value: 'download',
+                                    child: Text('Download'),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                           onTap: () async {
                             await AppPrefs().setRapId(currentRapId);
                             Keys.rapId = currentRapId;

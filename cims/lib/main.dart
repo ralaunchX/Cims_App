@@ -5,9 +5,14 @@ import 'package:cims/rap_create.dart';
 import 'package:cims/rap_list.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await AppPrefs().init();
   runApp(const MainApp());
 }

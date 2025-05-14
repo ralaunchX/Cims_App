@@ -1,5 +1,6 @@
 import 'package:cims/census.dart';
 import 'package:cims/form_list.dart';
+import 'package:cims/llwdsp_resettlement_screen.dart';
 import 'package:cims/login.dart';
 import 'package:cims/rap_create.dart';
 import 'package:cims/rap_list.dart';
@@ -30,7 +31,19 @@ class MainApp extends StatelessWidget {
         '/formlist': (context) => const FormListScreen(),
         '/census': (context) => const CensusFormsScreen(),
         '/rapList': (context) => const RapListScreen(),
+        '/llwdspResettlement': (context) => const LlwdspResettlement(),
       },
+      // theme: ThemeData(
+      //   inputDecorationTheme: const InputDecorationTheme(
+      //     contentPadding:
+      //         EdgeInsets.symmetric(vertical: 30.0, horizontal: 12.0),
+      //     labelStyle: TextStyle(fontSize: 20),
+      //     border: OutlineInputBorder(),
+      //   ),
+      //   textTheme: const TextTheme(
+      //     bodyMedium: TextStyle(fontSize: 16),
+      //   ),
+      // ),
       initialRoute: '/login',
     );
   }

@@ -2,9 +2,9 @@ class AppConstants {
   static const user = 'user1';
   static const password = '12345';
   static const List<String> idTypes = ['None', 'ID', 'Passport'];
-  static const String dropDownNotSelected = '----';
+  static const String notSelected = '----';
   static const List<String> maritalStatuses = [
-    dropDownNotSelected,
+    notSelected,
     'Single',
     'Married',
     'Divorced',
@@ -13,7 +13,7 @@ class AppConstants {
   ];
 
   static const List<String> marriageTypes = [
-    dropDownNotSelected,
+    notSelected,
     'In Community of Property',
     'Out of Community of Property',
     'Customary',
@@ -22,14 +22,10 @@ class AppConstants {
     'Other',
   ];
 
-  static const List<String> districts = [
-    dropDownNotSelected,
-    'Botha-Bothe',
-    'Leribe'
-  ];
+  static const List<String> districts = [notSelected, 'Botha-Bothe', 'Leribe'];
 
   static const List<String> routes = [
-    dropDownNotSelected,
+    notSelected,
     '1. WTW',
     '2. Ha Molapo - Ha Phakela',
     '3. Ha Khabo - Pitsi’s Nek',
@@ -58,7 +54,7 @@ class AppConstants {
   ];
 
   static const List<String> communityCouncils = [
-    dropDownNotSelected,
+    notSelected,
     'Community Council 1',
     'Community Council 2',
     'Community Council 3',
@@ -70,7 +66,7 @@ class AppConstants {
   ];
 
   static const List<String> institutionTypes = [
-    dropDownNotSelected,
+    notSelected,
     'Business',
     'Church',
     'Community Organisation',
@@ -79,9 +75,100 @@ class AppConstants {
     'Other',
   ];
   static const List<String> genderList = [
-    dropDownNotSelected,
+    notSelected,
     'Male',
     'Female',
     'Other'
+  ];
+
+  static const List<String> wallOptions = [
+    notSelected,
+    'Stick / Mud',
+    'Block / Stones',
+    'Natural Stone',
+    'Bricks with No Plaster',
+    'Bricks with Plaster',
+    'Mud Block',
+    'Corrugated Iron Sheets',
+    'Other',
+  ];
+  static const List<String> roofOptions = [
+    notSelected,
+    'Thatch / Grass',
+    'Corrugated Iron',
+    'Tile',
+    'Other',
+  ];
+  static const List<String> floorOptions = [
+    notSelected,
+    'Mud, Earth, Dung',
+    'Concrete, Cement',
+    'Tile/Carpet/Vinyl finish',
+    'Other',
+  ];
+
+  static const List<String> dwellingOwnership = [notSelected, 'Own', 'Rent'];
+  static const List<String> structuresServicesOptions = [
+    'Separate kitchen',
+    'Store/shed/barn',
+    'Latrine',
+    'Water in homestead',
+    'Electricity in homestead',
+    'Grain storage',
+    'Cattle/Smallstock kraal',
+    'Stable',
+    'Pig sty',
+    'Poultry coup',
+    'Bird shelter',
+    'NONE',
+  ];
+
+  static const List<String> otherStructuresOptions = [
+    'Malaene',
+    'Muk’huk’hu (temporary structure)',
+    'Shelter for animals',
+    'Shop or Business site',
+    'NONE',
+  ];
+
+  static const List<String> householdItemsOptions = [
+    'Lounge suite / couch / chairs',
+    'Dining room suite / table and chairs',
+    'Kitchen unit(s)/cupboards',
+    'Bed and mattress',
+    'Wardrobe/ Dresser',
+    'None of these',
+  ];
+
+  static const List<String> appliancesOptions = [
+    'Radio',
+    'Television',
+    'Refrigerator',
+    'Stove (gas, electric, coal, solar)',
+    'Paraffin cooker',
+    'Sewing machine',
+    'Heater (Gas, Electric, Paraffin etc)',
+    'Mobile phone',
+    'Tablet',
+    'Computer/Laptop',
+    'Generator',
+    'None of these',
+  ];
+
+  static const List<String> agriculturalEquipmentOptions = [
+    'Hand held implements (Hoe, harrow, spade, sickle, saw)',
+    'Animal-drawn plough or planter',
+    'Animal-drawn cart',
+    'Tractor',
+    'Tractor-drawn plough',
+    'Tractor-drawn planter',
+    'Tractor drawn wagon',
+    'Saddles and bridles',
+    'Wheelbarrow',
+    'Car',
+    'Truck',
+    'Van',
+    'Bicycle',
+    'None of these',
   ];
 }

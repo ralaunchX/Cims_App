@@ -1,5 +1,6 @@
 import 'package:cims/census.dart';
 import 'package:cims/form_list.dart';
+import 'package:cims/llwdsp_assets_screen.dart';
 import 'package:cims/llwdsp_resettlement_screen.dart';
 import 'package:cims/login.dart';
 import 'package:cims/rap_create.dart';
@@ -32,6 +33,7 @@ class MainApp extends StatelessWidget {
         '/census': (context) => const CensusFormsScreen(),
         '/rapList': (context) => const RapListScreen(),
         '/llwdspResettlement': (context) => const LlwdspResettlement(),
+        '/llwdspAssets': (context) => const LlwdspAssetsScreen(),
       },
       // theme: ThemeData(
       //   inputDecorationTheme: const InputDecorationTheme(
@@ -44,7 +46,7 @@ class MainApp extends StatelessWidget {
       //     bodyMedium: TextStyle(fontSize: 16),
       //   ),
       // ),
-      initialRoute: '/login',
+      initialRoute: '/rapList',
     );
   }
 }

@@ -85,12 +85,12 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
 
   String idType = 'None';
   String spouseIdType = 'None';
-  String maritalStatus = AppConstants.dropDownNotSelected;
-  String marriageType = AppConstants.dropDownNotSelected;
-  String district = AppConstants.dropDownNotSelected;
-  String route = AppConstants.dropDownNotSelected;
-  String communityCouncil = AppConstants.dropDownNotSelected;
-  String gender = AppConstants.dropDownNotSelected;
+  String maritalStatus = AppConstants.notSelected;
+  String marriageType = AppConstants.notSelected;
+  String district = AppConstants.notSelected;
+  String route = AppConstants.notSelected;
+  String communityCouncil = AppConstants.notSelected;
+  String gender = AppConstants.notSelected;
 
   String idNumber = '';
   String idExpiryDate = '';
@@ -108,8 +108,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
   bool get showIdFields => idType != 'None';
   bool get showSpouseIdFields => spouseIdType != 'None';
   bool get showSpouseForm =>
-      maritalStatus != 'Single' &&
-      maritalStatus != AppConstants.dropDownNotSelected;
+      maritalStatus != 'Single' && maritalStatus != AppConstants.notSelected;
 
   final FocusNode idTypeFocus = FocusNode();
   final FocusNode spouseIdTypeFocus = FocusNode();
@@ -247,7 +246,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                   setState(() => gender = value!);
                 },
                 validator: (val) {
-                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                  if (val == null || val == AppConstants.notSelected) {
                     return 'Please select Gender';
                   }
                   return null;
@@ -309,7 +308,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                   setState(() => maritalStatus = value!);
                 },
                 validator: (val) {
-                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                  if (val == null || val == AppConstants.notSelected) {
                     return 'Please select marital status';
                   }
                   return null;
@@ -327,7 +326,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                   setState(() => marriageType = value!);
                 },
                 validator: (val) {
-                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                  if (val == null || val == AppConstants.notSelected) {
                     return 'Please select marriage type';
                   }
                   return null;
@@ -358,7 +357,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                         DropdownMenuItem<String>(value: e, child: Text(e)))
                     .toList(),
                 validator: (val) {
-                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                  if (val == null || val == AppConstants.notSelected) {
                     return 'Please select community council';
                   }
                   return null;
@@ -376,7 +375,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                         DropdownMenuItem<String>(value: e, child: Text(e)))
                     .toList(),
                 validator: (val) {
-                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                  if (val == null || val == AppConstants.notSelected) {
                     return 'Please select District';
                   }
                   return null;
@@ -394,7 +393,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                         DropdownMenuItem<String>(value: e, child: Text(e)))
                     .toList(),
                 validator: (val) {
-                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                  if (val == null || val == AppConstants.notSelected) {
                     return 'Please select Route';
                   }
                   return null;
@@ -598,17 +597,17 @@ class _CensusInstitutionFormScreenState
   String censusInstituteKey = '${Keys.rapId}_${Keys.censusInstitution}';
 
   String institutionName = '';
-  String institutionType = AppConstants.dropDownNotSelected;
+  String institutionType = AppConstants.notSelected;
   String responsibleFirstName = '';
   String responsibleSurname = '';
   String physicalAddress = '';
   String postalAddress = '';
   String contactCell = '';
 
-  String communityCouncil = AppConstants.dropDownNotSelected;
-  String district = AppConstants.dropDownNotSelected;
+  String communityCouncil = AppConstants.notSelected;
+  String district = AppConstants.notSelected;
   String villageName = '';
-  String route = AppConstants.dropDownNotSelected;
+  String route = AppConstants.notSelected;
   String principalChief = '';
   String villageChief = '';
   String gpsCoordinates = '';
@@ -735,7 +734,7 @@ class _CensusInstitutionFormScreenState
                   setState(() => institutionType = value!);
                 },
                 validator: (val) {
-                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                  if (val == null || val == AppConstants.notSelected) {
                     return 'Please Select Type';
                   }
                   return null;
@@ -800,7 +799,7 @@ class _CensusInstitutionFormScreenState
                     .toList(),
                 onChanged: (value) => setState(() => communityCouncil = value!),
                 validator: (val) {
-                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                  if (val == null || val == AppConstants.notSelected) {
                     return 'Please select Council';
                   }
                   return null;
@@ -816,7 +815,7 @@ class _CensusInstitutionFormScreenState
                     .toList(),
                 onChanged: (value) => setState(() => district = value!),
                 validator: (val) {
-                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                  if (val == null || val == AppConstants.notSelected) {
                     return 'Please select District';
                   }
                   return null;
@@ -840,7 +839,7 @@ class _CensusInstitutionFormScreenState
                     .toList(),
                 onChanged: (value) => setState(() => route = value!),
                 validator: (val) {
-                  if (val == null || val == AppConstants.dropDownNotSelected) {
+                  if (val == null || val == AppConstants.notSelected) {
                     return 'Please select Route';
                   }
                   return null;

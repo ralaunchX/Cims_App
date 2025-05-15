@@ -164,4 +164,20 @@ class Utility {
     final values = json.values.map((e) => '"$e"').join(',');
     return '$headers\n$values';
   }
+
+  static Future<String?> selectDate(BuildContext context) async {
+    final now = DateTime.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null) {
+      return '${picked.day.toString().padLeft(2, '0')}-'
+          '${picked.month.toString().padLeft(2, '0')}-'
+          '${picked.year}';
+    }
+    return null;
+  }
 }

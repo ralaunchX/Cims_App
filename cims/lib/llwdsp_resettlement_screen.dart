@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cims/data_model/resettlement_llwdsp.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
+import 'package:cims/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -88,23 +89,6 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
     dateController.dispose();
 
     super.dispose();
-  }
-
-  Future<void> _selectDate() async {
-    final now = DateTime.now();
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: now,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    );
-    if (picked != null) {
-      setState(() {
-        date =
-            '${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}';
-        dateController.text = date;
-      });
-    }
   }
 
   void _saveForm() async {
@@ -218,7 +202,15 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
                   labelText: 'Date',
                   suffixIcon: Icon(Icons.calendar_today),
                 ),
-                onTap: _selectDate,
+                onTap: () async {
+                  final selected = await Utility.selectDate(context);
+                  if (selected != null) {
+                    setState(() {
+                      date = selected;
+                      dateController.text = selected;
+                    });
+                  }
+                },
                 readOnly: true,
                 validator: (val) => val!.isEmpty ? 'Required' : null,
                 focusNode: dateFocus,
@@ -237,18 +229,22 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
                           : ifNotPresentRecordFocus,
                     );
                   }),
-              TextFormField(
-                focusNode: ifNotPresentRecordFocus,
-                textInputAction: TextInputAction.next,
-                initialValue: ifNotPresentRecord,
-                decoration: const InputDecoration(labelText: 'If NO, record:'),
-                onChanged: (val) => ifNotPresentRecord = val,
-                validator: (val) {
-                  if (!isHeadOrSpousePresent && val!.isEmpty) {
-                    return 'Required when not present';
-                  }
-                  return null;
-                },
+              Visibility(
+                visible: isHeadOrSpousePresent == false,
+                child: TextFormField(
+                  focusNode: ifNotPresentRecordFocus,
+                  textInputAction: TextInputAction.next,
+                  initialValue: ifNotPresentRecord,
+                  decoration:
+                      const InputDecoration(labelText: 'If NO, record:'),
+                  onChanged: (val) => ifNotPresentRecord = val,
+                  validator: (val) {
+                    if (!isHeadOrSpousePresent && val!.isEmpty) {
+                      return 'Required when not present';
+                    }
+                    return null;
+                  },
+                ),
               ),
               TextFormField(
                 focusNode: gpsNorthingFocus,

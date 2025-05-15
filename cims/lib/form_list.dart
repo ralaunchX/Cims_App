@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class FormListScreen extends StatefulWidget {
   const FormListScreen({super.key});
@@ -14,10 +13,16 @@ class FormListScreen extends StatefulWidget {
 
 class _FormListScreenState extends State<FormListScreen> {
   final forms = [
-    {'title': '02. Census Form', 'route': '/census'},
+    {'title': '02 Census Form', 'route': '/census'},
     {
-      'title': '3.1. LLWDSP Phase III Resettlement Action Plan Survey',
-      'route': '/llwdspResettlement'
+      'title': '3.1 LLWDSP Phase III General Information',
+      'route': '/llwdspResettlement',
+      'key': Keys.llwdspResettlement
+    },
+    {
+      'title': '3.3 LLWDSP Phase III HOUSEHOLD ASSETS',
+      'route': '/llwdspAssets',
+      'key': Keys.llwdspAssets
     },
   ];
 
@@ -34,11 +39,20 @@ class _FormListScreenState extends State<FormListScreen> {
         itemCount: forms.length,
         itemBuilder: (context, index) {
           return ListTile(
+            tileColor: AppPrefs()
+                    .prefs!
+                    .containsKey('${Keys.rapId}_${forms[index]['key']}')
+                ? Colors.green
+                : Colors.transparent,
             leading: const Icon(Icons.description),
             title: Text(forms[index]['title']!),
             trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              Navigator.pushNamed(context, forms[index]['route']!);
+            onTap: () async {
+              final result =
+                  await Navigator.pushNamed(context, forms[index]['route']!);
+              if (result == true) {
+                setState(() {});
+              }
             },
           );
         },

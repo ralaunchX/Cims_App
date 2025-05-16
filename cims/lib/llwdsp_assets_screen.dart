@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:cims/data_model/lldwdsp_assets_model.dart';
+import 'package:cims/data_model/llwdsp_assets_model.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/constants.dart';
 import 'package:cims/utils/keys.dart';
@@ -212,6 +212,7 @@ class _LlwdspAssetsScreenState extends State<LlwdspAssetsScreen> {
       );
     } else {
       final llwdspAssetData = LLdwspAssetsModel(
+          rapId: rapId,
           dwellingOwnership: dwellingOwnership,
           wallMaterial: wallMaterial,
           roofMaterial: roofMaterial,

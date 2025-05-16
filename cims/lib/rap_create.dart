@@ -1,6 +1,7 @@
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class RapIdEntryScreen extends StatefulWidget {
   const RapIdEntryScreen({super.key});
@@ -42,6 +43,8 @@ class _RapIdEntryScreenState extends State<RapIdEntryScreen> {
                   onChanged: (val) => rapId = val,
                   validator: (val) =>
                       val == null || val.isEmpty ? 'Required' : null,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
                 const SizedBox(height: 20),
                 TextFormField(

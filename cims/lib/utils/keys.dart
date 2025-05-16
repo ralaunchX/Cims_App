@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Keys {
   static String loginExpiryTimestamp = 'loginExpiryTimestamp';
   static String rapId = '';
@@ -7,4 +5,5 @@ class Keys {
   static const censusHousehold = 'censushousehold';
   static const llwdspResettlement = 'llwdspResettlement';
   static const llwdspAssets = 'llwdspAssets';
+  static const llwdspLivelihood = 'llwdspLivelihood';
 }

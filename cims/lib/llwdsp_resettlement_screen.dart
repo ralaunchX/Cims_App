@@ -95,6 +95,7 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
   void _saveForm() async {
     if (_formKey.currentState!.validate()) {
       final llwdspResettlementData = ResettlementLlwdspModel(
+          rapId: rapId,
           interviewerName: interviewerName,
           village: village,
           communityCouncil: communityCouncil,

@@ -46,6 +46,7 @@ class _RapListScreenState extends State<RapListScreen> {
     final prefs = await SharedPreferences.getInstance();
     final keys = prefs.getKeys().toList();
     keys.remove('rap_id');
+    keys.remove(Keys.loginExpiryTimestamp);
     final rapIds = keys.map((key) => key.split('_').first).toSet().toList();
     setState(() {
       allRapIds = rapIds;

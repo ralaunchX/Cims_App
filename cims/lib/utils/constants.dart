@@ -172,4 +172,39 @@ class AppConstants {
     'Bicycle',
     'None of these',
   ];
+  static const List<String> livelihoodTypes = [
+    notSelected,
+    'Employment/Casual labour',
+    'Own business/enterprise/self-employment',
+    'Crop and vegetable production',
+    'Livestock rearing and sales',
+    'Production, sale of natural materials and products',
+    'Grants received from government or other sources',
+    'No secondary source of livelihood',
+  ];
+  static const List<String> incomeSources = [
+    'Full-time/Part-time Employment Locally',
+    'Remittances from Employment Elsewhere',
+    'Irregular Employment (Casual/Seasonal Jobs)',
+    'Income from Own Business/Informal Trade',
+    'Livestock Sales',
+    'Livestock Product Sales (Milk, Meat, Skins)',
+    'Poultry Product Sales (Chickens, Eggs)',
+    'Sale of Crops, Vegetables, Fruit, Seedlings',
+    'Sale of Fish and Fish Products',
+    'Sale of Wild Fruits',
+    'Sale of Natural Products (Wood, Reeds, Grasses)',
+    'Grants',
+    'Cash Support from Family or Others',
+    'Other (Specify)',
+  ];
+  static const List<String> grantList = [
+    'Old Age Pension',
+    'Private Pension',
+    'Military Pension',
+    'Orphans and Vulnerable Children Grant',
+    'Civil Servants Pension',
+    'Disability Allowance',
+    'TEBA Grant'
+  ];
 }

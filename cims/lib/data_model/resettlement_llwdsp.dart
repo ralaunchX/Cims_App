@@ -1,4 +1,5 @@
 class ResettlementLlwdspModel {
+  String rapId;
   String interviewerName;
   String village;
   String communityCouncil;
@@ -13,6 +14,7 @@ class ResettlementLlwdspModel {
   String gpsEasting;
 
   ResettlementLlwdspModel({
+    required this.rapId,
     required this.interviewerName,
     required this.village,
     required this.communityCouncil,
@@ -27,25 +29,9 @@ class ResettlementLlwdspModel {
     required this.gpsEasting,
   });
 
-  factory ResettlementLlwdspModel.empty() {
-    return ResettlementLlwdspModel(
-      interviewerName: '',
-      village: '',
-      communityCouncil: '',
-      householdNumber: '',
-      householdHead: '',
-      respondentName: '',
-      contactNumber: '',
-      date: '',
-      isHeadOrSpousePresent: false,
-      ifNotPresentRecord: '',
-      gpsNorthing: '',
-      gpsEasting: '',
-    );
-  }
-
   Map<String, dynamic> toJson() {
     return {
+      'rapId': rapId,
       'interviewerName': interviewerName,
       'village': village,
       'communityCouncil': communityCouncil,
@@ -63,6 +49,7 @@ class ResettlementLlwdspModel {
 
   factory ResettlementLlwdspModel.fromJson(Map<String, dynamic> json) {
     return ResettlementLlwdspModel(
+      rapId: json['rapId'] ?? '',
       interviewerName: json['interviewerName'] ?? '',
       village: json['village'] ?? '',
       communityCouncil: json['communityCouncil'] ?? '',

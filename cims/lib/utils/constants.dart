@@ -56,14 +56,14 @@ class AppConstants {
 
   static const List<String> communityCouncils = [
     notSelected,
-    'Community Council 1',
-    'Community Council 2',
-    'Community Council 3',
-    'Community Council 4',
-    'Community Council 5',
-    'Community Council 6',
-    'Community Council 7',
-    'Community Council 8',
+    'Ngoajane B01',
+    'Likila B02',
+    'Nqoe B03',
+    'Tsa le Moleka B04',
+    'Urban Council B05',
+    'Menkhoaneng C05',
+    'Maisa Phoka C06',
+    'Sephokong C07',
   ];
 
   static const List<String> institutionTypes = [

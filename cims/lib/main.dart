@@ -6,8 +6,10 @@ import 'package:cims/login.dart';
 import 'package:cims/rap_create.dart';
 import 'package:cims/rap_list.dart';
 import 'package:cims/utils/app_prefs.dart';
+import 'package:cims/utils/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,11 +18,27 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
   await AppPrefs().init();
-  runApp(const MainApp());
+  final String route = await checkLogin();
+
+  runApp(MainApp(initialRoute: route));
+}
+
+Future<String> checkLogin() async {
+  final prefs = await SharedPreferences.getInstance();
+  final expiryMillis = prefs.getInt(Keys.loginExpiryTimestamp);
+  final nowMillis = DateTime.now().millisecondsSinceEpoch;
+
+  if (expiryMillis != null && expiryMillis > nowMillis) {
+    return '/rapList';
+  } else {
+    return '/login';
+  }
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  final String initialRoute;
+
+  const MainApp({super.key, required this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +64,7 @@ class MainApp extends StatelessWidget {
       //     bodyMedium: TextStyle(fontSize: 16),
       //   ),
       // ),
-      initialRoute: '/rapList',
+      initialRoute: initialRoute,
     );
   }
 }

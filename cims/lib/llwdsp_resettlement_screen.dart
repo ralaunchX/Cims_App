@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cims/data_model/resettlement_llwdsp.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
+import 'package:cims/utils/submit_button.dart';
 import 'package:cims/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -261,9 +262,8 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
                 onChanged: (val) => gpsEasting = val,
               ),
               const SizedBox(height: 30),
-              ElevatedButton(
+              CommonSubmitButton(
                 onPressed: _saveForm,
-                child: const Text('Submit'),
               )
             ],
           ),

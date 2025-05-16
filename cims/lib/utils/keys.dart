@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Keys {
+  static String loginExpiryTimestamp = 'loginExpiryTimestamp';
   static String rapId = '';
   static const censusInstitution = 'censusinstitution';
   static const censusHousehold = 'censushousehold';

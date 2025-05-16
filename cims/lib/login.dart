@@ -1,5 +1,6 @@
 import 'package:cims/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -47,12 +48,19 @@ class LoginPage extends StatelessWidget {
               width: double.infinity,
               height: 48,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   final username = usernameController.text.trim();
                   final password = passwordController.text.trim();
 
                   if (username == AppConstants.user &&
                       password == AppConstants.password) {
+                    final prefs = await SharedPreferences.getInstance();
+
+                    final expiryTimestamp = DateTime.now()
+                        .add(Duration(days: AppConstants.loginValidityDays))
+                        .millisecondsSinceEpoch;
+
+                    await prefs.setInt('loginExpiryTimestamp', expiryTimestamp);
                     Navigator.popAndPushNamed(context, '/rapList');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

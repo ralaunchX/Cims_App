@@ -5,6 +5,7 @@ import 'package:cims/data_model/lldwdsp_assets_model.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/constants.dart';
 import 'package:cims/utils/keys.dart';
+import 'package:cims/utils/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -116,13 +117,8 @@ class _LlwdspAssetsScreenState extends State<LlwdspAssetsScreen> {
                 AppConstants.agriculturalEquipmentOptions,
                 selectedAgriculturalEquipment,
               ),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    saveForm();
-                  },
-                  child: const Text('Submit'),
-                ),
+              CommonSubmitButton(
+                onPressed: saveForm,
               )
             ],
           ),

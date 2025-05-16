@@ -5,6 +5,7 @@ import 'package:cims/data_model/census_household.dart';
 import 'package:cims/data_model/census_institution.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
+import 'package:cims/utils/submit_button.dart';
 import 'package:cims/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -527,50 +528,47 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                 ],
               ],
               const SizedBox(height: 30),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      final household = CensusHousehold(
-                        rapId: rapId,
-                        householdHeadFirstName: householdHeadFirstName,
-                        householdHeadSurname: householdHeadSurname,
-                        gender: gender,
-                        idType: idType,
-                        idNumber: idNumber,
-                        idExpiryDate: idExpiryDate,
-                        maritalStatus: maritalStatus,
-                        marriageType: marriageType,
-                        contactCell: contactCell,
-                        communityCouncil: communityCouncil,
-                        district: district,
-                        route: route,
-                        principalChief: principalChief,
-                        villageChief: villageChief,
-                        gpsCoordinates: gpsCoordinates,
-                        spouseFirstName: spouseFirstName,
-                        spouseSurname: spouseSurname,
-                        spouseIdType: spouseIdType,
-                        spouseIdNumber: spouseIdNumber,
-                        spouseIdExpiryDate: spouseIdExpiryDate,
-                      );
-                      final prefs = await SharedPreferences.getInstance();
-                      await prefs.setString(
-                          censusHouseKey, jsonEncode(household.toJson()));
+              CommonSubmitButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    final household = CensusHousehold(
+                      rapId: rapId,
+                      householdHeadFirstName: householdHeadFirstName,
+                      householdHeadSurname: householdHeadSurname,
+                      gender: gender,
+                      idType: idType,
+                      idNumber: idNumber,
+                      idExpiryDate: idExpiryDate,
+                      maritalStatus: maritalStatus,
+                      marriageType: marriageType,
+                      contactCell: contactCell,
+                      communityCouncil: communityCouncil,
+                      district: district,
+                      route: route,
+                      principalChief: principalChief,
+                      villageChief: villageChief,
+                      gpsCoordinates: gpsCoordinates,
+                      spouseFirstName: spouseFirstName,
+                      spouseSurname: spouseSurname,
+                      spouseIdType: spouseIdType,
+                      spouseIdNumber: spouseIdNumber,
+                      spouseIdExpiryDate: spouseIdExpiryDate,
+                    );
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setString(
+                        censusHouseKey, jsonEncode(household.toJson()));
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Household Form Submitted'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                      Future.delayed(const Duration(milliseconds: 500), () {
-                        Navigator.pop(context, true);
-                      });
-                    }
-                  },
-                  child: const Text('Submit'),
-                ),
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Household Form Submitted'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                    Future.delayed(const Duration(milliseconds: 500), () {
+                      Navigator.pop(context, true);
+                    });
+                  }
+                },
               )
             ],
           ),
@@ -929,49 +927,45 @@ class _CensusInstitutionFormScreenState
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
               const SizedBox(height: 30),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      final institution = CensusInstitution(
-                        rapId: rapId,
-                        name: institutionName,
-                        type: institutionType,
-                        responsibleFirstName: responsibleFirstName,
-                        responsibleSurname: responsibleSurname,
-                        physicalAddress: physicalAddress,
-                        postalAddress: postalAddress,
-                        contactCell: contactCell,
-                        communityCouncil: communityCouncil,
-                        district: district,
-                        villageName: villageName,
-                        route: route,
-                        principalChief: principalChief,
-                        villageChief: villageChief,
-                        gpsCoordinates: gpsCoordinates,
-                        communityResponsibleFirstName:
-                            communityResponsibleFirstName,
-                        communityResponsibleSurname:
-                            communityResponsibleSurname,
-                        communityContactCell: communityContactCell,
-                      );
-                      final prefs = await SharedPreferences.getInstance();
-                      await prefs.setString(
-                          censusInstituteKey, jsonEncode(institution.toJson()));
+              CommonSubmitButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    final institution = CensusInstitution(
+                      rapId: rapId,
+                      name: institutionName,
+                      type: institutionType,
+                      responsibleFirstName: responsibleFirstName,
+                      responsibleSurname: responsibleSurname,
+                      physicalAddress: physicalAddress,
+                      postalAddress: postalAddress,
+                      contactCell: contactCell,
+                      communityCouncil: communityCouncil,
+                      district: district,
+                      villageName: villageName,
+                      route: route,
+                      principalChief: principalChief,
+                      villageChief: villageChief,
+                      gpsCoordinates: gpsCoordinates,
+                      communityResponsibleFirstName:
+                          communityResponsibleFirstName,
+                      communityResponsibleSurname: communityResponsibleSurname,
+                      communityContactCell: communityContactCell,
+                    );
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setString(
+                        censusInstituteKey, jsonEncode(institution.toJson()));
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Institution Form Submitted'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                      Future.delayed(const Duration(milliseconds: 500), () {
-                        Navigator.pop(context, true);
-                      });
-                    }
-                  },
-                  child: const Text('Submit'),
-                ),
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Institution Form Submitted'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                    Future.delayed(const Duration(milliseconds: 500), () {
+                      Navigator.pop(context, true);
+                    });
+                  }
+                },
               )
             ],
           ),

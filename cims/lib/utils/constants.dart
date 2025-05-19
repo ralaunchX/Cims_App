@@ -231,4 +231,47 @@ class AppConstants {
     'Relatives',
     'Friend/Neighbour',
   ];
+  static const List<String> cropGrownHarvested = [
+    'Maize',
+    'Wheat',
+    'Sorghum',
+    'Gars/Barley',
+    'Beans',
+    'Peas',
+    'Rape Turnips',
+    'Pumpkin',
+    'Potatoes',
+    'Dagga',
+  ];
+  static const List<String> foodGardenChoice = [
+    notSelected,
+    'Don\'t have a food garden',
+    'Garden in homestead area',
+    'Garden in communal area',
+  ];
+
+  static const List<String> cropUseChoices = [
+    notSelected,
+    'Household Food',
+    'Selling',
+    'Both Food and Selling',
+    'Animal Feed',
+    'Both Food and Animal Feed',
+  ];
+
+  static const List<String> irrigationMethods = [
+    notSelected,
+    'Not irrigated',
+    'Irrigated by hand from water source on site/homestead',
+    'Irrigated by hand by carting water to garden',
+  ];
+
+  static const List<String> fertilizationChoices = [
+    notSelected,
+    'Mostly manure',
+    'Mostly compost',
+    'Mostly fertilizers',
+    'Combination of 1,2 and 3 above',
+    'No fertilization',
+  ];
 }

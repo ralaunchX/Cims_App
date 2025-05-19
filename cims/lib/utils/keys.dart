@@ -6,4 +6,5 @@ class Keys {
   static const llwdspResettlement = 'llwdspResettlement';
   static const llwdspAssets = 'llwdspAssets';
   static const llwdspLivelihood = 'llwdspLivelihood';
+  static const llwdspSocialNetwork = 'llwdspsocialnetwork';
 }

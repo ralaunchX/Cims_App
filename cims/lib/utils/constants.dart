@@ -207,4 +207,28 @@ class AppConstants {
     'Disability Allowance',
     'TEBA Grant'
   ];
+
+  static const List<String> frequencyChoices = [
+    notSelected,
+    'Monthly',
+    'Regularly, but not every month Occasionally',
+    'Occasionally',
+  ];
+
+  static const List<String> householdGivingSupportChoices = [
+    notSelected,
+    'none',
+    'Financial assistance',
+    'Food',
+    'Labour',
+    'Care-giving',
+  ];
+
+  static const List<String> relationSupportedHouseholdChoices = [
+    notSelected,
+    '(Grand-)Parents',
+    '(Grand-)Children',
+    'Relatives',
+    'Friend/Neighbour',
+  ];
 }

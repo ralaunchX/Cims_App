@@ -3,6 +3,7 @@ import 'package:cims/form_list.dart';
 import 'package:cims/llwdsp_assets_screen.dart';
 import 'package:cims/llwdsp_livelihood_screen.dart';
 import 'package:cims/llwdsp_resettlement_screen.dart';
+import 'package:cims/llwdsp_socialnetwork_screen.dart';
 import 'package:cims/login.dart';
 import 'package:cims/rap_create.dart';
 import 'package:cims/rap_list.dart';
@@ -44,29 +45,30 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {
-        '/login': (context) => const LoginPage(),
-        '/rapId': (context) => const RapIdEntryScreen(),
-        '/formlist': (context) => const FormListScreen(),
-        '/census': (context) => const CensusFormsScreen(),
-        '/rapList': (context) => const RapListScreen(),
-        '/llwdspResettlement': (context) => const LlwdspResettlement(),
-        '/llwdspAssets': (context) => const LlwdspAssetsScreen(),
-        '/llwdspLivelihood': (context) => const LlwdspLivelihood(),
-      },
-      // theme: ThemeData(
-      //   inputDecorationTheme: const InputDecorationTheme(
-      //     contentPadding:
-      //         EdgeInsets.symmetric(vertical: 30.0, horizontal: 12.0),
-      //     labelStyle: TextStyle(fontSize: 20),
-      //     border: OutlineInputBorder(),
-      //   ),
-      //   textTheme: const TextTheme(
-      //     bodyMedium: TextStyle(fontSize: 16),
-      //   ),
-      // ),
-      initialRoute: initialRoute,
-    );
+        debugShowCheckedModeBanner: false,
+        routes: {
+          '/login': (context) => const LoginPage(),
+          '/rapId': (context) => const RapIdEntryScreen(),
+          '/formlist': (context) => const FormListScreen(),
+          '/census': (context) => const CensusFormsScreen(),
+          '/rapList': (context) => const RapListScreen(),
+          '/llwdspResettlement': (context) => const LlwdspResettlement(),
+          '/llwdspAssets': (context) => const LlwdspAssetsScreen(),
+          '/llwdspLivelihood': (context) => const LlwdspLivelihood(),
+          '/llwdspSocialNetwork': (context) =>
+              const LlwdspSocialnetworkScreen(),
+        },
+        // theme: ThemeData(
+        //   inputDecorationTheme: const InputDecorationTheme(
+        //     contentPadding:
+        //         EdgeInsets.symmetric(vertical: 30.0, horizontal: 12.0),
+        //     labelStyle: TextStyle(fontSize: 20),
+        //     border: OutlineInputBorder(),
+        //   ),
+        //   textTheme: const TextTheme(
+        //     bodyMedium: TextStyle(fontSize: 16),
+        //   ),
+        // ),
+        initialRoute: initialRoute);
   }
 }

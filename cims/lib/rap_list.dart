@@ -104,9 +104,9 @@ class _RapListScreenState extends State<RapListScreen> {
                     itemBuilder: (context, index) {
                       String currentRapId = filteredRapIds[index];
                       return Card(
-                        elevation: 1,
+                        elevation: 3,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(0),
                           side:
                               const BorderSide(color: Colors.grey, width: 0.5),
                         ),

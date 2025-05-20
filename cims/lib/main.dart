@@ -1,6 +1,7 @@
 import 'package:cims/census.dart';
 import 'package:cims/form_list.dart';
 import 'package:cims/llwdsp_assets_screen.dart';
+import 'package:cims/llwdsp_cropfield_screen.dart';
 import 'package:cims/llwdsp_foodgardens_screen.dart';
 import 'package:cims/llwdsp_livelihood_screen.dart';
 import 'package:cims/llwdsp_resettlement_screen.dart';
@@ -59,6 +60,7 @@ class MainApp extends StatelessWidget {
           '/llwdspSocialNetwork': (context) =>
               const LlwdspSocialnetworkScreen(),
           '/llwdspFoodGardens': (context) => const LlwdspFoodgardensScreen(),
+          '/llwdspCropField': (context) => const LlwdspCropfieldScreen()
         },
         // theme: ThemeData(
         //   inputDecorationTheme: const InputDecorationTheme(

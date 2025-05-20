@@ -58,7 +58,7 @@ class Utility {
       final Map<String, String> collectedMap = {};
 
       for (final key in allKeys) {
-        if (key.startsWith(rapId) && !key.endsWith('interviewername')) {
+        if (key.startsWith('${rapId}_') && !key.endsWith('interviewername')) {
           final jsonData = prefs.getString(key);
           if (jsonData == null) continue;
 

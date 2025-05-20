@@ -232,6 +232,7 @@ class AppConstants {
     'Friend/Neighbour',
   ];
   static const List<String> cropGrownHarvested = [
+    notSelected,
     'Maize',
     'Wheat',
     'Sorghum',
@@ -273,5 +274,39 @@ class AppConstants {
     'Mostly fertilizers',
     'Combination of 1,2 and 3 above',
     'No fertilization',
+  ];
+  static const List<String> nonCultivationReasons = [
+    notSelected,
+    'Drought',
+    'Lack of draught animals',
+    'Lack of implements',
+    'Lack of money to buy inputs (seed, etc.)',
+    'Lack of labour',
+  ];
+  static const List<String> ownershipChoices = [
+    notSelected,
+    'Own field',
+    'Rented',
+    'Sharecropping',
+    'Shared ownership',
+    'Borrowed from another person (friend neighbour relative)',
+  ];
+  static const List<String> cultivationMethodChoices = [
+    notSelected,
+    'Own tractor',
+    'Own cattle/donkeys',
+    'Hired tractor',
+    'Hired cattle/donkeys',
+    'Government ploughing service',
+    'Shared use of cattle/donkeys',
+    'By hand',
+    'None',
+  ];
+  static const List<String> seedChoices = [
+    notSelected,
+    'Kept seed (untreated)',
+    'Kept and self-treated seed',
+    'Purchased common seed',
+    'Purchased special (hybrid/GMO) seed',
   ];
 }

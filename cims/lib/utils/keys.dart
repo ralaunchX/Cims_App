@@ -8,4 +8,5 @@ class Keys {
   static const llwdspLivelihood = 'llwdspLivelihood';
   static const llwdspSocialNetwork = 'llwdspsocialnetwork';
   static const llwdspFoodGardens = 'llwdspFoodGardens';
+  static const llwdspCropField = 'llwdspCropField';
 }

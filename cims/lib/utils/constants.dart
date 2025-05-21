@@ -323,4 +323,30 @@ class AppConstants {
     'Wild Cherry',
     'Pomegranate',
   ];
+  static const List<String> expenditureItems = [
+    notSelected,
+    'Food (staple)',
+    'Personal Items (toiletries, washing powder, etc.)',
+    'Transport (bus fares, taxi fees)',
+    'School Fees',
+    'Clothes',
+    'Savings (bank, society)',
+    'Burial Society/Insurance Scheme',
+    'Household Energy (paraffin, gas, etc.)',
+    'Airtime',
+    'Water (Transport or Pumping Costs)',
+    'Medical Expenses',
+    'Furniture/household equipment',
+    'Rental (housing/accommodation)',
+    'Crops production and/or marketing',
+    'Livestock production and/or marketing',
+    'Other (specify)',
+  ];
+  static const List<String> frequencyOptionsExpenditure = [
+    notSelected,
+    'Monthly',
+    'Quarterly',
+    'Annually',
+    'Free Service – no expense',
+  ];
 }

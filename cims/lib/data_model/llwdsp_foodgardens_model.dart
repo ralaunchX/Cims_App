@@ -1,4 +1,6 @@
 class LlwdspFoodgardensModel {
+  final String rapId;
+
   List<String> cropsGrown;
   List<String> cropsHarvested;
   String gardenChoice;
@@ -7,6 +9,7 @@ class LlwdspFoodgardensModel {
   String fertilizerType;
 
   LlwdspFoodgardensModel({
+    required this.rapId,
     required this.cropsGrown,
     required this.cropsHarvested,
     required this.gardenChoice,
@@ -17,6 +20,7 @@ class LlwdspFoodgardensModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'rapId': rapId,
       'cropsGrown': cropsGrown,
       'cropsHarvested': cropsHarvested,
       'gardenChoice': gardenChoice,
@@ -28,6 +32,7 @@ class LlwdspFoodgardensModel {
 
   factory LlwdspFoodgardensModel.fromJson(Map<String, dynamic> json) {
     return LlwdspFoodgardensModel(
+      rapId: json['rapId'] ?? '',
       cropsGrown: List<String>.from(json['cropsGrown'] ?? []),
       cropsHarvested: List<String>.from(json['cropsHarvested'] ?? []),
       gardenChoice: json['gardenChoice'],

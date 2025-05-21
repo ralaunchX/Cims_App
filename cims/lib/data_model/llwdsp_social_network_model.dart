@@ -1,4 +1,6 @@
 class LlwdspSocialNetworkModel {
+  final String rapId;
+
   String? givingSupportCategory;
   String? givingSupportFrequency;
   String? givingSupportRelation;
@@ -8,6 +10,7 @@ class LlwdspSocialNetworkModel {
   String? receivingSupportRelation;
 
   LlwdspSocialNetworkModel({
+    required this.rapId,
     required this.givingSupportCategory,
     required this.givingSupportFrequency,
     required this.givingSupportRelation,
@@ -18,6 +21,7 @@ class LlwdspSocialNetworkModel {
 
   factory LlwdspSocialNetworkModel.fromJson(Map<String, dynamic> json) {
     return LlwdspSocialNetworkModel(
+      rapId: json['rapId'] ?? '',
       givingSupportCategory: json['givingSupportCategory'],
       givingSupportFrequency: json['givingSupportFrequency'],
       givingSupportRelation: json['givingSupportRelation'],
@@ -29,6 +33,7 @@ class LlwdspSocialNetworkModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'rapId': rapId,
       'givingSupportCategory': givingSupportCategory,
       'givingSupportFrequency': givingSupportFrequency,
       'givingSupportRelation': givingSupportRelation,

@@ -47,12 +47,15 @@ class CropFieldEntry {
 }
 
 class LlwdspCropFieldModel {
+  final String rapId;
+
   int fieldsOwned;
   int fieldsCultivated;
   String selectedNonCultivationReason;
   List<CropFieldEntry> cropFields;
 
   LlwdspCropFieldModel({
+    required this.rapId,
     required this.fieldsOwned,
     required this.fieldsCultivated,
     required this.selectedNonCultivationReason,
@@ -61,6 +64,7 @@ class LlwdspCropFieldModel {
 
   factory LlwdspCropFieldModel.fromJson(Map<String, dynamic> json) {
     return LlwdspCropFieldModel(
+      rapId: json['rapId'] ?? '',
       fieldsOwned: json['fieldsOwned'],
       fieldsCultivated: json['fieldsCultivated'],
       selectedNonCultivationReason: json['selectedNonCultivationReason'],
@@ -73,6 +77,7 @@ class LlwdspCropFieldModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'rapId': rapId,
       'fieldsOwned': fieldsOwned,
       'fieldsCultivated': fieldsCultivated,
       'selectedNonCultivationReason': selectedNonCultivationReason,

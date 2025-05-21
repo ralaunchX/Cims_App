@@ -184,6 +184,7 @@ class _LlwdspSocialnetworkScreenState extends State<LlwdspSocialnetworkScreen> {
   Future<void> saveForm() async {
     if (_formKey.currentState!.validate()) {
       final llwdspSocialNetworkData = LlwdspSocialNetworkModel(
+          rapId: rapId,
           givingSupportCategory: givingSupportCategory,
           givingSupportFrequency: givingSupportFrequency,
           givingSupportRelation: givingSupportRelation,

@@ -191,6 +191,7 @@ class _LlwdspFoodgardensScreenState extends State<LlwdspFoodgardensScreen> {
   Future<void> saveForm() async {
     if (_formKey.currentState!.validate()) {
       final llwdspFoodgardensData = LlwdspFoodgardensModel(
+          rapId: rapId,
           cropsGrown: cropsGrown,
           cropsHarvested: cropsHarvested,
           gardenChoice: gardenChoice,

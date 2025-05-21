@@ -45,12 +45,15 @@ class LlwdspLivestockDto {
 }
 
 class LlwdspLivestockListDto {
+  final String rapId;
+
   final List<LlwdspLivestockDto> livestock;
 
-  LlwdspLivestockListDto({required this.livestock});
+  LlwdspLivestockListDto({required this.rapId, required this.livestock});
 
   factory LlwdspLivestockListDto.fromJson(Map<String, dynamic> json) {
     return LlwdspLivestockListDto(
+      rapId: json['rapId'] ?? '',
       livestock: (json['livestock'] as List<dynamic>)
           .map((item) => LlwdspLivestockDto.fromJson(item))
           .toList(),
@@ -59,6 +62,7 @@ class LlwdspLivestockListDto {
 
   Map<String, dynamic> toJson() {
     return {
+      'rapId': rapId,
       'livestock': livestock.map((item) => item.toJson()).toList(),
     };
   }

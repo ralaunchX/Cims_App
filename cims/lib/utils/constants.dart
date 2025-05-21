@@ -309,4 +309,18 @@ class AppConstants {
     'Purchased common seed',
     'Purchased special (hybrid/GMO) seed',
   ];
+  static const List<String> treeTypes = [
+    notSelected,
+    'None',
+    'Apple',
+    'Apricot',
+    'Peach',
+    'Pear',
+    'Prune',
+    'Quinces',
+    'Wild Grape',
+    'Prickly Pear',
+    'Wild Cherry',
+    'Pomegranate',
+  ];
 }

@@ -179,7 +179,7 @@ class _LlwdspLivestockScreenState extends State<LlwdspLivestockScreen> {
 
   Future<void> saveForm() async {
     final listOfLivestockData =
-        LlwdspLivestockListDto(livestock: livestockData);
+        LlwdspLivestockListDto(rapId: rapId, livestock: livestockData);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(
         llwdspLivestockKey, jsonEncode(listOfLivestockData.toJson()));

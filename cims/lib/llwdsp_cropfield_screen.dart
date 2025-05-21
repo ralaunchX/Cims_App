@@ -393,6 +393,7 @@ class _LlwdspCropfieldScreenState extends State<LlwdspCropfieldScreen> {
   Future<void> saveForm() async {
     if (_formKey.currentState!.validate()) {
       final llwdspCropFieldData = LlwdspCropFieldModel(
+          rapId: rapId,
           fieldsOwned: fieldsOwned ?? 0,
           fieldsCultivated: fieldsCultivated ?? 0,
           selectedNonCultivationReason: selectedNonCultivationReason,

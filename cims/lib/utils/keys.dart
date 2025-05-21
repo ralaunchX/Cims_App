@@ -10,4 +10,5 @@ class Keys {
   static const llwdspFoodGardens = 'llwdspFoodGardens';
   static const llwdspCropField = 'llwdspCropField';
   static const llwdspLivestock = 'llwdspLivestock';
+  static const llwdspFruitTrees = 'llwdspFruitTrees';
 }

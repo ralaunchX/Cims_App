@@ -9,6 +9,7 @@ import 'package:cims/llwdsp_livelihood_screen.dart';
 import 'package:cims/llwdsp_livestock_screen.dart';
 import 'package:cims/llwdsp_resettlement_screen.dart';
 import 'package:cims/llwdsp_socialnetwork_screen.dart';
+import 'package:cims/llwdsp_transport_screen.dart';
 import 'package:cims/login.dart';
 import 'package:cims/rap_create.dart';
 import 'package:cims/rap_list.dart';
@@ -67,6 +68,7 @@ class MainApp extends StatelessWidget {
           '/llwdspLivestock': (context) => const LlwdspLivestockScreen(),
           '/llwdspFruitTrees': (context) => const LlwdspFruitTressScreen(),
           '/llwdspExpenditure': (context) => const LlwdspExpenditureScreen(),
+          '/llwdspTransport': (context) => const LlwdspTransportScreen()
         },
         // theme: ThemeData(
         //   inputDecorationTheme: const InputDecorationTheme(

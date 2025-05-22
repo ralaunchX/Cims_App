@@ -349,4 +349,21 @@ class AppConstants {
     'Annually',
     'Free Service – no expense',
   ];
+  static const List<String> transportFrequency = [
+    notSelected,
+    'Once a day (leave in morning, return in evening)',
+    'Twice a day (leave in morning and around midday)',
+    'More frequently (regular trips on the same day)',
+    'Not every day',
+  ];
+  static const List<String> transportModes = [
+    notSelected,
+    'Never Used',
+    'On Foot',
+    'On Horseback/Donkey',
+    'Taxi (4+1)',
+    'Minibus',
+    'Vehicle for Hire',
+    'Own Motor Transport',
+  ];
 }

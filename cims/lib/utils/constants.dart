@@ -366,4 +366,40 @@ class AppConstants {
     'Vehicle for Hire',
     'Own Motor Transport',
   ];
+
+  static const List<String> fundingGroupChoices = [
+    notSelected,
+    'Self-selected Group',
+    'Burial Society',
+    'Savings and Credit Clubs',
+  ];
+
+  static const List<String> fundingFrequencyChoices = [
+    notSelected,
+    'Weekly',
+    'Monthly',
+    'Quarterly',
+    'Annually',
+    'On Rotation',
+    'On Special Occasion',
+  ];
+
+  static const List<String> fundingIncomeSourceChoices = [
+    notSelected,
+    'Salary from Employment',
+    'Informal Economic Activity',
+    'Savings',
+    'Social Grant',
+    'Gifted (Cash from Family)',
+  ];
+
+  static const List<String> fundingLivelihoodContributionChoices = [
+    notSelected,
+    'Pay School Fees',
+    'Acquire Assets',
+    'Pay for Healthcare',
+    'Buy Food/Clothes',
+    'Start/Expand Business',
+    'Pay for Burial Society Services',
+  ];
 }

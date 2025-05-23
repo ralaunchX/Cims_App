@@ -15,9 +15,13 @@ class _FormListScreenState extends State<FormListScreen> {
   final forms = [
     {'title': '02 Census Form', 'route': '/census'},
     {
-      'title': '3.1 LLWDSP Phase III General Information',
+      'title': '3.1 LLWDSP Phase III Resettlement Action Plan Survey',
       'route': '/llwdspResettlement',
       'key': Keys.llwdspResettlement
+    },
+    {
+      'title': '3.2 LLWDSP Phase III Household Info',
+      'route': '/houseHold',
     },
     {
       'title': '3.3 LLWDSP Phase III HOUSEHOLD ASSETS',
@@ -44,11 +48,11 @@ class _FormListScreenState extends State<FormListScreen> {
       'route': '/llwdspCropField',
       'key': Keys.llwdspCropField
     },
-    // {
-    //   'title': '3.8 LLWDSP Phase III - LIVESTOCK',
-    //   'route': '/llwdspLivestock',
-    //   'key': Keys.llwdspLivestock
-    // },
+    {
+      'title': '3.8 LLWDSP Phase III - LIVESTOCK',
+      'route': '/llwdspLivestock',
+      'key': Keys.llwdspLivestock
+    },
     {
       'title': '3.9 LLWDSP Phase III - FRUIT TREES',
       'route': '/llwdspFruitTrees',
@@ -64,11 +68,11 @@ class _FormListScreenState extends State<FormListScreen> {
     //   'route': '/llwdspTransport',
     //   'key': Keys.llwdspTransport
     // },
-    {
-      'title': '3.12 LLWDSP Phase III - FUNDING',
-      'route': '/llwdspFunding',
-      'key': Keys.llwdspFunding
-    },
+    // {
+    //   'title': '3.12 LLWDSP Phase III - FUNDING',
+    //   'route': '/llwdspFunding',
+    //   'key': Keys.llwdspFunding
+    // },
   ];
 
   @override

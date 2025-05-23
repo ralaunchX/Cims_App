@@ -402,4 +402,75 @@ class AppConstants {
     'Start/Expand Business',
     'Pay for Burial Society Services',
   ];
+  static const List<String> relationshipChoices = [
+    notSelected,
+    'Household Head (HH)',
+    'Spouse',
+    'Parent/Parent-in-Law',
+    'Grandparent',
+    'Son/daughter',
+    'Son-in-law/daughter-in-law',
+    'Grandchild',
+    'Sibling',
+    'Nephew/niece/cousin',
+    'Adopted/foster/stepchild',
+    'Non-related dependent',
+    'Other relative',
+    'Other (SPECIFY)',
+  ];
+
+  static const List<String> residentialStatusChoices = [
+    notSelected,
+    'This homestead',
+    'This village',
+    'This district',
+    'Elsewhere in Lesotho',
+    'Elsewhere outside Lesotho',
+  ];
+
+  static const List<String> educationLevelChoices = [
+    notSelected,
+    'No education',
+    'Primary',
+    'Junior Secondary (Form A – C)',
+    'Senior Secondary (Form D – E)',
+    'Technical/Vocational',
+    'Tertiary',
+  ];
+
+  static const List<String> occupationChoices = [
+    notSelected,
+    'Working for remuneration, formally/informally',
+    'Any form of self-employment',
+    'Subsistence farming (Crop Farming, Livestock rearing)',
+    'School-going/Youngster',
+    'Unemployed (18 years or older)',
+    'Retired from formal employment',
+    'Homemaker/Housewife',
+    'Domestic responsibilities',
+    'Herdboy',
+    'Pensioner',
+    'Old and no longer economically active',
+  ];
+
+  static const List<String> disabilityChoices = [
+    notSelected,
+    'Physical (crippled e.g. arm, leg, hand, feet)',
+    'Mental/intellectual (retarded, madness)',
+    'Hearing/deafness',
+    'Visual Impairment',
+    'Multiple Disability',
+  ];
+
+  static const List<String> chronicIllnessChoices = [
+    notSelected,
+    'High blood pressure (Hypertension)',
+    'High blood sugar (Diabetes)',
+    'Heart (Cardio-vascular) disease',
+    'Asthma (Chronic respiratory disease)',
+    'Tuberculosis (TB)/HIV',
+    'Arthritis',
+    'Cancer',
+    'Epilepsy',
+  ];
 }

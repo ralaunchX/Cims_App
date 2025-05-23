@@ -1,5 +1,7 @@
 import 'package:cims/census.dart';
 import 'package:cims/form_list.dart';
+import 'package:cims/household_info_screens.dart/llwdsp_householdcomposition_screen.dart';
+import 'package:cims/household_list.dart';
 import 'package:cims/llwdsp_assets_screen.dart';
 import 'package:cims/llwdsp_cropfield_screen.dart';
 import 'package:cims/llwdsp_expenditure_screen.dart';
@@ -71,6 +73,9 @@ class MainApp extends StatelessWidget {
           '/llwdspExpenditure': (context) => const LlwdspExpenditureScreen(),
           '/llwdspTransport': (context) => const LlwdspTransportScreen(),
           '/llwdspFunding': (context) => const LlwdspFundingScreen(),
+          '/houseHold': (context) => const HouseholdList(),
+          '/llwdspHouseholdComposition': (context) =>
+              const LlwdspHouseholdcompositionScreen()
         },
         // theme: ThemeData(
         //   inputDecorationTheme: const InputDecorationTheme(

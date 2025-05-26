@@ -266,6 +266,7 @@ class _HeaderCell extends StatelessWidget {
   const _HeaderCell(this.label, {required this.width});
 
   @override
+
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,

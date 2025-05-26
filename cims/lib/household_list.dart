@@ -1,6 +1,7 @@
 import 'package:cims/household_info_screens.dart/llwdsp_householdcomposition_screen.dart';
 import 'package:cims/household_info_screens.dart/llwdsp_householdeducation_screen.dart';
 import 'package:cims/household_info_screens.dart/llwdsp_householdemployment_screen.dart';
+import 'package:cims/household_info_screens.dart/llwdsp_unemployment_screen.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,11 @@ class _HouseholdListState extends State<HouseholdList> {
       'title': 'EMPLOYMENT',
       'widget': const LlwdspHouseholdEmploymentScreen(),
       'key': Keys.llwdspHouseholdEmployment
+    },
+    {
+      'title': 'UNEMPLOYMENT',
+      'widget': const LlwdspHouseholdUnEmploymentScreen(),
+      'key': Keys.llwdspHouseholdUnEmployment
     },
   ];
 

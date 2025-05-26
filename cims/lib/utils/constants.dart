@@ -552,4 +552,13 @@ class AppConstants {
     'Elsewhere in Lesotho',
     'Elsewhere outside Lesotho',
   ];
+  static const List<String> unemploymentReasonChoices = [
+    notSelected,
+    'No longer actively searching for a job',
+    'Could not find work in home district',
+    'Could not find work outside the home district elsewhere in Lesotho',
+    'Could not find work outside Lesotho',
+    'Not able to work (e.g., disabled, chronically ill)',
+    'Recently retrenched and have not found a new job yet',
+  ];
 }

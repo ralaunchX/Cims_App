@@ -15,4 +15,6 @@ class Keys {
   static const llwdspTransport = 'llwdspTransport';
   static const llwdspFunding = 'llwdspFunding';
   static const llwdspHouseholdComposition = 'llwdspHouseholdComposition';
+  static const llwdspHouseholdEducation = 'llwdspHouseholdEducation';
+  static const llwdspHouseholdEmployment = 'llwdspHouseholdEmployment';
 }

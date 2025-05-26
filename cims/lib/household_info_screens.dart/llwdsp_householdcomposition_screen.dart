@@ -52,7 +52,6 @@ class _LlwdspHouseholdcompositionScreenState
     }
     if (houseHoldCompositionList != null) {
       members = houseHoldCompositionList.members;
-      inspect(members);
     }
   }
 

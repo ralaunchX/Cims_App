@@ -1,4 +1,6 @@
 import 'package:cims/household_info_screens.dart/llwdsp_householdcomposition_screen.dart';
+import 'package:cims/household_info_screens.dart/llwdsp_householdeducation_screen.dart';
+import 'package:cims/household_info_screens.dart/llwdsp_householdemployment_screen.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,16 @@ class _HouseholdListState extends State<HouseholdList> {
       'title': 'HOUSEHOLD COMPOSITION',
       'widget': const LlwdspHouseholdcompositionScreen(),
       'key': Keys.llwdspHouseholdComposition
+    },
+    {
+      'title': 'EDUCATION',
+      'widget': const LlwdspHouseholdEducationScreen(),
+      'key': Keys.llwdspHouseholdEducation
+    },
+    {
+      'title': 'EMPLOYMENT',
+      'widget': const LlwdspHouseholdEmploymentScreen(),
+      'key': Keys.llwdspHouseholdEmployment
     },
   ];
 

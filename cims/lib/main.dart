@@ -1,6 +1,8 @@
 import 'package:cims/census.dart';
 import 'package:cims/form_list.dart';
 import 'package:cims/household_info_screens.dart/llwdsp_householdcomposition_screen.dart';
+import 'package:cims/household_info_screens.dart/llwdsp_householdeducation_screen.dart';
+import 'package:cims/household_info_screens.dart/llwdsp_householdemployment_screen.dart';
 import 'package:cims/household_list.dart';
 import 'package:cims/llwdsp_assets_screen.dart';
 import 'package:cims/llwdsp_cropfield_screen.dart';
@@ -75,7 +77,11 @@ class MainApp extends StatelessWidget {
           '/llwdspFunding': (context) => const LlwdspFundingScreen(),
           '/houseHold': (context) => const HouseholdList(),
           '/llwdspHouseholdComposition': (context) =>
-              const LlwdspHouseholdcompositionScreen()
+              const LlwdspHouseholdcompositionScreen(),
+          '/llwdspHouseholdEducation': (context) =>
+              const LlwdspHouseholdEducationScreen(),
+          '/llwdspHouseholdEmployment': (context) =>
+              const LlwdspHouseholdEmploymentScreen(),
         },
         // theme: ThemeData(
         //   inputDecorationTheme: const InputDecorationTheme(

@@ -473,4 +473,83 @@ class AppConstants {
     'Cancer',
     'Epilepsy',
   ];
+  static const List<String> yesNoOption = [
+    notSelected,
+    'Yes',
+    'No',
+  ];
+
+  static const List<String> schoolLevelChoices = [
+    notSelected,
+    'Pre-School',
+    'Primary',
+    'Junior Secondary (Form A – C)',
+    'Senior Secondary (Form D – E)',
+    'Technical/Vocational',
+    'Tertiary',
+    'Other (Specify)',
+  ];
+
+  static const List<String> nonAttendanceReasonChoices = [
+    notSelected,
+    'Not yet of school-going age',
+    'Too far to walk',
+    'Child does not like school',
+    'Too expensive/Household too poor to afford education',
+    'Child is needed to work',
+    'Child is a girl, and she doesn’t need education',
+    'Child is too ill to attend school',
+    'Child is disabled',
+    'Pregnant/child to care for',
+    'Other (Specify)',
+  ];
+  static const List<String> employmentTypeChoices = [
+    notSelected,
+    'Regularly employed (full-time)',
+    'Regularly employed (part-time)',
+    'Irregularly employed (seasonal, casual, piece jobs)',
+    'Regularly self-employed',
+  ];
+
+  static const List<String> employmentSectorChoices = [
+    notSelected,
+    'Agriculture (government/commercial farming sector fato- fato)',
+    'Agriculture (subsistence farming including herders and Labourers, farmworkers)',
+    'Public service (Government and Utilities)',
+    'Education',
+    'Mining and Quarrying',
+    'Manufacturing and Processing',
+    'Construction',
+    'Wholesale and retail',
+    'Repairs: motor vehicles/appliances',
+    'Transport (goods, people)',
+    'Hospitality (catering, accommodation)',
+    'Communication (Telecommunications, newspapers, media)',
+    'Financial and Insurance activities (Banks, insurance companies)',
+    'Professional (doctors, lawyers), scientific (labs), and technical activities',
+    'Administrative and clerical work (security services, legal)',
+    'Human health and social work activities (nursing, health care workers, social workers)',
+    'Arts, entertainment and recreation',
+    'All domestic services (domestic workers, gardeners, child-minders)',
+    'Personal Service (E.g. Hair and Beauty care, Tailoring Sewing , knitting)',
+    'Don’t Know',
+  ];
+
+  static const List<String> employmentCategoryChoices = [
+    notSelected,
+    'Management',
+    'Technical',
+    'Admin/Clerical',
+    'Labour/General Assistant',
+    'Unskilled labour',
+    'Don’t Know',
+  ];
+
+  static const List<String> placeOfWorkChoices = [
+    notSelected,
+    'This village',
+    'Within the district',
+    'Elsewhere in Lesotho',
+    'Elsewhere outside Lesotho',
+  ];
 }

@@ -625,4 +625,50 @@ class AppConstants {
     'Read and write Sesotho and English',
     'Can read and write and is also Computer Literate',
   ];
+  static const List<String> businessTypeChoices = [
+    notSelected,
+    'Beer brewing/shebeen',
+    'Bricklaying/Building/Stone Mason',
+    'Appliance service and repair (electronics)',
+    'Hire of draught animals (e.g., oxen/donkey)',
+    'Bookkeeping',
+    'Electrical repairs',
+    'Hire of riding horse',
+    'Cabinetmaker',
+    'Brickmaking',
+    'Painting',
+    'Motorised Transport/haulage',
+    'Sale of natural resources (raw material e.g., reeds, thatch grass)',
+    'Plastering',
+    'Plumbing',
+    'Tractor hire services (ploughing, haulage)',
+    'Hair and Beauty care',
+    'Roofing/Carpentry',
+    'Vehicle service and repair',
+    'IT/Computer technology',
+    'Marketing of services (e.g., public phones)',
+    'Pottery',
+    'Saddlery',
+    'Selling/Hawking of soft goods and produce',
+    'Sewing/Tailoring',
+    'Shoe-making/Leather craft',
+    'Spaza/café/small retailer',
+    'Traditional healer/Pharmacy',
+    'Weaving',
+  ];
+
+  static const List<String> positionInBusinessChoices = [
+    notSelected,
+    'Owner of the small/informal business',
+    'Assistant to the owner',
+    'Don’t know',
+  ];
+
+  static const List<String> useOfIncomeChoices = [
+    notSelected,
+    'Only for his/her personal use',
+    'Used directly for the Household',
+    'For personal use and sharing with Household',
+    'Don’t know',
+  ];
 }

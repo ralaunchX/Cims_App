@@ -19,4 +19,5 @@ class Keys {
   static const llwdspHouseholdEmployment = 'llwdspHouseholdEmployment';
   static const llwdspHouseholdUnEmployment = 'llwdspHouseholdUnEmployment';
   static const llwdspHouseholdSkillKnowledge = 'llwdspHouseholdSkillKnowledge';
+  static const llwdspHouseholdSmallBusiness = 'llwdspHouseholdSmallBusiness';
 }

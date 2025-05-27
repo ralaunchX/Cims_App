@@ -561,4 +561,68 @@ class AppConstants {
     'Not able to work (e.g., disabled, chronically ill)',
     'Recently retrenched and have not found a new job yet',
   ];
+
+  static const List<String> skillChoices = [
+    notSelected,
+    'Beer brewing',
+    'Bookkeeping',
+    'Child-minding',
+    'Cooking/Baking/Hospitality services',
+    'Hair and Beauty Care',
+    'Hospice / Care Giving',
+    'IT Computer Technology',
+    'Marketing of services (e.g Public phones)',
+    'Pottery',
+    'Saddlery',
+    'Selling / Hawking goods and produce',
+    'Sewing / Tailoring',
+    'Shoe Making / Leather craft',
+    'Traditional medicine/pharmacy',
+    'Weaving',
+    'Bricklaying/Building/Stone Mason',
+    'Brickmaking',
+    'Cabinetmaker',
+    'Painting',
+    'Plastering',
+    'Roofing/Carpentry',
+    'Thatching',
+    'Electrical repairs / Electrician',
+    'Driving heavy vehicles',
+    'Driving light vehicles',
+    'Vehicle service and repair',
+    'Plumbing',
+    'Welding',
+    'Application of livestock medicine and dosing',
+    'Breeding and raising livestock',
+    'Diagnosing and treating livestock',
+    'Handling and herding livestock',
+    'Crop production/growing',
+    'Tractor driving',
+    'Tree-felling',
+    'Vegetable growing',
+  ];
+
+  static const List<String> skillAcquisitionChoices = [
+    notSelected,
+    'Acquired on the job as employee',
+    'Acquired through formal training',
+    'Self-taught: acquired from seeing others doing the same thing or learned it by “trial and error”',
+    'Acquired as part of household/domestic responsibilities',
+  ];
+
+  static const List<String> incomeEarningChoices = [
+    notSelected,
+    'No, not at present',
+    'Yes, occasionally',
+    'Yes, regularly',
+  ];
+
+  static const List<String> literacyLevelChoices = [
+    notSelected,
+    'Cannot read or write',
+    'Read and write Sesotho',
+    'Read and write English',
+    'Read and write Sesotho and English',
+    'Can read and write and is also Computer Literate',
+  ];
 }

@@ -14,6 +14,7 @@ import 'package:cims/llwdsp_expenditure_screen.dart';
 import 'package:cims/llwdsp_foodgardens_screen.dart';
 import 'package:cims/llwdsp_fruittrees_screen.dart';
 import 'package:cims/llwdsp_funding_screen.dart';
+import 'package:cims/llwdsp_householdadditionalinfo_scree.dart';
 import 'package:cims/llwdsp_livelihood_screen.dart';
 import 'package:cims/llwdsp_livestock_screen.dart';
 import 'package:cims/llwdsp_resettlement_screen.dart';
@@ -94,6 +95,8 @@ class MainApp extends StatelessWidget {
               const LlwdspBusinessScreen(),
           '/llwdspEnergySources': (context) =>
               const LlwdspEnergysourcesScreen(),
+          '/llwdspAdditionalInfo': (context) =>
+              const LlwdspHouseholdadditionalinfoScreen(),
         },
         // theme: ThemeData(
         //   inputDecorationTheme: const InputDecorationTheme(

@@ -21,4 +21,5 @@ class Keys {
   static const llwdspHouseholdSkillKnowledge = 'llwdspHouseholdSkillKnowledge';
   static const llwdspHouseholdSmallBusiness = 'llwdspHouseholdSmallBusiness';
   static const llwdspEnergySources = 'llwdspEnergySources';
+  static const llwdspAdditionalInfo = 'llwdspAdditionalInfo';
 }

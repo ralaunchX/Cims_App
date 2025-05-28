@@ -1,4 +1,5 @@
 import 'package:cims/census.dart';
+import 'package:cims/food_forms.dart';
 import 'package:cims/form_list.dart';
 import 'package:cims/household_info_screens.dart/llwdsp_householdcomposition_screen.dart';
 import 'package:cims/household_info_screens.dart/llwdsp_householdeducation_screen.dart';
@@ -12,6 +13,7 @@ import 'package:cims/llwdsp_cropfield_screen.dart';
 import 'package:cims/llwdsp_energysources_screen.dart';
 import 'package:cims/llwdsp_expenditure_screen.dart';
 import 'package:cims/llwdsp_foodgardens_screen.dart';
+import 'package:cims/llwdsp_foodsecurity_screens.dart';
 import 'package:cims/llwdsp_fruittrees_screen.dart';
 import 'package:cims/llwdsp_funding_screen.dart';
 import 'package:cims/llwdsp_householdadditionalinfo_scree.dart';
@@ -97,6 +99,8 @@ class MainApp extends StatelessWidget {
               const LlwdspEnergysourcesScreen(),
           '/llwdspAdditionalInfo': (context) =>
               const LlwdspHouseholdadditionalinfoScreen(),
+          '/llwdspFoodForms': (context) => const FoodFormsScreen(),
+          '/llwdspFoodSecurity': (context) => const LlwdspFoodsecurityScreens(),
         },
         // theme: ThemeData(
         //   inputDecorationTheme: const InputDecorationTheme(

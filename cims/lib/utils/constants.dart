@@ -671,4 +671,15 @@ class AppConstants {
     'For personal use and sharing with Household',
     'Don’t know',
   ];
+  static const List<String> stapleFoodOptions = [
+    notSelected,
+    'Maize',
+    'Wheat',
+    'Sorghum'
+  ];
+  static const List<String> sourceOptions = [
+    notSelected,
+    'Own produced staple',
+    'Mostly bought'
+  ];
 }

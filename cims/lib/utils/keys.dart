@@ -23,4 +23,6 @@ class Keys {
   static const llwdspEnergySources = 'llwdspEnergySources';
   static const llwdspAdditionalInfo = 'llwdspAdditionalInfo';
   static const llwdspFoodSecurity = 'llwdspFoodSecurity';
+    static const llwdspFoodMonthlyStatus = 'llwdspFoodMonthlyStatus';
+
 }

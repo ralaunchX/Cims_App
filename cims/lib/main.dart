@@ -13,6 +13,7 @@ import 'package:cims/llwdsp_cropfield_screen.dart';
 import 'package:cims/llwdsp_energysources_screen.dart';
 import 'package:cims/llwdsp_expenditure_screen.dart';
 import 'package:cims/llwdsp_foodgardens_screen.dart';
+import 'package:cims/llwdsp_foodmontly_screen.dart';
 import 'package:cims/llwdsp_foodsecurity_screens.dart';
 import 'package:cims/llwdsp_fruittrees_screen.dart';
 import 'package:cims/llwdsp_funding_screen.dart';
@@ -101,6 +102,8 @@ class MainApp extends StatelessWidget {
               const LlwdspHouseholdadditionalinfoScreen(),
           '/llwdspFoodForms': (context) => const FoodFormsScreen(),
           '/llwdspFoodSecurity': (context) => const LlwdspFoodsecurityScreens(),
+          '/llwdspFoodMonthlyStatus': (context) =>
+              const LlwdspFoodMontlyScreen(),
         },
         // theme: ThemeData(
         //   inputDecorationTheme: const InputDecorationTheme(

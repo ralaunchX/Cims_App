@@ -682,4 +682,27 @@ class AppConstants {
     'Own produced staple',
     'Mostly bought'
   ];
+  static const List<String> months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+  static const List<String> hungerReasons = [
+    "Could not produce enough food",
+    "No money to buy food",
+    "Not enough land to produce food",
+    "Not enough labour to help produce food",
+    "Natural calamities (e.g., bushfire, drought, pests)",
+    'None'
+  ];
 }

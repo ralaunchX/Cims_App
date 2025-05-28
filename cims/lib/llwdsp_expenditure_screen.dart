@@ -4,6 +4,7 @@ import 'package:cims/data_model/llwdsp_expenditure_model.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/constants.dart';
 import 'package:cims/utils/keys.dart';
+import 'package:cims/utils/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -211,11 +212,7 @@ class _LlwdspExpenditureScreenState extends State<LlwdspExpenditureScreen> {
                     label: const Text('Add Row'),
                   ),
                   const SizedBox(width: 20),
-                  ElevatedButton.icon(
-                    onPressed: _saveForm,
-                    icon: const Icon(Icons.save),
-                    label: const Text('Save'),
-                  ),
+                  CommonSubmitButton(onPressed: _saveForm)
                 ],
               ),
             ],

@@ -9,6 +9,7 @@ import 'package:cims/household_info_screens.dart/llwdsp_unemployment_screen.dart
 import 'package:cims/household_list.dart';
 import 'package:cims/llwdsp_assets_screen.dart';
 import 'package:cims/llwdsp_cropfield_screen.dart';
+import 'package:cims/llwdsp_energysources_screen.dart';
 import 'package:cims/llwdsp_expenditure_screen.dart';
 import 'package:cims/llwdsp_foodgardens_screen.dart';
 import 'package:cims/llwdsp_fruittrees_screen.dart';
@@ -91,6 +92,8 @@ class MainApp extends StatelessWidget {
               const LlwdspSkillKnowledgeScreen(),
           '/llwdspHouseholdSmallBusiness': (context) =>
               const LlwdspBusinessScreen(),
+          '/llwdspEnergySources': (context) =>
+              const LlwdspEnergysourcesScreen(),
         },
         // theme: ThemeData(
         //   inputDecorationTheme: const InputDecorationTheme(

@@ -1,4 +1,5 @@
 import 'package:cims/llwdsp_foodmontly_screen.dart';
+import 'package:cims/llwdsp_foodproductionconsumption_screen.dart';
 import 'package:cims/llwdsp_foodsecurity_screens.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
@@ -25,8 +26,8 @@ class _FoodFormsScreenState extends State<FoodFormsScreen> {
     },
     {
       'title': 'Food Production and Consumption Patterns',
-      'widget': '',
-      'key': '',
+      'widget': const LlwdspFoodproductionconsumption(),
+      'key': Keys.llwdspFoodProductionConsumpion
     }
   ];
 

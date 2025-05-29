@@ -705,4 +705,10 @@ class AppConstants {
     "Natural calamities (e.g., bushfire, drought, pests)",
     'None'
   ];
+
+  static const List<String> stapleStorageOptions = ["As Grain", "On Cobs"];
+  static const List<String> sideDishSourceOptions = [
+    "Own produced side dish",
+    "Mostly bought side dish",
+  ];
 }

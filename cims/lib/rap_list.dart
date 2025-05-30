@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:cims/form_list.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
+import 'package:cims/utils/network_info.dart';
 import 'package:cims/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,13 +20,23 @@ class _RapListScreenState extends State<RapListScreen> {
   List<String> allRapIds = [];
   List<String> filteredRapIds = [];
   final TextEditingController searchController = TextEditingController();
+  bool hasInternet = false;
+  Stream<bool>? _networkStream;
+  StreamSubscription<bool>? _networkSubscription;
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     final savedValue = AppPrefs().prefs;
     inspect(savedValue);
     loadKeys();
+
+    _networkStream = NetworkInfo().onStatusChange;
+    _networkSubscription = _networkStream!.listen((isOnline) {
+      setState(() {
+        hasInternet = isOnline;
+      });
+    });
   }
 
   void filterRapIds(String query) {
@@ -60,7 +72,6 @@ class _RapListScreenState extends State<RapListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('RAP Cases'),
-        // centerTitle: true,
         actions: [
           TextButton.icon(
             onPressed: () async {
@@ -165,19 +176,34 @@ class _RapListScreenState extends State<RapListScreen> {
         decoration: const BoxDecoration(
           border: Border(top: BorderSide(color: Colors.grey, width: 0.5)),
         ),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Text(
-            //   'Add New Case',
-            //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            // ),
-            Text(
-              'Existing Cases',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
+        child: hasInternet
+            ? const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.cloud_done, color: Colors.green),
+                  SizedBox(width: 8),
+                  Text(
+                    'Network available, you can sync data',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              )
+            : const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.wifi_off, color: Colors.red),
+                  SizedBox(width: 8),
+                  Text(
+                    'No Internet Connection',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.red,
+                    ),
+                  ),
+                ],
+              ),
       ),
     );
   }

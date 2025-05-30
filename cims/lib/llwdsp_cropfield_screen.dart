@@ -120,52 +120,62 @@ class _LlwdspCropfieldScreenState extends State<LlwdspCropfieldScreen> {
                           children: [
                             SizedBox(
                                 width: 120,
-                                child: Text('Field No',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold))),
+                                child: Text(
+                                  'Field No',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                )),
                             SizedBox(
-                                width: 150,
+                                width: 300,
                                 child: Text('Ownership',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold))),
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center)),
                             SizedBox(
-                                width: 150,
+                                width: 300,
                                 child: Text('Cultivation',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold))),
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center)),
                             SizedBox(
                                 width: 150,
                                 child: Text('Main Crop',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold))),
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center)),
                             SizedBox(
                                 width: 150,
                                 child: Text('Second Crop',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold))),
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center)),
                             SizedBox(
-                                width: 150,
+                                width: 300,
                                 child: Text('Seed Type',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold))),
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center)),
                             SizedBox(
-                                width: 150,
+                                width: 300,
                                 child: Text('Fertilization',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold))),
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center)),
                             SizedBox(
-                                width: 150,
+                                width: 250,
                                 child: Text('Crop Use',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold))),
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center)),
                           ],
                         ),
                       ),
@@ -191,7 +201,7 @@ class _LlwdspCropfieldScreenState extends State<LlwdspCropfieldScreen> {
                                 ),
                               ),
                               SizedBox(
-                                width: 150,
+                                width: 300,
                                 child: DropdownButtonFormField<String>(
                                   isExpanded: true,
                                   value: field.ownership,
@@ -212,7 +222,7 @@ class _LlwdspCropfieldScreenState extends State<LlwdspCropfieldScreen> {
                                 ),
                               ),
                               SizedBox(
-                                width: 150,
+                                width: 300,
                                 child: DropdownButtonFormField<String>(
                                   value: field.cultivationMethod,
                                   isExpanded: true,
@@ -275,7 +285,7 @@ class _LlwdspCropfieldScreenState extends State<LlwdspCropfieldScreen> {
                                 ),
                               ),
                               SizedBox(
-                                width: 150,
+                                width: 300,
                                 child: DropdownButtonFormField<String>(
                                   isExpanded: true,
                                   value: field.seedType,
@@ -296,7 +306,7 @@ class _LlwdspCropfieldScreenState extends State<LlwdspCropfieldScreen> {
                                 ),
                               ),
                               SizedBox(
-                                width: 150,
+                                width: 300,
                                 child: DropdownButtonFormField<String>(
                                   isExpanded: true,
                                   value: field.fertilization,
@@ -317,7 +327,7 @@ class _LlwdspCropfieldScreenState extends State<LlwdspCropfieldScreen> {
                                 ),
                               ),
                               SizedBox(
-                                width: 150,
+                                width: 250,
                                 child: DropdownButtonFormField<String>(
                                   value: field.cropUse,
                                   isExpanded: true,
@@ -351,9 +361,9 @@ class _LlwdspCropfieldScreenState extends State<LlwdspCropfieldScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 32),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: () => setState(() => cropFields.add(
@@ -375,14 +385,11 @@ class _LlwdspCropfieldScreenState extends State<LlwdspCropfieldScreen> {
                     child:
                         const Text('Add Field', style: TextStyle(fontSize: 14)),
                   ),
+                  CommonSubmitButton(onPressed: () {
+                    saveForm();
+                  })
                 ],
               ),
-              const SizedBox(
-                height: 24,
-              ),
-              CommonSubmitButton(onPressed: () {
-                saveForm();
-              })
             ],
           ),
         ),

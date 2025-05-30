@@ -54,7 +54,7 @@ class _LlwdspExpenditureScreenState extends State<LlwdspExpenditureScreen> {
     return Row(
       children: [
         SizedBox(
-          width: 200,
+          width: 300,
           child: DropdownButtonFormField<String>(
             isExpanded: true,
             decoration: const InputDecoration(
@@ -72,7 +72,7 @@ class _LlwdspExpenditureScreenState extends State<LlwdspExpenditureScreen> {
         ),
         const SizedBox(width: 10),
         SizedBox(
-          width: 200,
+          width: 300,
           child: DropdownButtonFormField<String>(
             isExpanded: true,
             decoration: const InputDecoration(
@@ -137,7 +137,7 @@ class _LlwdspExpenditureScreenState extends State<LlwdspExpenditureScreen> {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
-                    width: 740,
+                    width: 950,
                     child: Column(
                       children: [
                         Container(
@@ -148,21 +148,23 @@ class _LlwdspExpenditureScreenState extends State<LlwdspExpenditureScreen> {
                           child: const Row(
                             children: [
                               SizedBox(
-                                width: 200,
+                                width: 300,
                                 child: Text(
                                   'Expenditure Item',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                               SizedBox(
-                                width: 200,
+                                width: 300,
                                 child: Text(
                                   'Frequency',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                               SizedBox(
@@ -172,6 +174,7 @@ class _LlwdspExpenditureScreenState extends State<LlwdspExpenditureScreen> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                               SizedBox(
@@ -181,6 +184,7 @@ class _LlwdspExpenditureScreenState extends State<LlwdspExpenditureScreen> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
+                                  textAlign: TextAlign.left,
                                 ),
                               ),
                             ],

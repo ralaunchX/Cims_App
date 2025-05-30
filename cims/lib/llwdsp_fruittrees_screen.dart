@@ -5,6 +5,7 @@ import 'package:cims/data_model/llwdsp_fruittree_model.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/constants.dart';
 import 'package:cims/utils/keys.dart';
+import 'package:cims/utils/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -175,6 +176,7 @@ class _LlwdspFruitTressScreenState extends State<LlwdspFruitTressScreen> {
               ),
               const SizedBox(height: 16),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton.icon(
                     onPressed: _addMoreTrees,
@@ -182,11 +184,7 @@ class _LlwdspFruitTressScreenState extends State<LlwdspFruitTressScreen> {
                     label: const Text("Add More Trees"),
                   ),
                   const SizedBox(width: 20),
-                  ElevatedButton.icon(
-                    onPressed: saveForm,
-                    icon: const Icon(Icons.check_box, color: Colors.green),
-                    label: const Text("Submit"),
-                  ),
+                  CommonSubmitButton(onPressed: saveForm)
                 ],
               )
             ],

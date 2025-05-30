@@ -99,12 +99,12 @@ class _LlwdspHouseholdcompositionScreenState
           value: m.refNo,
         ),
         _inputField(
-            width: 150,
+            width: 250,
             hint: 'Name',
             onChanged: (val) => m.name = val,
             value: m.name),
         _dropdownField(
-            width: 160,
+            width: 250,
             value: m.relation,
             hint: 'Relation',
             items: AppConstants.relationshipChoices,
@@ -123,31 +123,31 @@ class _LlwdspHouseholdcompositionScreenState
             items: AppConstants.maritalStatuses,
             onChanged: (val) => m.maritalStatus = val),
         _dropdownField(
-            width: 150,
+            width: 250,
             value: m.residentialStatus,
             hint: 'Residential',
             items: AppConstants.residentialStatusChoices,
             onChanged: (val) => m.residentialStatus = val),
         _dropdownField(
-            width: 170,
+            width: 250,
             value: m.educationLevel,
             hint: 'Education',
             items: AppConstants.educationLevelChoices,
             onChanged: (val) => m.educationLevel = val),
         _dropdownField(
-            width: 180,
+            width: 250,
             value: m.occupation,
             hint: 'Occupation',
             items: AppConstants.occupationChoices,
             onChanged: (val) => m.occupation = val),
         _dropdownField(
-            width: 130,
+            width: 250,
             value: m.disability,
             hint: 'Disability',
             items: AppConstants.disabilityChoices,
             onChanged: (val) => m.disability = val),
         _dropdownField(
-            width: 130,
+            width: 250,
             value: m.illness,
             hint: 'Illness',
             items: AppConstants.chronicIllnessChoices,
@@ -244,7 +244,7 @@ class _LlwdspHouseholdcompositionScreenState
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
-                    width: 1700,
+                    width: 2400,
                     child: Column(
                       children: [
                         _buildTableHeader(),
@@ -286,16 +286,16 @@ class _LlwdspHouseholdcompositionScreenState
       child: const Row(
         children: [
           _HeaderCell('Ref No.', width: 80),
-          _HeaderCell('Name & Surname', width: 150),
-          _HeaderCell('Relation to HH Head', width: 160),
+          _HeaderCell('Name & Surname', width: 250),
+          _HeaderCell('Relation to HH Head', width: 250),
           _HeaderCell('Sex (M/F)', width: 100),
           _HeaderCell('Year of Birth', width: 180),
           _HeaderCell('Marital Status', width: 130),
-          _HeaderCell('Residential Status', width: 150),
-          _HeaderCell('Completed Education', width: 170),
-          _HeaderCell('Main Occupation', width: 180),
-          _HeaderCell('Disability', width: 130),
-          _HeaderCell('Chronic Illness', width: 130),
+          _HeaderCell('Residential Status', width: 250),
+          _HeaderCell('Completed Education', width: 250),
+          _HeaderCell('Main Occupation', width: 250),
+          _HeaderCell('Disability', width: 250),
+          _HeaderCell('Chronic Illness', width: 250),
           SizedBox(width: 120),
         ],
       ),

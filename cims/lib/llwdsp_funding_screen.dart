@@ -139,22 +139,26 @@ class _LlwdspFundingScreenState extends State<LlwdspFundingScreen> {
                                         row.contributionToLivelihood = val!),
                                   ),
                                   SizedBox(
-                                    width: 180,
+                                    width: 200,
                                     child: Center(
-                                      child: TextButton(
-                                        onPressed: () => removeRow(index),
-                                        style: TextButton.styleFrom(
-                                          backgroundColor: Colors.red,
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 10),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
+                                      child: SizedBox(
+                                        width: 100,
+                                        child: TextButton(
+                                          onPressed: () => removeRow(index),
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: Colors.red,
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
                                           ),
-                                        ),
-                                        child: const Text(
-                                          "Remove",
-                                          style: TextStyle(color: Colors.white),
+                                          child: const Text(
+                                            "Remove",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -221,7 +225,7 @@ class _HeaderCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 180,
+      width: 250,
       child: Text(
         label,
         textAlign: TextAlign.center,
@@ -243,8 +247,9 @@ class _TextFieldCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 180,
+      width: 250,
       child: TextFormField(
+        textAlign: TextAlign.center,
         initialValue: initialValue,
         onChanged: onChanged,
         decoration: const InputDecoration(),
@@ -266,7 +271,7 @@ class _DropdownCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 180,
+      width: 250,
       child: DropdownButtonFormField<String>(
         isExpanded: true,
         value: value,

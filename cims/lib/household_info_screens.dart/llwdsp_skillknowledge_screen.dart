@@ -131,7 +131,7 @@ class _LlwdspSkillKnowledgeScreenState
           width: 50,
         ),
         SizedBox(
-          width: 100,
+          width: 150,
           child: ElevatedButton(
             onPressed: () => _removeRow(index),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
@@ -223,7 +223,7 @@ class _LlwdspSkillKnowledgeScreenState
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
-                    width: 2200,
+                    width: 2250,
                     child: Column(
                       children: [
                         _buildHeader(),

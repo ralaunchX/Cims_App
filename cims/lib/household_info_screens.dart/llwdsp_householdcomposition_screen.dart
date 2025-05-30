@@ -156,7 +156,7 @@ class _LlwdspHouseholdcompositionScreenState
           width: 20,
         ),
         SizedBox(
-          width: 100,
+          width: 150,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () => _removeRow(index),
@@ -244,7 +244,7 @@ class _LlwdspHouseholdcompositionScreenState
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
-                    width: 2400,
+                    width: 2450,
                     child: Column(
                       children: [
                         _buildTableHeader(),

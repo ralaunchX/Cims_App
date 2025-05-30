@@ -94,19 +94,19 @@ class _LlwdspBusinessScreenState extends State<LlwdspBusinessScreen> {
             item.businessType,
             AppConstants.businessTypeChoices,
             'Business type',
-            300,
+            400,
             (val) => setState(() => item.businessType = val)),
         _dropdown(
             item.positionInBusiness,
             AppConstants.positionInBusinessChoices,
             'Position',
-            300,
+            400,
             (val) => setState(() => item.positionInBusiness = val)),
         _dropdown(
             item.useOfIncome,
             AppConstants.useOfIncomeChoices,
             'Use of income',
-            300,
+            400,
             (val) => setState(() => item.useOfIncome = val)),
         _textField(item.numPersonsInvolved, 'Num Persons', 120,
             (val) => item.numPersonsInvolved = val),
@@ -114,7 +114,7 @@ class _LlwdspBusinessScreenState extends State<LlwdspBusinessScreen> {
           width: 50,
         ),
         SizedBox(
-          width: 100,
+          width: 150,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () => _removeRow(index),
@@ -167,9 +167,9 @@ class _LlwdspBusinessScreenState extends State<LlwdspBusinessScreen> {
         child: const Row(
           children: [
             _HeaderCell('Ref No.', width: 120),
-            _HeaderCell('Business Type', width: 300),
-            _HeaderCell('Position in Business', width: 300),
-            _HeaderCell('Use of Income', width: 300),
+            _HeaderCell('Business Type', width: 400),
+            _HeaderCell('Position in Business', width: 400),
+            _HeaderCell('Use of Income', width: 400),
             _HeaderCell('Num Persons Involved', width: 120),
             SizedBox(width: 100),
           ],
@@ -190,7 +190,7 @@ class _LlwdspBusinessScreenState extends State<LlwdspBusinessScreen> {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
-                    width: 1300,
+                    width: 1650,
                     child: Column(
                       children: [
                         _buildHeader(),

@@ -68,7 +68,7 @@ class _LlwdspHouseholdEducationScreenState
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
-                    width: 1150,
+                    width: 1200,
                     child: Column(
                       children: [
                         _buildHeader(),
@@ -167,7 +167,7 @@ class _LlwdspHouseholdEducationScreenState
           width: 50,
         ),
         SizedBox(
-          width: 100,
+          width: 150,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () => _removeRow(index),

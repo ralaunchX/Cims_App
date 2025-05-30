@@ -177,7 +177,7 @@ class _LlwdspHouseholdEmploymentScreenState
           width: 50,
         ),
         SizedBox(
-          width: 100,
+          width: 150,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () => _removeRow(index),
@@ -219,7 +219,7 @@ class _LlwdspHouseholdEmploymentScreenState
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
-                    width: 1300,
+                    width: 1400,
                     child: Column(
                       children: [
                         _buildHeader(),
@@ -266,7 +266,6 @@ class _HeaderCell extends StatelessWidget {
   const _HeaderCell(this.label, {required this.width});
 
   @override
-
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,

@@ -6,6 +6,7 @@ import 'package:cims/utils/submit_button.dart';
 import 'package:cims/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LlwdspResettlement extends StatefulWidget {
@@ -66,8 +67,8 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
       respondentName = resettlementData.respondentName;
       contactNumber = resettlementData.contactNumber;
       date = resettlementData.date;
-      isHeadOrSpousePresent = resettlementData.isHeadOrSpousePresent;
-      ifNotPresentRecord = resettlementData.ifNotPresentRecord;
+      isHeadOrSpousePresent = resettlementData.isPresent;
+      ifNotPresentRecord = resettlementData.absenceNotes;
       gpsNorthing = resettlementData.gpsNorthing;
       gpsEasting = resettlementData.gpsEasting;
     }
@@ -95,7 +96,7 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
   void _saveForm() async {
     if (_formKey.currentState!.validate()) {
       final llwdspResettlementData = ResettlementLlwdspModel(
-          rapId: rapId,
+          rapCase: rapId,
           interviewerName: interviewerName,
           village: village,
           communityCouncil: communityCouncil,
@@ -104,8 +105,8 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
           respondentName: respondentName,
           contactNumber: contactNumber,
           date: date,
-          isHeadOrSpousePresent: isHeadOrSpousePresent,
-          ifNotPresentRecord: ifNotPresentRecord,
+          isPresent: isHeadOrSpousePresent,
+          absenceNotes: ifNotPresentRecord,
           gpsNorthing: gpsNorthing,
           gpsEasting: gpsEasting);
 
@@ -208,8 +209,8 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
                   final selected = await Utility.selectDate(context);
                   if (selected != null) {
                     setState(() {
-                      date = selected;
-                      dateController.text = selected;
+                      date = DateFormat('yyyy-MM-dd').format(selected);
+                      dateController.text = date;
                     });
                   }
                 },

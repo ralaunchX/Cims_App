@@ -1,5 +1,5 @@
 class ResettlementLlwdspModel {
-  String rapId;
+  String rapCase;
   String interviewerName;
   String village;
   String communityCouncil;
@@ -8,13 +8,13 @@ class ResettlementLlwdspModel {
   String respondentName;
   String contactNumber;
   String date;
-  bool isHeadOrSpousePresent;
-  String ifNotPresentRecord;
+  bool isPresent;
+  String absenceNotes;
   String gpsNorthing;
   String gpsEasting;
 
   ResettlementLlwdspModel({
-    required this.rapId,
+    required this.rapCase,
     required this.interviewerName,
     required this.village,
     required this.communityCouncil,
@@ -23,45 +23,45 @@ class ResettlementLlwdspModel {
     required this.respondentName,
     required this.contactNumber,
     required this.date,
-    required this.isHeadOrSpousePresent,
-    required this.ifNotPresentRecord,
+    required this.isPresent,
+    required this.absenceNotes,
     required this.gpsNorthing,
     required this.gpsEasting,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
-      'interviewerName': interviewerName,
+      'case': rapCase,
+      'interviewer_name': interviewerName,
       'village': village,
-      'communityCouncil': communityCouncil,
-      'householdNumber': householdNumber,
-      'householdHead': householdHead,
-      'respondentName': respondentName,
-      'contactNumber': contactNumber,
+      'community_council': communityCouncil,
+      'household_number': householdNumber,
+      'household_head': householdHead,
+      'respondent_name': respondentName,
+      'contact_number': contactNumber,
       'date': date,
-      'isHeadOrSpousePresent': isHeadOrSpousePresent,
-      'ifNotPresentRecord': ifNotPresentRecord,
-      'gpsNorthing': gpsNorthing,
-      'gpsEasting': gpsEasting,
+      'is_present': isPresent,
+      'absence_notes': absenceNotes,
+      'gps_northing': gpsNorthing,
+      'gps_easting': gpsEasting,
     };
   }
 
   factory ResettlementLlwdspModel.fromJson(Map<String, dynamic> json) {
     return ResettlementLlwdspModel(
-      rapId: json['rapId'] ?? '',
-      interviewerName: json['interviewerName'] ?? '',
+      rapCase: json['case'] ?? '',
+      interviewerName: json['interviewer_name'] ?? '',
       village: json['village'] ?? '',
-      communityCouncil: json['communityCouncil'] ?? '',
-      householdNumber: json['householdNumber'] ?? '',
-      householdHead: json['householdHead'] ?? '',
-      respondentName: json['respondentName'] ?? '',
-      contactNumber: json['contactNumber'] ?? '',
+      communityCouncil: json['community_council'] ?? '',
+      householdNumber: json['household_number'] ?? '',
+      householdHead: json['household_head'] ?? '',
+      respondentName: json['respondent_name'] ?? '',
+      contactNumber: json['contact_number'] ?? '',
       date: json['date'] ?? '',
-      isHeadOrSpousePresent: json['isHeadOrSpousePresent'] ?? false,
-      ifNotPresentRecord: json['ifNotPresentRecord'] ?? '',
-      gpsNorthing: json['gpsNorthing'] ?? '',
-      gpsEasting: json['gpsEasting'] ?? '',
+      isPresent: json['is_present'] ?? false,
+      absenceNotes: json['absence_notes'] ?? '',
+      gpsNorthing: json['gps_northing'] ?? '',
+      gpsEasting: json['gps_easting'] ?? '',
     );
   }
 }

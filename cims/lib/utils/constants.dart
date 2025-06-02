@@ -1,4 +1,6 @@
 class AppConstants {
+  static String devUrl = 'https://cims-dev-968023981384.us-east1.run.app/api';
+  static const prodUrl = '';
   static int loginValidityDays = 7;
   static const user = 'user1';
   static const password = '12345';

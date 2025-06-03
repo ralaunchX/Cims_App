@@ -27,6 +27,12 @@ class Upload {
           if (res == true) {
             await formUploadSuccess(key);
           }
+        } else if (key == '${rapId}_${Keys.llwdspAssets}') {
+          var res =
+              await ApiServices.form33Assets(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
         }
       } catch (e) {
         print('Error uploading for key $key');

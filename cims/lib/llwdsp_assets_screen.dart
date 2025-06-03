@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:cims/data_model/llwdsp_assets_model.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/constants.dart';
@@ -23,16 +21,16 @@ class _LlwdspAssetsScreenState extends State<LlwdspAssetsScreen> {
   String rapId = Keys.rapId;
   String llwdspAssetsKey = '${Keys.rapId}_${Keys.llwdspAssets}';
 
-  String dwellingOwnership = AppConstants.notSelected;
-  String wallMaterial = AppConstants.notSelected;
-  String roofMaterial = AppConstants.notSelected;
-  String floorMaterial = AppConstants.notSelected;
+  int dwellingOwnership = 0;
+  int wallMaterial = 0;
+  int roofMaterial = 0;
+  int floorMaterial = 0;
 
-  List<String> selectedStructuresServices = [];
-  List<String> selectedOtherStructures = [];
-  List<String> selectedHouseholdItems = [];
-  List<String> selectedAppliances = [];
-  List<String> selectedAgriculturalEquipment = [];
+  List<int> selectedStructuresServices = [];
+  List<int> selectedOtherStructures = [];
+  List<int> selectedHouseholdItems = [];
+  List<int> selectedAppliances = [];
+  List<int> selectedAgriculturalEquipment = [];
 
   @override
   void initState() {
@@ -68,58 +66,41 @@ class _LlwdspAssetsScreenState extends State<LlwdspAssetsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                '1. Does the household own or rent this dwelling?',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              _buildMaterialOptions(
-                  'dwellingOwnership', AppConstants.dwellingOwnership),
-              const SizedBox(height: 24),
-              const Text(
-                '2. What material is used PREDOMINANTLY for the walls?',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              _buildMaterialOptions('wall', AppConstants.wallOptions),
-              const SizedBox(height: 24),
-              const Text(
-                '3. What material is used PREDOMINANTLY for the roof?',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              _buildMaterialOptions('roof', AppConstants.roofOptions),
-              const SizedBox(height: 24),
-              const Text(
-                '4. What material is used PREDOMINANTLY for the floor?',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              _buildMaterialOptions('floor', AppConstants.floorOptions),
+              _buildRadioSection(
+                  '1. Does the household own or rent this dwelling?',
+                  AppConstants.dwellingOwnership,
+                  dwellingOwnership,
+                  (val) => setState(() => dwellingOwnership = val!)),
+              _buildRadioSection(
+                  '2. What material is used PREDOMINANTLY for the walls?',
+                  AppConstants.wallMaterialOptions,
+                  wallMaterial,
+                  (val) => setState(() => wallMaterial = val!)),
+              _buildRadioSection(
+                  '3. What material is used PREDOMINANTLY for the roof?',
+                  AppConstants.roofMaterialOptions,
+                  roofMaterial,
+                  (val) => setState(() => roofMaterial = val!)),
+              _buildRadioSection(
+                  '4. What material is used PREDOMINANTLY for the floor?',
+                  AppConstants.floorMaterialOptions,
+                  floorMaterial,
+                  (val) => setState(() => floorMaterial = val!)),
               _buildMultiSelect(
-                '5. Is there any of the following structures and services on the homestead the household occupies?',
-                AppConstants.structuresServicesOptions,
-                selectedStructuresServices,
-              ),
+                  '5. Structures and services on the homestead?',
+                  AppConstants.structuresServicesOptions,
+                  selectedStructuresServices),
+              _buildMultiSelect('6. Additional structures elsewhere?',
+                  AppConstants.otherStructuresOptions, selectedOtherStructures),
+              _buildMultiSelect('7. Household items?',
+                  AppConstants.householdItemsOptions, selectedHouseholdItems),
+              _buildMultiSelect('8. Appliances?',
+                  AppConstants.appliancesOptions, selectedAppliances),
               _buildMultiSelect(
-                '6. Does the household have any of the following on the homestead it occupies, or elsewhere?',
-                AppConstants.otherStructuresOptions,
-                selectedOtherStructures,
-              ),
-              _buildMultiSelect(
-                '7. Ask if the household or a household member has any of the following items?',
-                AppConstants.householdItemsOptions,
-                selectedHouseholdItems,
-              ),
-              _buildMultiSelect(
-                '8. Does the household have any of the following appliances?',
-                AppConstants.appliancesOptions,
-                selectedAppliances,
-              ),
-              _buildMultiSelect(
-                '9. Does the household have any of the following agricultural equipment and implements in working order?',
-                AppConstants.agriculturalEquipmentOptions,
-                selectedAgriculturalEquipment,
-              ),
-              CommonSubmitButton(
-                onPressed: saveForm,
-              )
+                  '9. Agricultural equipment?',
+                  AppConstants.agriculturalEquipmentOptions,
+                  selectedAgriculturalEquipment),
+              CommonSubmitButton(onPressed: saveForm)
             ],
           ),
         ),
@@ -127,115 +108,88 @@ class _LlwdspAssetsScreenState extends State<LlwdspAssetsScreen> {
     );
   }
 
-  Widget _buildMaterialOptions(String type, List<String> options) {
-    String groupValue;
-    void Function(String?) onChanged;
-
-    switch (type) {
-      case 'dwellingOwnership':
-        groupValue = dwellingOwnership;
-        onChanged = (val) => setState(() => dwellingOwnership = val!);
-        break;
-      case 'wall':
-        groupValue = wallMaterial;
-        onChanged = (val) => setState(() => wallMaterial = val!);
-        break;
-      case 'roof':
-        groupValue = roofMaterial;
-        onChanged = (val) => setState(() => roofMaterial = val!);
-        break;
-      case 'floor':
-        groupValue = floorMaterial;
-        onChanged = (val) => setState(() => floorMaterial = val!);
-        break;
-      default:
-        groupValue = '';
-        onChanged = (_) {};
-    }
-
-    return Column(
-      children: options.map((option) {
-        return RadioListTile<String>(
-          dense: true,
-          visualDensity: VisualDensity.compact,
-          title: Text(option, style: const TextStyle(fontSize: 16)),
-          value: option,
-          groupValue: groupValue,
-          onChanged: onChanged,
-        );
-      }).toList(),
-    );
-  }
-
-  Widget _buildMultiSelect(
-      String title, List<String> options, List<String> selectedList) {
+  Widget _buildRadioSection(String title, Map<int, String> options,
+      int groupVal, void Function(int?) onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
-        ...options.map((option) {
-          return CheckboxListTile(
-            contentPadding: EdgeInsets.zero,
-            dense: true,
-            visualDensity: VisualDensity.compact,
-            title: Text(option, style: const TextStyle(fontSize: 16)),
-            controlAffinity: ListTileControlAffinity.leading,
-            value: selectedList.contains(option),
-            onChanged: (isSelected) {
-              setState(() {
-                if (isSelected == true) {
-                  selectedList.add(option);
-                } else {
-                  selectedList.remove(option);
-                }
-              });
-            },
-          );
-        }).toList(),
-        const SizedBox(height: 24),
+        ...options.entries.map((entry) => RadioListTile<int>(
+              dense: true,
+              visualDensity: VisualDensity.compact,
+              title: Text(entry.value, style: const TextStyle(fontSize: 16)),
+              value: entry.key,
+              groupValue: groupVal,
+              onChanged: onChanged,
+            ))
+      ],
+    );
+  }
+
+  Widget _buildMultiSelect(
+      String title, Map<int, String> options, List<int> selectedList) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 16),
+        Text(title,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        ...options.entries.map((entry) => CheckboxListTile(
+              dense: true,
+              visualDensity: VisualDensity.compact,
+              title: Text(entry.value, style: const TextStyle(fontSize: 16)),
+              controlAffinity: ListTileControlAffinity.leading,
+              value: selectedList.contains(entry.key),
+              onChanged: (isChecked) {
+                setState(() {
+                  if (isChecked == true) {
+                    selectedList.add(entry.key);
+                  } else {
+                    selectedList.remove(entry.key);
+                  }
+                });
+              },
+            )),
       ],
     );
   }
 
   Future<void> saveForm() async {
-    if (dwellingOwnership == AppConstants.notSelected ||
-        wallMaterial == AppConstants.notSelected ||
-        roofMaterial == AppConstants.notSelected ||
-        floorMaterial == AppConstants.notSelected) {
+    if ([dwellingOwnership, wallMaterial, roofMaterial, floorMaterial]
+        .contains(0)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Please answer all required questions.'),
-          backgroundColor: Colors.red,
-        ),
+            content: Text('Please answer all required questions.'),
+            backgroundColor: Colors.red),
       );
-    } else {
-      final llwdspAssetData = LLdwspAssetsModel(
-          rapId: rapId,
-          dwellingOwnership: dwellingOwnership,
-          wallMaterial: wallMaterial,
-          roofMaterial: roofMaterial,
-          floorMaterial: floorMaterial,
-          selectedStructuresServices: selectedStructuresServices,
-          selectedOtherStructures: selectedOtherStructures,
-          selectedHouseholdItems: selectedHouseholdItems,
-          selectedAppliances: selectedAppliances,
-          selectedAgriculturalEquipment: selectedAgriculturalEquipment);
-
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
-          llwdspAssetsKey, jsonEncode(llwdspAssetData.toJson()));
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Assets Form Submitted'),
-            backgroundColor: Colors.green),
-      );
-
-      Future.delayed(const Duration(milliseconds: 500), () {
-        Navigator.pop(context, true);
-      });
+      return;
     }
+
+    final model = LLdwspAssetsModel(
+      caseId: rapId,
+      dwellingOwnership: dwellingOwnership,
+      wallMaterial: wallMaterial,
+      roofMaterial: roofMaterial,
+      floorMaterial: floorMaterial,
+      selectedStructuresServices: selectedStructuresServices,
+      selectedOtherStructures: selectedOtherStructures,
+      selectedHouseholdItems: selectedHouseholdItems,
+      selectedAppliances: selectedAppliances,
+      selectedAgriculturalEquipment: selectedAgriculturalEquipment,
+    );
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(llwdspAssetsKey, jsonEncode(model.toJson()));
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+          content: Text('Assets Form Submitted'),
+          backgroundColor: Colors.green),
+    );
+
+    Future.delayed(
+        const Duration(milliseconds: 500), () => Navigator.pop(context, true));
   }
 }

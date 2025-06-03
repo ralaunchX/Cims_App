@@ -84,96 +84,104 @@ class AppConstants {
     'Other'
   ];
 
-  static const List<String> wallOptions = [
-    notSelected,
-    'Stick / Mud',
-    'Block / Stones',
-    'Natural Stone',
-    'Bricks with No Plaster',
-    'Bricks with Plaster',
-    'Mud Block',
-    'Corrugated Iron Sheets',
-    'Other',
-  ];
-  static const List<String> roofOptions = [
-    notSelected,
-    'Thatch / Grass',
-    'Corrugated Iron',
-    'Tile',
-    'Other',
-  ];
-  static const List<String> floorOptions = [
-    notSelected,
-    'Mud, Earth, Dung',
-    'Concrete, Cement',
-    'Tile/Carpet/Vinyl finish',
-    'Other',
-  ];
+  static const Map<int, String> wallMaterialOptions = {
+    0: notSelected,
+    1: 'Stick / Mud',
+    2: 'Block / Stones',
+    3: 'Natural Stone',
+    4: 'Bricks with No Plaster',
+    5: 'Bricks with Plaster',
+    6: 'Mud Block',
+    7: 'Corrugated Iron Sheets',
+    8: 'Other',
+  };
 
-  static const List<String> dwellingOwnership = [notSelected, 'Own', 'Rent'];
-  static const List<String> structuresServicesOptions = [
-    'Separate kitchen',
-    'Store/shed/barn',
-    'Latrine',
-    'Water in homestead',
-    'Electricity in homestead',
-    'Grain storage',
-    'Cattle/Smallstock kraal',
-    'Stable',
-    'Pig sty',
-    'Poultry coup',
-    'Bird shelter',
-    'NONE',
-  ];
+  static const Map<int, String> roofMaterialOptions = {
+    0: notSelected,
+    1: 'Thatch / Grass',
+    2: 'Corrugated Iron',
+    3: 'Tile',
+    4: 'Other',
+  };
 
-  static const List<String> otherStructuresOptions = [
-    'Malaene',
-    'Muk’huk’hu (temporary structure)',
-    'Shelter for animals',
-    'Shop or Business site',
-    'NONE',
-  ];
+  static const Map<int, String> floorMaterialOptions = {
+    0: notSelected,
+    1: 'Mud, Earth, Dung',
+    2: 'Concrete, Cement',
+    3: 'Tile/Carpet/Vinyl finish',
+    4: 'Other',
+  };
 
-  static const List<String> householdItemsOptions = [
-    'Lounge suite / couch / chairs',
-    'Dining room suite / table and chairs',
-    'Kitchen unit(s)/cupboards',
-    'Bed and mattress',
-    'Wardrobe/ Dresser',
-    'None of these',
-  ];
+  static const Map<int, String> dwellingOwnership = {
+    0: notSelected,
+    1: 'Own',
+    2: 'Rent',
+  };
 
-  static const List<String> appliancesOptions = [
-    'Radio',
-    'Television',
-    'Refrigerator',
-    'Stove (gas, electric, coal, solar)',
-    'Paraffin cooker',
-    'Sewing machine',
-    'Heater (Gas, Electric, Paraffin etc)',
-    'Mobile phone',
-    'Tablet',
-    'Computer/Laptop',
-    'Generator',
-    'None of these',
-  ];
+  static const Map<int, String> structuresServicesOptions = {
+    1: 'Separate kitchen',
+    2: 'Store/shed/barn',
+    3: 'Latrine',
+    4: 'Water in homestead',
+    5: 'Electricity in homestead',
+    6: 'Grain storage',
+    7: 'Cattle/Smallstock kraal',
+    8: 'Stable',
+    9: 'Pig sty',
+    10: 'Poultry coup',
+    11: 'Bird shelter',
+    0: 'None of these',
+  };
 
-  static const List<String> agriculturalEquipmentOptions = [
-    'Hand held implements (Hoe, harrow, spade, sickle, saw)',
-    'Animal-drawn plough or planter',
-    'Animal-drawn cart',
-    'Tractor',
-    'Tractor-drawn plough',
-    'Tractor-drawn planter',
-    'Tractor drawn wagon',
-    'Saddles and bridles',
-    'Wheelbarrow',
-    'Car',
-    'Truck',
-    'Van',
-    'Bicycle',
-    'None of these',
-  ];
+  static const Map<int, String> otherStructuresOptions = {
+    1: 'Malaene',
+    2: 'Muk’huk’hu (temporary structure)',
+    3: 'Shelter for animals',
+    4: 'Shop or Business site',
+    0: 'None of these',
+  };
+
+  static const Map<int, String> householdItemsOptions = {
+    1: 'Lounge suite / couch / chairs',
+    2: 'Dining room suite / table and chairs',
+    3: 'Kitchen unit(s)/cupboards',
+    4: 'Bed and mattress',
+    5: 'Wardrobe/ Dresser',
+    0: 'None of these',
+  };
+
+  static const Map<int, String> appliancesOptions = {
+    1: 'Radio',
+    2: 'Television',
+    3: 'Refrigerator',
+    4: 'Stove (gas, electric, coal, solar)',
+    5: 'Paraffin cooker',
+    6: 'Sewing machine',
+    7: 'Heater (Gas, Electric, Paraffin etc)',
+    8: 'Mobile phone',
+    9: 'Tablet',
+    10: 'Computer/Laptop',
+    11: 'Generator',
+    0: 'None of these',
+  };
+
+  static const Map<int, String> agriculturalEquipmentOptions = {
+    1: 'Hand held implements (Hoe, harrow, spade, sickle, saw)',
+    2: 'Animal-drawn plough or planter',
+    3: 'Animal-drawn cart',
+    4: 'Tractor',
+    5: 'Tractor-drawn plough',
+    6: 'Tractor-drawn planter',
+    7: 'Tractor drawn wagon',
+    8: 'Saddles and bridles',
+    9: 'Wheelbarrow',
+    10: 'Car',
+    11: 'Truck',
+    12: 'Van',
+    13: 'Bicycle',
+    0: 'None of these',
+  };
+
   static const List<String> livelihoodTypes = [
     notSelected,
     'Employment/Casual labour',

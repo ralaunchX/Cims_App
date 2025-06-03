@@ -1,17 +1,17 @@
 class LLdwspAssetsModel {
-  final String rapId;
-  final String dwellingOwnership;
-  final String wallMaterial;
-  final String roofMaterial;
-  final String floorMaterial;
-  final List<String> selectedStructuresServices;
-  final List<String> selectedOtherStructures;
-  final List<String> selectedHouseholdItems;
-  final List<String> selectedAppliances;
-  final List<String> selectedAgriculturalEquipment;
+  final String caseId;
+  final int dwellingOwnership;
+  final int wallMaterial;
+  final int roofMaterial;
+  final int floorMaterial;
+  final List<int> selectedStructuresServices;
+  final List<int> selectedOtherStructures;
+  final List<int> selectedHouseholdItems;
+  final List<int> selectedAppliances;
+  final List<int> selectedAgriculturalEquipment;
 
   LLdwspAssetsModel({
-    required this.rapId,
+    required this.caseId,
     required this.dwellingOwnership,
     required this.wallMaterial,
     required this.roofMaterial,
@@ -25,35 +25,34 @@ class LLdwspAssetsModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
-      'dwellingOwnership': dwellingOwnership,
-      'wallMaterial': wallMaterial,
-      'roofMaterial': roofMaterial,
-      'floorMaterial': floorMaterial,
-      'selectedStructuresServices': selectedStructuresServices,
-      'selectedOtherStructures': selectedOtherStructures,
-      'selectedHouseholdItems': selectedHouseholdItems,
-      'selectedAppliances': selectedAppliances,
-      'selectedAgriculturalEquipment': selectedAgriculturalEquipment,
+      'case': caseId,
+      'own_rent': dwellingOwnership,
+      'wall_material': wallMaterial,
+      'roof_material': roofMaterial,
+      'floor_material': floorMaterial,
+      'structures_services': selectedStructuresServices,
+      'additional_structures': selectedOtherStructures,
+      'household_items': selectedHouseholdItems,
+      'appliances': selectedAppliances,
+      'agricultural_equipment': selectedAgriculturalEquipment,
     };
   }
 
   factory LLdwspAssetsModel.fromJson(Map<String, dynamic> json) {
     return LLdwspAssetsModel(
-      rapId: json['rapId'] ?? '',
-      dwellingOwnership: json['dwellingOwnership'] ?? '',
-      wallMaterial: json['wallMaterial'] ?? '',
-      roofMaterial: json['roofMaterial'] ?? '',
-      floorMaterial: json['floorMaterial'] ?? '',
+      caseId: json['case'] ?? 0,
+      dwellingOwnership: json['own_rent'] ?? 0,
+      wallMaterial: json['wall_material'] ?? 0,
+      roofMaterial: json['roof_material'] ?? 0,
+      floorMaterial: json['floor_material'] ?? 0,
       selectedStructuresServices:
-          List<String>.from(json['selectedStructuresServices'] ?? []),
+          List<int>.from(json['structures_services'] ?? []),
       selectedOtherStructures:
-          List<String>.from(json['selectedOtherStructures'] ?? []),
-      selectedHouseholdItems:
-          List<String>.from(json['selectedHouseholdItems'] ?? []),
-      selectedAppliances: List<String>.from(json['selectedAppliances'] ?? []),
+          List<int>.from(json['additional_structures'] ?? []),
+      selectedHouseholdItems: List<int>.from(json['household_items'] ?? []),
+      selectedAppliances: List<int>.from(json['appliances'] ?? []),
       selectedAgriculturalEquipment:
-          List<String>.from(json['selectedAgriculturalEquipment'] ?? []),
+          List<int>.from(json['agricultural_equipment'] ?? []),
     );
   }
 }

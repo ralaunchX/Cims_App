@@ -20,6 +20,7 @@ dependencies:
   connectivity_plus: ^5.0.2
   internet_connection_checker: ^1.0.0+1
   http: ^1.4.0
+  logger: ^2.5.0
 
 
 dev_dependencies:

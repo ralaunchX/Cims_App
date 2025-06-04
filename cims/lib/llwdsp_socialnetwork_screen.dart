@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:cims/data_model/llwdsp_assets_model.dart';
 import 'package:cims/data_model/llwdsp_social_network_model.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/constants.dart';
@@ -23,40 +22,77 @@ class _LlwdspSocialnetworkScreenState extends State<LlwdspSocialnetworkScreen> {
   final _formKey = GlobalKey<FormState>();
   String rapId = Keys.rapId;
   String llwdspSocialNetworkKey = '${Keys.rapId}_${Keys.llwdspSocialNetwork}';
-  String? givingSupportCategory = AppConstants.notSelected;
-  String? givingSupportFrequency = AppConstants.notSelected;
-  String? givingSupportRelation = AppConstants.notSelected;
 
-  String? receivingSupportCategory = AppConstants.notSelected;
-  String? receivingSupportFrequency = AppConstants.notSelected;
-  String? receivingSupportRelation = AppConstants.notSelected;
+  int givingSupportCategory = 0;
+  int givingSupportFrequency = 0;
+  int givingSupportRelation = 0;
+
+  int receivingSupportCategory = 0;
+  int receivingSupportFrequency = 0;
+  int receivingSupportRelation = 0;
 
   @override
   void initState() {
     super.initState();
-    final prefs = AppPrefs().prefs;
-    var socialNetworkData = widget.llwdspSocialNetworkModel;
-    String? socialNetworkString = prefs?.getString(llwdspSocialNetworkKey);
+    _loadSavedData();
+  }
+
+  Future<void> _loadSavedData() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? socialNetworkString = prefs.getString(llwdspSocialNetworkKey);
+
+    LlwdspSocialNetworkModel? socialNetworkData =
+        widget.llwdspSocialNetworkModel;
+
     if (socialNetworkString != null) {
       final json = jsonDecode(socialNetworkString);
       socialNetworkData = LlwdspSocialNetworkModel.fromJson(json);
     }
-    if (socialNetworkData != null) {
-      givingSupportCategory = socialNetworkData.givingSupportCategory;
-      givingSupportFrequency = socialNetworkData.givingSupportFrequency;
-      givingSupportRelation = socialNetworkData.givingSupportRelation;
 
-      receivingSupportCategory = socialNetworkData.receivingSupportCategory;
-      receivingSupportFrequency = socialNetworkData.receivingSupportFrequency;
-      receivingSupportRelation = socialNetworkData.receivingSupportRelation;
+    if (socialNetworkData != null) {
+      setState(() {
+        givingSupportCategory = socialNetworkData!.givingSupportCategory ?? 0;
+        givingSupportFrequency = socialNetworkData.givingSupportFrequency ?? 0;
+        givingSupportRelation = socialNetworkData.givingSupportRelation ?? 0;
+
+        receivingSupportCategory =
+            socialNetworkData.receivingSupportCategory ?? 0;
+        receivingSupportFrequency =
+            socialNetworkData.receivingSupportFrequency ?? 0;
+        receivingSupportRelation =
+            socialNetworkData.receivingSupportRelation ?? 0;
+      });
     }
+  }
+
+  DropdownButtonFormField<int> buildDropdown({
+    required String label,
+    required int value,
+    required Map<int, String> itemsMap,
+    required void Function(int?) onChanged,
+  }) {
+    return DropdownButtonFormField<int>(
+      decoration: InputDecoration(labelText: label),
+      value: value,
+      items: itemsMap.entries
+          .map((entry) =>
+              DropdownMenuItem<int>(value: entry.key, child: Text(entry.value)))
+          .toList(),
+      onChanged: onChanged,
+      validator: (val) {
+        if (val == null || val == 0) {
+          return 'Please select a response';
+        }
+        return null;
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Social Network ${Keys.rapId}"),
+        title: Text("Social Network $rapId"),
         centerTitle: true,
       ),
       body: Padding(
@@ -70,52 +106,29 @@ class _LlwdspSocialnetworkScreenState extends State<LlwdspSocialnetworkScreen> {
               const SizedBox(height: 24),
               const Text("Household Giving Support",
                   style: TextStyle(fontWeight: FontWeight.bold)),
-              DropdownButtonFormField<String>(
-                decoration:
-                    const InputDecoration(labelText: 'Support Category'),
-                items: AppConstants.householdGivingSupportChoices
-                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                    .toList(),
+              buildDropdown(
+                label: 'Support Category',
                 value: givingSupportCategory,
-                validator: (val) {
-                  if (val == null || val == AppConstants.notSelected) {
-                    return 'Please Select a Response';
-                  }
-                  return null;
-                },
-                onChanged: (value) =>
-                    setState(() => givingSupportCategory = value),
+                itemsMap: AppConstants.householdGivingSupportChoicesMap,
+                onChanged: (val) => setState(() {
+                  givingSupportCategory = val ?? 0;
+                }),
               ),
-              DropdownButtonFormField<String>(
-                decoration: const InputDecoration(labelText: 'Frequency'),
-                items: AppConstants.frequencyChoices
-                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                    .toList(),
+              buildDropdown(
+                label: 'Frequency',
                 value: givingSupportFrequency,
-                validator: (val) {
-                  if (val == null || val == AppConstants.notSelected) {
-                    return 'Please Select a Response';
-                  }
-                  return null;
-                },
-                onChanged: (value) =>
-                    setState(() => givingSupportFrequency = value),
+                itemsMap: AppConstants.frequencyChoicesMap,
+                onChanged: (val) => setState(() {
+                  givingSupportFrequency = val ?? 0;
+                }),
               ),
-              DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                    labelText: 'Relation to Supported Household'),
-                items: AppConstants.relationSupportedHouseholdChoices
-                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                    .toList(),
-                validator: (val) {
-                  if (val == null || val == AppConstants.notSelected) {
-                    return 'Please Select a Response';
-                  }
-                  return null;
-                },
+              buildDropdown(
+                label: 'Relation to Supported Household',
                 value: givingSupportRelation,
-                onChanged: (value) =>
-                    setState(() => givingSupportRelation = value),
+                itemsMap: AppConstants.relationSupportedHouseholdChoicesMap,
+                onChanged: (val) => setState(() {
+                  givingSupportRelation = val ?? 0;
+                }),
               ),
               const SizedBox(height: 32),
               const Text(
@@ -123,57 +136,32 @@ class _LlwdspSocialnetworkScreenState extends State<LlwdspSocialnetworkScreen> {
               const SizedBox(height: 24),
               const Text("Household Receiving Support",
                   style: TextStyle(fontWeight: FontWeight.bold)),
-              DropdownButtonFormField<String>(
-                decoration:
-                    const InputDecoration(labelText: 'Support Category'),
-                items: AppConstants.householdGivingSupportChoices
-                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                    .toList(),
+              buildDropdown(
+                label: 'Support Category',
                 value: receivingSupportCategory,
-                validator: (val) {
-                  if (val == null || val == AppConstants.notSelected) {
-                    return 'Please Select a Response';
-                  }
-                  return null;
-                },
-                onChanged: (value) =>
-                    setState(() => receivingSupportCategory = value),
+                itemsMap: AppConstants.householdGivingSupportChoicesMap,
+                onChanged: (val) => setState(() {
+                  receivingSupportCategory = val ?? 0;
+                }),
               ),
-              DropdownButtonFormField<String>(
-                decoration: const InputDecoration(labelText: 'Frequency'),
-                items: AppConstants.frequencyChoices
-                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                    .toList(),
+              buildDropdown(
+                label: 'Frequency',
                 value: receivingSupportFrequency,
-                validator: (val) {
-                  if (val == null || val == AppConstants.notSelected) {
-                    return 'Please Select a Response';
-                  }
-                  return null;
-                },
-                onChanged: (value) =>
-                    setState(() => receivingSupportFrequency = value),
+                itemsMap: AppConstants.frequencyChoicesMap,
+                onChanged: (val) => setState(() {
+                  receivingSupportFrequency = val ?? 0;
+                }),
               ),
-              DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                    labelText: 'Relation to Supporting Household'),
-                items: AppConstants.relationSupportedHouseholdChoices
-                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                    .toList(),
+              buildDropdown(
+                label: 'Relation to Supporting Household',
                 value: receivingSupportRelation,
-                validator: (val) {
-                  if (val == null || val == AppConstants.notSelected) {
-                    return 'Please Select a Response';
-                  }
-                  return null;
-                },
-                onChanged: (value) =>
-                    setState(() => receivingSupportRelation = value),
+                itemsMap: AppConstants.relationSupportedHouseholdChoicesMap,
+                onChanged: (val) => setState(() {
+                  receivingSupportRelation = val ?? 0;
+                }),
               ),
               const SizedBox(height: 24),
-              CommonSubmitButton(onPressed: () {
-                saveForm();
-              })
+              CommonSubmitButton(onPressed: saveForm),
             ],
           ),
         ),
@@ -184,23 +172,28 @@ class _LlwdspSocialnetworkScreenState extends State<LlwdspSocialnetworkScreen> {
   Future<void> saveForm() async {
     if (_formKey.currentState!.validate()) {
       final llwdspSocialNetworkData = LlwdspSocialNetworkModel(
-          rapId: rapId,
-          givingSupportCategory: givingSupportCategory,
-          givingSupportFrequency: givingSupportFrequency,
-          givingSupportRelation: givingSupportRelation,
-          receivingSupportCategory: receivingSupportCategory,
-          receivingSupportFrequency: receivingSupportFrequency,
-          receivingSupportRelation: receivingSupportRelation);
+        rapId: rapId,
+        givingSupportCategory: givingSupportCategory,
+        givingSupportFrequency: givingSupportFrequency,
+        givingSupportRelation: givingSupportRelation,
+        receivingSupportCategory: receivingSupportCategory,
+        receivingSupportFrequency: receivingSupportFrequency,
+        receivingSupportRelation: receivingSupportRelation,
+      );
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(
-          llwdspSocialNetworkKey, jsonEncode(llwdspSocialNetworkData.toJson()));
+        llwdspSocialNetworkKey,
+        jsonEncode(llwdspSocialNetworkData.toJson()),
+      );
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('Social Network Form Submitted'),
-            backgroundColor: Colors.green),
+          content: Text('Social Network Form Submitted'),
+          backgroundColor: Colors.green,
+        ),
       );
+
       Future.delayed(const Duration(milliseconds: 500), () {
         Navigator.pop(context, true);
       });

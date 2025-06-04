@@ -186,7 +186,7 @@ class _LlwdspLivelihoodState extends State<LlwdspLivelihood> {
       );
     } else {
       final llwdspLivelihoodData = LlwdspLivelihoodModel(
-          rapId: rapId,
+          caseId: rapId,
           primaryLivelihood: primaryLivelihood,
           secondaryLivelihood: secondaryLivelihood,
           regularIncomeSources: regularIncomeSources,

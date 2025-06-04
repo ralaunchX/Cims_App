@@ -28,9 +28,21 @@ class Upload {
             await formUploadSuccess(key);
           }
         } else if (key == '${rapId}_${Keys.llwdspAssets}') {
-          var res =
-              await ApiServices.form33Assets(rapId: rapId, key: key);
+          var res = await ApiServices.form33Assets(rapId: rapId, key: key);
           if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.llwdspLivelihood}') {
+          var res = await ApiServices.form34Livelihood(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.llwdspSocialNetwork}') {
+          var res1 = await ApiServices.form35Social(
+              rapId: rapId, key: key, questionNumber: 7);
+          var res2 = await ApiServices.form35Social(
+              rapId: rapId, key: key, questionNumber: 8);
+          if (res1 == true && res2 == true) {
             await formUploadSuccess(key);
           }
         }

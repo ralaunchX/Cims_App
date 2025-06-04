@@ -218,29 +218,30 @@ class AppConstants {
     'TEBA Grant'
   ];
 
-  static const List<String> frequencyChoices = [
-    notSelected,
-    'Monthly',
-    'Regularly, but not every month Occasionally',
-    'Occasionally',
-  ];
+  static const Map<int, String> frequencyChoicesMap = {
+    0: notSelected,
+    1: 'Monthly',
+    2: 'Regularly, but not every month Occasionally',
+    3: 'Occasionally',
+  };
 
-  static const List<String> householdGivingSupportChoices = [
-    notSelected,
-    'none',
-    'Financial assistance',
-    'Food',
-    'Labour',
-    'Care-giving',
-  ];
+  static const Map<int, String> householdGivingSupportChoicesMap = {
+    0: notSelected,
+    99: 'none',
+    1: 'Financial assistance',
+    2: 'Food',
+    3: 'Labour',
+    4: 'Care-giving',
+  };
 
-  static const List<String> relationSupportedHouseholdChoices = [
-    notSelected,
-    '(Grand-)Parents',
-    '(Grand-)Children',
-    'Relatives',
-    'Friend/Neighbour',
-  ];
+  static const Map<int, String> relationSupportedHouseholdChoicesMap = {
+    0: notSelected,
+    1: '(Grand-)Parents',
+    2: '(Grand-)Children',
+    3: 'Relatives',
+    4: 'Friend/Neighbour',
+  };
+
   static const List<String> cropGrownHarvested = [
     notSelected,
     'Maize',

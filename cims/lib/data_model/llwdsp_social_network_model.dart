@@ -1,13 +1,13 @@
 class LlwdspSocialNetworkModel {
   final String rapId;
 
-  String? givingSupportCategory;
-  String? givingSupportFrequency;
-  String? givingSupportRelation;
+  int? givingSupportCategory;
+  int? givingSupportFrequency;
+  int? givingSupportRelation;
 
-  String? receivingSupportCategory;
-  String? receivingSupportFrequency;
-  String? receivingSupportRelation;
+  int? receivingSupportCategory;
+  int? receivingSupportFrequency;
+  int? receivingSupportRelation;
 
   LlwdspSocialNetworkModel({
     required this.rapId,

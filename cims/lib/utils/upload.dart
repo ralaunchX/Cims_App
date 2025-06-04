@@ -45,6 +45,16 @@ class Upload {
           if (res1 == true && res2 == true) {
             await formUploadSuccess(key);
           }
+        } else if (key == '${rapId}_${Keys.llwdspFoodGardens}') {
+          var res = await ApiServices.form36FoodGardens(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.llwdspCropField}') {
+          var res = await ApiServices.form37CropField(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
         }
       } catch (e) {
         print('Error uploading for key $key');

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:logger/logger.dart';
 
 import 'package:cims/data_model/llwdsp_social_network_model.dart';
@@ -176,6 +177,68 @@ class ApiServices {
         return true;
       } else {
         logger.e(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+        return false;
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form36FoodGardens({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/food-garden/create/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form37CropField({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/cropfields/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
           'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
         );
       }

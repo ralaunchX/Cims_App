@@ -274,8 +274,8 @@ class AppConstants {
   static const List<String> irrigationMethods = [
     notSelected,
     'Not irrigated',
-    'Irrigated by hand from water source on site/homestead',
-    'Irrigated by hand by carting water to garden',
+    'Irrigated by hand from site',
+    'Irrigated by hand, carting water',
   ];
 
   static const List<String> fertilizationChoices = [

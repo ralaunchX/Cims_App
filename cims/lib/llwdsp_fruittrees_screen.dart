@@ -29,7 +29,8 @@ class _LlwdspFruitTressScreenState extends State<LlwdspFruitTressScreen> {
 
   void _addMoreTrees() {
     setState(() {
-      treeList.add(FruitTreeDto(type: '', numberOwned: 0, use: ''));
+      treeList.add(FruitTreeDto(
+          type: '', numberOwned: 0, use: 'All consumed by household'));
     });
   }
 
@@ -106,10 +107,15 @@ class _LlwdspFruitTressScreenState extends State<LlwdspFruitTressScreen> {
               },
             ),
           ),
-          SizedBox(width: 150, child: _buildRadio(tree, 'all_consumed', index)),
           SizedBox(
-              width: 180, child: _buildRadio(tree, 'mostly_consumed', index)),
-          SizedBox(width: 180, child: _buildRadio(tree, 'mostly_sold', index)),
+              width: 150,
+              child: _buildRadio(tree, 'All consumed by household', index)),
+          SizedBox(
+              width: 180,
+              child: _buildRadio(tree, 'Most consumed, some sold', index)),
+          SizedBox(
+              width: 180,
+              child: _buildRadio(tree, 'Most sold, some consumed', index)),
           IconButton(
             icon: const Icon(Icons.remove_circle, color: Colors.red),
             onPressed: () => setState(() => treeList.removeAt(index)),
@@ -120,16 +126,10 @@ class _LlwdspFruitTressScreenState extends State<LlwdspFruitTressScreen> {
   }
 
   Widget _buildRadio(FruitTreeDto tree, String value, int index) {
-    String label = {
-      'all_consumed': 'All consumed',
-      'mostly_consumed': 'Most consumed,\nsome sold',
-      'mostly_sold': 'Most sold,\nsome consumed'
-    }[value]!;
-
     return RadioListTile<String>(
       dense: true,
       contentPadding: EdgeInsets.zero,
-      title: Text(label, style: const TextStyle(fontSize: 16)),
+      title: Text(value, style: const TextStyle(fontSize: 16)),
       value: value,
       groupValue: tree.use,
       onChanged: (val) {

@@ -61,6 +61,12 @@ class Upload {
             await formUploadSuccess(key);
           }
         }
+        else if (key == '${rapId}_${Keys.llwdspFruitTrees}') {
+          var res = await ApiServices.form39FruitTree(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        }
       } catch (e) {
         print('Error uploading for key $key');
       }

@@ -13,19 +13,19 @@ class EducationInfo {
 
   Map<String, dynamic> toJson() {
     return {
-      'refNo': refNo,
-      'attendingSchool': attendingSchool,
-      'schoolLevel': schoolLevel,
-      'reasonForNonAttendance': reasonForNonAttendance,
+      'ref_no': refNo,
+      'attending_school': attendingSchool,
+      'school_level': schoolLevel,
+      'non_attendance_reason': reasonForNonAttendance,
     };
   }
 
   factory EducationInfo.fromJson(Map<String, dynamic> json) {
     return EducationInfo(
-      refNo: json['refNo'] ?? '',
-      attendingSchool: json['attendingSchool'] ?? '',
-      schoolLevel: json['schoolLevel'] ?? '',
-      reasonForNonAttendance: json['reasonForNonAttendance'] ?? '',
+      refNo: json['ref_no'] ?? '',
+      attendingSchool: json['attending_school'] ?? '',
+      schoolLevel: json['school_level'] ?? '',
+      reasonForNonAttendance: json['non_attendance_reason'] ?? '',
     );
   }
 }
@@ -41,14 +41,14 @@ class ListEducationInfo {
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
+      'case': rapId,
       'educationInfoList': educationInfoList.map((e) => e.toJson()).toList(),
     };
   }
 
   factory ListEducationInfo.fromJson(Map<String, dynamic> json) {
     return ListEducationInfo(
-      rapId: json['rapId'] ?? '',
+      rapId: json['case'] ?? '',
       educationInfoList: (json['educationInfoList'] as List<dynamic>?)
               ?.map((e) => EducationInfo.fromJson(e))
               .toList() ??

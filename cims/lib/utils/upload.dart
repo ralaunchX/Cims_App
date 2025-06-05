@@ -124,6 +124,13 @@ class Upload {
             await formUploadSuccess(key);
           }
         }
+         else if (key == '${rapId}_${Keys.llwdspHouseholdEmployment}') {
+          var res = await ApiServices.form32Employment(
+              rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        }
       } catch (e) {
         print('Error uploading for key $key');
       }

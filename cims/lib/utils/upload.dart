@@ -60,9 +60,24 @@ class Upload {
           if (res == true) {
             await formUploadSuccess(key);
           }
-        }
-        else if (key == '${rapId}_${Keys.llwdspFruitTrees}') {
+        } else if (key == '${rapId}_${Keys.llwdspFruitTrees}') {
           var res = await ApiServices.form39FruitTree(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.llwdspExpenditure}') {
+          var res =
+              await ApiServices.form310FExpenditure(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.llwdspTransport}') {
+          var res = await ApiServices.form311Transport(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.llwdspFunding}') {
+          var res = await ApiServices.form312Funding(rapId: rapId, key: key);
           if (res == true) {
             await formUploadSuccess(key);
           }

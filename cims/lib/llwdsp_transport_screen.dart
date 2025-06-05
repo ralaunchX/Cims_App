@@ -24,23 +24,24 @@ class _LlwdspTransportScreenState extends State<LlwdspTransportScreen> {
   final _distanceController = TextEditingController();
 
   String transportFrequency = AppConstants.notSelected;
-  final List<String> destinations = [
-    'School',
-    'Health facility (Clinic, Hospital, Chemist)',
-    'Shops (groceries, farm supplies, etc.)',
-    'Roller mill',
-    'Community Council offices',
-    'Police',
-  ];
+  final Map<String, String> destinationToKey = {
+    'School': 'school_transport',
+    'Health facility (Clinic, Hospital, Chemist)': 'health_transport',
+    'Shops (groceries, farm supplies, etc.)': 'shops_transport',
+    'Roller mill': 'roller_mill_transport',
+    'Community Council offices': 'community_council_transport',
+    'Police': 'police_transport',
+  };
 
   Map<String, String> transportModes = {};
 
   @override
   void initState() {
     super.initState();
-    for (var destination in destinations) {
-      transportModes[destination] = AppConstants.notSelected;
-    }
+    transportModes = {
+      for (var key in destinationToKey.values) key: AppConstants.notSelected,
+    };
+
     final prefs = AppPrefs().prefs;
     var llwdspTransportData = widget.llwdspTransportModel;
     String? llwdspTransportString = prefs?.getString(llwdspTransportKey);
@@ -156,44 +157,38 @@ class _LlwdspTransportScreenState extends State<LlwdspTransportScreen> {
                         ),
                       ],
                     ),
-                    ...destinations.map((destination) {
+                    ...destinationToKey.entries.map((entry) {
+                      final label = entry.key;
+                      final key = entry.value;
+
                       return TableRow(
                         children: [
-                          TableCell(
-                            verticalAlignment:
-                                TableCellVerticalAlignment.middle,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(destination),
-                            ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(label),
                           ),
-                          TableCell(
-                            verticalAlignment:
-                                TableCellVerticalAlignment.middle,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: DropdownButtonFormField<String>(
-                                isExpanded: true,
-                                validator: (val) => (val == null ||
-                                        val == AppConstants.notSelected)
-                                    ? 'Please Select '
-                                    : null,
-                                value: transportModes[destination],
-                                items: AppConstants.transportModes
-                                    .map((mode) => DropdownMenuItem(
-                                          value: mode,
-                                          child: Text(mode),
-                                        ))
-                                    .toList(),
-                                onChanged: (val) {
-                                  setState(() {
-                                    transportModes[destination] = val!;
-                                  });
-                                },
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: DropdownButtonFormField<String>(
+                              isExpanded: true,
+                              validator: (val) => (val == null ||
+                                      val == AppConstants.notSelected)
+                                  ? 'Please select'
+                                  : null,
+                              value: transportModes[key],
+                              items: AppConstants.transportModes
+                                  .map((mode) => DropdownMenuItem(
+                                        value: mode,
+                                        child: Text(mode),
+                                      ))
+                                  .toList(),
+                              onChanged: (val) {
+                                setState(() {
+                                  transportModes[key] = val!;
+                                });
+                              },
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder()),
                             ),
                           ),
                         ],

@@ -13,19 +13,27 @@ class LlwdspTransportModel {
 
   factory LlwdspTransportModel.fromJson(Map<String, dynamic> json) {
     return LlwdspTransportModel(
-      rapId: json['rapId'] ?? '',
-      distanceToTransport: json['distanceToTransport'] ?? '',
-      transportFrequency: json['transportFrequency'] ?? '',
-      transportModes: Map<String, String>.from(json['transportModes'] ?? {}),
+      rapId: json['case'].toString(),
+      distanceToTransport: json['distance_to_transport'].toString(),
+      transportFrequency: json['transport_frequency'] ?? '',
+      transportModes: {
+        'school_transport': json['school_transport'] ?? '',
+        'health_transport': json['health_transport'] ?? '',
+        'shops_transport': json['shops_transport'] ?? '',
+        'roller_mill_transport': json['roller_mill_transport'] ?? '',
+        'community_council_transport':
+            json['community_council_transport'] ?? '',
+        'police_transport': json['police_transport'] ?? '',
+      },
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
-      'distanceToTransport': distanceToTransport,
-      'transportFrequency': transportFrequency,
-      'transportModes': transportModes,
+      'case': rapId,
+      'distance_to_transport': distanceToTransport,
+      'transport_frequency': transportFrequency,
+      ...transportModes,
     };
   }
 }

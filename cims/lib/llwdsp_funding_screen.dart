@@ -21,6 +21,7 @@ class _LlwdspFundingScreenState extends State<LlwdspFundingScreen> {
   String llwdspFundingKey = '${Keys.rapId}_${Keys.llwdspFunding}';
   List<FundingClubData> fundingRows = [
     FundingClubData(
+        caseId: '',
         memberReference: '',
         typeOfGroup: AppConstants.notSelected,
         contributionFrequency: AppConstants.notSelected,
@@ -30,6 +31,7 @@ class _LlwdspFundingScreenState extends State<LlwdspFundingScreen> {
   ];
   final _formKey = GlobalKey<FormState>();
 
+  @override
   void initState() {
     super.initState();
     final prefs = AppPrefs().prefs;
@@ -46,6 +48,7 @@ class _LlwdspFundingScreenState extends State<LlwdspFundingScreen> {
 
   void addRow() {
     setState(() => fundingRows.add(FundingClubData(
+        caseId: rapId,
         memberReference: '',
         typeOfGroup: AppConstants.notSelected,
         contributionFrequency: AppConstants.notSelected,

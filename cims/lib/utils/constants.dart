@@ -356,8 +356,8 @@ class AppConstants {
   static const List<String> frequencyOptionsExpenditure = [
     notSelected,
     'Monthly',
-    'Quarterly',
-    'Annually',
+    'Quarterly (4 times a year)',
+    'Annually (once or twice a year)',
     'Free Service – no expense',
   ];
   static const List<String> transportFrequency = [
@@ -369,20 +369,20 @@ class AppConstants {
   ];
   static const List<String> transportModes = [
     notSelected,
-    'Never Used',
-    'On Foot',
-    'On Horseback/Donkey',
+    'Never used',
+    'On foot',
+    'On horseback/donkey',
     'Taxi (4+1)',
     'Minibus',
-    'Vehicle for Hire',
+    'Vehicle for hire',
     'Own Motor Transport',
   ];
 
   static const List<String> fundingGroupChoices = [
     notSelected,
-    'Self-selected Group',
+    'Self-selected group (Rotating Savings and Credit Association)',
     'Burial Society',
-    'Savings and Credit Clubs',
+    'Savings and Credit Club',
   ];
 
   static const List<String> fundingFrequencyChoices = [
@@ -397,20 +397,20 @@ class AppConstants {
 
   static const List<String> fundingIncomeSourceChoices = [
     notSelected,
-    'Salary from Employment',
-    'Informal Economic Activity',
+    'Salary from employment',
+    'Cash generated from informal economic activity',
     'Savings',
-    'Social Grant',
-    'Gifted (Cash from Family)',
+    'Social grant',
+    'Gifted (cash from Family Member)',
   ];
 
   static const List<String> fundingLivelihoodContributionChoices = [
     notSelected,
     'Pay School Fees',
-    'Acquire Assets',
-    'Pay for Healthcare',
-    'Buy Food/Clothes',
-    'Start/Expand Business',
+    'Acquire Assets such as livestock and farming equipment',
+    'Pay for Health care',
+    'Buy food, clothes',
+    'Capital to start or expand an income-generating activity',
     'Pay for Burial Society Services',
   ];
   static const List<String> relationshipChoices = [

@@ -59,6 +59,15 @@ class _LlwdspFoodproductionconsumptionState
   }
 
   Future<void> submitForm() async {
+    if (sideDishSource == null || stapleStorage == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Select all values'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
     final data = FoodProductionConsumptionDto(
         rapId: rapId,
         selectedStapleMonths: selectedStapleMonths,

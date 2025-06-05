@@ -1,21 +1,21 @@
 class EnergySourcesDto {
   String? rapId;
-  bool? electricityLighting;
-  bool? gasLighting;
-  bool? paraffinLighting;
-  bool? woodLighting;
-  bool? candleLighting;
-  bool? batteryLighting;
-  bool? solarLighting;
-  bool? generatorLighting;
-  bool? brushwoodLighting;
+  String? electricityLighting;
+  String? gasLighting;
+  String? paraffinLighting;
+  String? woodLighting;
+  String? candleLighting;
+  String? batteryLighting;
+  String? solarLighting;
+  String? generatorLighting;
+  String? brushwoodLighting;
 
-  bool? electricityCooking;
-  bool? gasCooking;
-  bool? paraffinCooking;
-  bool? woodCooking;
-  bool? batteryCooking;
-  bool? generatorCooking;
+  String? electricityCooking;
+  String? gasCooking;
+  String? paraffinCooking;
+  String? woodCooking;
+  String? batteryCooking;
+  String? generatorCooking;
 
   EnergySourcesDto({
     required this.rapId,
@@ -37,41 +37,41 @@ class EnergySourcesDto {
   });
 
   Map<String, dynamic> toJson() => {
-        'rapId': rapId,
-        'electricityLighting': electricityLighting,
-        'gasLighting': gasLighting,
-        'paraffinLighting': paraffinLighting,
-        'woodLighting': woodLighting,
-        'candleLighting': candleLighting,
-        'batteryLighting': batteryLighting,
-        'solarLighting': solarLighting,
-        'generatorLighting': generatorLighting,
-        'brushwoodLighting': brushwoodLighting,
-        'electricityCooking': electricityCooking,
-        'gasCooking': gasCooking,
-        'paraffinCooking': paraffinCooking,
-        'woodCooking': woodCooking,
-        'batteryCooking': batteryCooking,
-        'generatorCooking': generatorCooking,
+        'case': rapId,
+        'lighting_electricity': electricityLighting,
+        'lighting_gas': gasLighting,
+        'lighting_paraffin': paraffinLighting,
+        'lighting_wood': woodLighting,
+        'lighting_candle': candleLighting,
+        'lighting_battery': batteryLighting,
+        'lighting_solar': solarLighting,
+        'lighting_generator': generatorLighting,
+        'lighting_brushwood': brushwoodLighting,
+        'cooking_electricity': electricityCooking,
+        'cooking_gas': gasCooking,
+        'cooking_paraffin': paraffinCooking,
+        'cooking_wood': woodCooking,
+        'cooking_battery': batteryCooking,
+        'cooking_generator': generatorCooking,
       };
 
   factory EnergySourcesDto.fromJson(Map<String, dynamic> json) =>
       EnergySourcesDto(
-        rapId: json['rapId'] ?? '',
-        electricityLighting: json['electricityLighting'],
-        gasLighting: json['gasLighting'],
-        paraffinLighting: json['paraffinLighting'],
-        woodLighting: json['woodLighting'],
-        candleLighting: json['candleLighting'],
-        batteryLighting: json['batteryLighting'],
-        solarLighting: json['solarLighting'],
-        generatorLighting: json['generatorLighting'],
-        brushwoodLighting: json['brushwoodLighting'],
-        electricityCooking: json['electricityCooking'],
-        gasCooking: json['gasCooking'],
-        paraffinCooking: json['paraffinCooking'],
-        woodCooking: json['woodCooking'],
-        batteryCooking: json['batteryCooking'],
-        generatorCooking: json['generatorCooking'],
+        rapId: json['case'] ?? '',
+        electricityLighting: json['lighting_electricity'],
+        gasLighting: json['lighting_gas'],
+        paraffinLighting: json['lighting_paraffin'],
+        woodLighting: json['lighting_wood'],
+        candleLighting: json['lighting_candle'],
+        batteryLighting: json['lighting_battery'],
+        solarLighting: json['lighting_solar'],
+        generatorLighting: json['lighting_generator'],
+        brushwoodLighting: json['lighting_brushwood'],
+        electricityCooking: json['cooking_electricity'],
+        gasCooking: json['cooking_gas'],
+        paraffinCooking: json['cooking_paraffin'],
+        woodCooking: json['cooking_wood'],
+        batteryCooking: json['cooking_battery'],
+        generatorCooking: json['cooking_generator'],
       );
 }

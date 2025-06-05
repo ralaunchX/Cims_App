@@ -81,6 +81,16 @@ class Upload {
           if (res == true) {
             await formUploadSuccess(key);
           }
+        } else if (key == '${rapId}_${Keys.llwdspEnergySources}') {
+          var res = await ApiServices.form314Energy(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.llwdspAdditionalInfo}') {
+          var res = await ApiServices.form315AdditionalInfo(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
         }
       } catch (e) {
         print('Error uploading for key $key');

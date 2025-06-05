@@ -43,7 +43,7 @@ class _LlwdspFoodproductionconsumptionState
         selectedStapleMonths = data.selectedStapleMonths;
         stapleStorage = data.stapleStorage;
         sideDishSource = data.sideDishSource;
-        selectedSideDishMonths = data.selectedStapleMonths;
+        selectedSideDishMonths = data.selectedSideDishMonths;
       });
     }
   }

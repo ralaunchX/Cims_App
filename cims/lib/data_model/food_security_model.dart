@@ -12,17 +12,17 @@ class FoodSecurityDto {
   });
 
   Map<String, dynamic> toJson() => {
-        'rapId': rapId,
-        'foodShortageLastYear': foodShortageLastYear,
-        'primaryStapleFood': primaryStapleFood,
-        'stapleFoodSource': stapleFoodSource,
+        'case': rapId,
+        'has_food_shortage': foodShortageLastYear,
+        'primary_staple': primaryStapleFood,
+        'staple_source': stapleFoodSource,
       };
 
   factory FoodSecurityDto.fromJson(Map<String, dynamic> json) =>
       FoodSecurityDto(
-        rapId: json['rapId'],
-        foodShortageLastYear: json['foodShortageLastYear'],
-        primaryStapleFood: json['primaryStapleFood'],
-        stapleFoodSource: json['stapleFoodSource'],
+        rapId: json['case'],
+        foodShortageLastYear: json['has_food_shortage'],
+        primaryStapleFood: json['primary_staple'],
+        stapleFoodSource: json['staple_source'],
       );
 }

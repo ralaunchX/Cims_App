@@ -500,4 +500,97 @@ class ApiServices {
       throw Exception('Error posting form: $e');
     }
   }
+
+  static Future<dynamic> form313FoodSecurity({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/food-security/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form313MonthlyStatus({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/monthly-food-status/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form313FoodProductionConsumption({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/food-production/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    print(jsonData);
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
 }

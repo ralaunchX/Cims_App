@@ -713,7 +713,7 @@ class AppConstants {
     "No money to buy food",
     "Not enough land to produce food",
     "Not enough labour to help produce food",
-    "Natural calamities (e.g., bushfire, drought, pests)",
+    "Natural calamities",
     'None'
   ];
 

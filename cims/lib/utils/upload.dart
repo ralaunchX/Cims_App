@@ -87,7 +87,26 @@ class Upload {
             await formUploadSuccess(key);
           }
         } else if (key == '${rapId}_${Keys.llwdspAdditionalInfo}') {
-          var res = await ApiServices.form315AdditionalInfo(rapId: rapId, key: key);
+          var res =
+              await ApiServices.form315AdditionalInfo(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.llwdspFoodSecurity}') {
+          var res =
+              await ApiServices.form313FoodSecurity(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.llwdspFoodMonthlyStatus}') {
+          var res =
+              await ApiServices.form313MonthlyStatus(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.llwdspFoodProductionConsumpion}') {
+          var res = await ApiServices.form313FoodProductionConsumption(
+              rapId: rapId, key: key);
           if (res == true) {
             await formUploadSuccess(key);
           }

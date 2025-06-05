@@ -16,21 +16,21 @@ class SkillKnowledge {
   });
 
   Map<String, dynamic> toJson() => {
-        'refNo': refNo,
-        'dominantSkill': dominantSkill,
-        'skillAcquisition': skillAcquisition,
-        'skillIncomeSource': skillIncomeSource,
-        'anotherSkill': anotherSkill,
-        'literacyLevel': literacyLevel,
+        'ref_no': refNo,
+        'dominant_skill': dominantSkill,
+        'skill_acquisition': skillAcquisition,
+        'skill_income_source': skillIncomeSource,
+        'another_skill': anotherSkill,
+        'literacy_level': literacyLevel,
       };
 
   factory SkillKnowledge.fromJson(Map<String, dynamic> json) => SkillKnowledge(
-        refNo: json['refNo'] ?? '',
-        dominantSkill: json['dominantSkill'] ?? '',
-        skillAcquisition: json['skillAcquisition'] ?? '',
-        skillIncomeSource: json['skillIncomeSource'] ?? '',
-        anotherSkill: json['anotherSkill'] ?? '',
-        literacyLevel: json['literacyLevel'] ?? '',
+        refNo: json['ref_no'] ?? '',
+        dominantSkill: json['dominant_skill'] ?? '',
+        skillAcquisition: json['skill_acquisition'] ?? '',
+        skillIncomeSource: json['skill_income_source'] ?? '',
+        anotherSkill: json['another_skill'] ?? '',
+        literacyLevel: json['literacy_level'] ?? '',
       );
 }
 
@@ -44,14 +44,14 @@ class ListSkillKnowledge {
   });
 
   Map<String, dynamic> toJson() => {
-        'rapId': rapId,
+        'case': rapId,
         'skillKnowledgeList':
             skillKnowledgeList.map((e) => e.toJson()).toList(),
       };
 
   factory ListSkillKnowledge.fromJson(Map<String, dynamic> json) =>
       ListSkillKnowledge(
-        rapId: json['rapId'] ?? '',
+        rapId: json['case'] ?? '',
         skillKnowledgeList: (json['skillKnowledgeList'] as List)
             .map((e) => SkillKnowledge.fromJson(e))
             .toList(),

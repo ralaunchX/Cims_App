@@ -116,17 +116,19 @@ class Upload {
           if (res == true) {
             await formUploadSuccess(key);
           }
-        }
-        else if (key == '${rapId}_${Keys.llwdspHouseholdEducation}') {
-          var res = await ApiServices.form32Education(
-              rapId: rapId, key: key);
+        } else if (key == '${rapId}_${Keys.llwdspHouseholdEducation}') {
+          var res = await ApiServices.form32Education(rapId: rapId, key: key);
           if (res == true) {
             await formUploadSuccess(key);
           }
-        }
-         else if (key == '${rapId}_${Keys.llwdspHouseholdEmployment}') {
-          var res = await ApiServices.form32Employment(
-              rapId: rapId, key: key);
+        } else if (key == '${rapId}_${Keys.llwdspHouseholdEmployment}') {
+          var res = await ApiServices.form32Employment(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.llwdspHouseholdUnEmployment}') {
+          var res =
+              await ApiServices.form32UnEmployment(rapId: rapId, key: key);
           if (res == true) {
             await formUploadSuccess(key);
           }

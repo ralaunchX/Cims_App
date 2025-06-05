@@ -67,7 +67,11 @@ class AppConstants {
     'Maisa Phoka C06',
     'Sephokong C07',
   ];
-
+  static const List<String> binaryGenderList = [
+    notSelected,
+    'Male',
+    'Female',
+  ];
   static const List<String> institutionTypes = [
     notSelected,
     'Business',
@@ -453,7 +457,7 @@ class AppConstants {
     notSelected,
     'Working for remuneration, formally/informally',
     'Any form of self-employment',
-    'Subsistence farming (Crop Farming, Livestock rearing)',
+    'Subsistence farming (Crop Farming Livestock, Livestock rearing)',
     'School-going/Youngster',
     'Unemployed (18 years or older)',
     'Retired from formal employment',
@@ -471,6 +475,7 @@ class AppConstants {
     'Hearing/deafness',
     'Visual Impairment',
     'Multiple Disability',
+    'None',
   ];
 
   static const List<String> chronicIllnessChoices = [
@@ -483,6 +488,7 @@ class AppConstants {
     'Arthritis',
     'Cancer',
     'Epilepsy',
+    'None',
   ];
   static const List<String> yesNoOption = [
     notSelected,

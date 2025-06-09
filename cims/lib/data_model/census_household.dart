@@ -1,18 +1,19 @@
 class CensusHousehold {
   final String rapId;
-
+  final String householdId;
   final String householdHeadFirstName;
   final String householdHeadSurname;
   final String gender;
   final String idType;
   final String idNumber;
-  final String idExpiryDate;
+  final String? idExpiryDate;
   final String maritalStatus;
   final String marriageType;
   final String contactCell;
   final String communityCouncil;
   final String district;
   final String route;
+  final String villageName;
   final String principalChief;
   final String villageChief;
   final String gpsCoordinates;
@@ -22,10 +23,11 @@ class CensusHousehold {
   final String spouseSurname;
   final String spouseIdType;
   final String spouseIdNumber;
-  final String spouseIdExpiryDate;
+  final String? spouseIdExpiryDate;
 
   CensusHousehold({
     required this.rapId,
+    required this.householdId,
     required this.householdHeadFirstName,
     required this.householdHeadSurname,
     required this.gender,
@@ -38,6 +40,7 @@ class CensusHousehold {
     required this.communityCouncil,
     required this.district,
     required this.route,
+    required this.villageName,
     required this.principalChief,
     required this.villageChief,
     required this.gpsCoordinates,
@@ -50,53 +53,57 @@ class CensusHousehold {
 
   factory CensusHousehold.fromJson(Map<String, dynamic> json) {
     return CensusHousehold(
-      rapId: json['rapId'] ?? '',
-      householdHeadFirstName: json['householdHeadFirstName'] ?? '',
-      householdHeadSurname: json['householdHeadSurname'] ?? '',
+      rapId: json['case'] ?? '',
+      householdId: json['household'] ?? '',
+      householdHeadFirstName: json['head_first_name'] ?? '',
+      householdHeadSurname: json['head_surname'] ?? '',
       gender: json['gender'] ?? '',
-      idType: json['idType'] ?? '',
-      idNumber: json['idNumber'] ?? '',
-      idExpiryDate: json['idExpiryDate'] ?? '',
-      maritalStatus: json['maritalStatus'] ?? '',
-      marriageType: json['marriageType'] ?? '',
-      contactCell: json['contactCell'] ?? '',
-      communityCouncil: json['communityCouncil'] ?? '',
+      idType: json['id_type'] ?? '',
+      idNumber: json['id_number'] ?? '',
+      idExpiryDate: json['id_expiry_date'],
+      maritalStatus: json['marital_status'] ?? '',
+      marriageType: json['marriage_type'] ?? '',
+      contactCell: json['contact_cell'] ?? '',
+      communityCouncil: json['project_area'] ?? '',
       district: json['district'] ?? '',
-      route: json['route'] ?? '',
-      principalChief: json['principalChief'] ?? '',
-      villageChief: json['villageChief'] ?? '',
-      gpsCoordinates: json['gpsCoordinates'] ?? '',
-      spouseFirstName: json['spouseFirstName'] ?? '',
-      spouseSurname: json['spouseSurname'] ?? '',
-      spouseIdType: json['spouseIdType'] ?? '',
-      spouseIdNumber: json['spouseIdNumber'] ?? '',
-      spouseIdExpiryDate: json['spouseIdExpiryDate'] ?? '',
+      route: json['route_name'] ?? '',
+      villageName: json['village_name'] ?? '',
+      principalChief: json['principal_chief'] ?? '',
+      villageChief: json['village_chief'] ?? '',
+      gpsCoordinates: json['gps_coordinates'] ?? '',
+      spouseFirstName: json['spouse_first_name'] ?? '',
+      spouseSurname: json['spouse_surname'] ?? '',
+      spouseIdType: json['spouse_id_type'] ?? '',
+      spouseIdNumber: json['spouse_id_number'] ?? '',
+      spouseIdExpiryDate: json['spouse_id_expiry_date'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
-      'householdHeadFirstName': householdHeadFirstName,
-      'householdHeadSurname': householdHeadSurname,
+      'case': rapId,
+      'household': householdId,
+      'head_first_name': householdHeadFirstName,
+      'head_surname': householdHeadSurname,
       'gender': gender,
-      'idType': idType,
-      'idNumber': idNumber,
-      'idExpiryDate': idExpiryDate,
-      'maritalStatus': maritalStatus,
-      'marriageType': marriageType,
-      'contactCell': contactCell,
-      'communityCouncil': communityCouncil,
+      'id_type': idType,
+      'id_number': idNumber,
+      'id_expiry_date': idExpiryDate,
+      'marital_status': maritalStatus,
+      'marriage_type': marriageType,
+      'contact_cell': contactCell,
+      'project_area': communityCouncil,
       'district': district,
-      'route': route,
-      'principalChief': principalChief,
-      'villageChief': villageChief,
-      'gpsCoordinates': gpsCoordinates,
-      'spouseFirstName': spouseFirstName,
-      'spouseSurname': spouseSurname,
-      'spouseIdType': spouseIdType,
-      'spouseIdNumber': spouseIdNumber,
-      'spouseIdExpiryDate': spouseIdExpiryDate,
+      'route_name': route,
+      'village_name': villageName,
+      'principal_chief': principalChief,
+      'village_chief': villageChief,
+      'gps_coordinates': gpsCoordinates,
+      'spouse_first_name': spouseFirstName,
+      'spouse_surname': spouseSurname,
+      'spouse_id_type': spouseIdType,
+      'spouse_id_number': spouseIdNumber,
+      'spouse_id_expiry_date': spouseIdExpiryDate,
     };
   }
 }

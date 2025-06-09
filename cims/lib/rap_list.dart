@@ -8,6 +8,7 @@ import 'package:cims/utils/network_info.dart';
 import 'package:cims/utils/upload.dart';
 import 'package:cims/utils/utility.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RapListScreen extends StatefulWidget {
@@ -214,17 +215,50 @@ class _RapListScreenState extends State<RapListScreen> {
           border: Border(top: BorderSide(color: Colors.grey, width: 0.5)),
         ),
         child: hasInternet
-            ? const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.cloud_done, color: Colors.green),
-                  SizedBox(width: 8),
-                  Text(
-                    'Network available, you can sync data',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                    overflow: TextOverflow.ellipsis,
+            // ? const Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Icon(Icons.cloud_done, color: Colors.green),
+            //       SizedBox(width: 8),
+            //       Text(
+            //         'Network available, you can sync data',
+            //         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            //         overflow: TextOverflow.ellipsis,
+            //       ),
+            //     ],
+            //   )
+
+            ? ElevatedButton(
+                onPressed: () async {
+                  setState(() {
+                    isUploading = true;
+                  });
+
+                  try {
+                    for (String rapId in allRapIds) {
+                      await Upload.uploadForms(rapId: rapId);
+                    }
+                  } catch (e) {
+                    print('Upload error: $e');
+                  } finally {
+                    setState(() {
+                      isUploading = false;
+                    });
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                ],
+                ),
+                child: const Text(
+                  'Upload All Rap Data',
+                  style: TextStyle(fontSize: 16),
+                ),
               )
             : const Row(
                 mainAxisAlignment: MainAxisAlignment.center,

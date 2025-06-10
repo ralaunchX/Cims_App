@@ -728,4 +728,12 @@ class AppConstants {
     "Own produced side dish",
     "Mostly bought side dish",
   ];
+  static const Map<String, String> institutionMap = {
+    'Business': 'business',
+    'Church': 'church',
+    'Community Organisation': 'community_organisation',
+    'Graveyard': 'graveyard',
+    'School': 'school',
+    'Other': 'other',
+  };
 }

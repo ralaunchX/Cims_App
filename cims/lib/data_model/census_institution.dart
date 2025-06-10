@@ -1,5 +1,7 @@
 class CensusInstitution {
   final String rapId;
+  final String householdId;
+
   final String name;
   final String type;
   final String responsibleFirstName;
@@ -19,6 +21,7 @@ class CensusInstitution {
   final String communityContactCell;
   CensusInstitution({
     required this.rapId,
+    required this.householdId,
     required this.name,
     required this.type,
     required this.responsibleFirstName,
@@ -39,47 +42,49 @@ class CensusInstitution {
   });
 
   Map<String, dynamic> toJson() => {
-        'rapId': rapId,
+        'case': rapId,
+        'household': householdId,
         'name': name,
-        'type': type,
-        'responsibleFirstName': responsibleFirstName,
-        'responsibleSurname': responsibleSurname,
-        'physicalAddress': physicalAddress,
-        'postalAddress': postalAddress,
-        'contactCell': contactCell,
-        'communityCouncil': communityCouncil,
+        'institution_type': type,
+        'responsible_first_name': responsibleFirstName,
+        'responsible_surname': responsibleSurname,
+        'physical_address': physicalAddress,
+        'postal_address': postalAddress,
+        'contact_cell': contactCell,
+        'project_area': communityCouncil,
         'district': district,
-        'villageName': villageName,
-        'route': route,
-        'principalChief': principalChief,
-        'villageChief': villageChief,
-        'gpsCoordinates': gpsCoordinates,
-        'communityResponsibleFirstName': communityResponsibleFirstName,
-        'communityResponsibleSurname': communityResponsibleSurname,
-        'communityContactCell': communityContactCell,
+        'village_name': villageName,
+        'route_name': route,
+        'principal_chief': principalChief,
+        'village_chief': villageChief,
+        'gps_coordinates': gpsCoordinates,
+        'community_responsible_first_name': communityResponsibleFirstName,
+        'community_responsible_surname': communityResponsibleSurname,
+        'community_contact_cell': communityContactCell,
       };
 
   factory CensusInstitution.fromJson(Map<String, dynamic> json) {
     return CensusInstitution(
-      rapId: json['rapId'] ?? '',
+      rapId: json['case'] ?? '',
+      householdId: json['household'] ?? '',
       name: json['name'] ?? '',
-      type: json['type'] ?? '',
-      responsibleFirstName: json['responsibleFirstName'] ?? '',
-      responsibleSurname: json['responsibleSurname'] ?? '',
-      physicalAddress: json['physicalAddress'] ?? '',
-      postalAddress: json['postalAddress'] ?? '',
-      contactCell: json['contactCell'] ?? '',
-      communityCouncil: json['communityCouncil'] ?? '',
+      type: json['institution_type'] ?? '',
+      responsibleFirstName: json['responsible_first_name'] ?? '',
+      responsibleSurname: json['responsible_surname'] ?? '',
+      physicalAddress: json['physical_address'] ?? '',
+      postalAddress: json['postal_address'] ?? '',
+      contactCell: json['contact_cell'] ?? '',
+      communityCouncil: json['project_area'] ?? '',
       district: json['district'] ?? '',
-      villageName: json['villageName'] ?? '',
-      route: json['route'] ?? '',
-      principalChief: json['principalChief'] ?? '',
-      villageChief: json['villageChief'] ?? '',
-      gpsCoordinates: json['gpsCoordinates'] ?? '',
+      villageName: json['village_name'] ?? '',
+      route: json['route_name'] ?? '',
+      principalChief: json['principal_chief'] ?? '',
+      villageChief: json['village_chief'] ?? '',
+      gpsCoordinates: json['gps_coordinates'] ?? '',
       communityResponsibleFirstName:
-          json['communityResponsibleFirstName'] ?? '',
-      communityResponsibleSurname: json['communityResponsibleSurname'] ?? '',
-      communityContactCell: json['communityContactCell'] ?? '',
+          json['community_responsible_first_name'] ?? '',
+      communityResponsibleSurname: json['community_responsible_surname'] ?? '',
+      communityContactCell: json['community_contact_cell'] ?? '',
     );
   }
 }

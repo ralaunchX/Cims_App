@@ -40,7 +40,7 @@ class _RapIdEntryScreenState extends State<RapIdEntryScreen> {
                 TextFormField(
                   initialValue: rapId,
                   decoration: const InputDecoration(labelText: 'RAP ID'),
-                  onChanged: (val) => rapId = val,
+                  onChanged: (val) => rapId = val.trim(),
                   validator: (val) =>
                       val == null || val.isEmpty ? 'Required' : null,
                   keyboardType: TextInputType.number,

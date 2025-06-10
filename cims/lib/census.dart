@@ -627,6 +627,7 @@ class _CensusInstitutionFormScreenState
   final _formKey = GlobalKey<FormState>();
   String rapId = Keys.rapId;
   String censusInstituteKey = '${Keys.rapId}_${Keys.censusInstitution}';
+  String houseHoldId = '';
 
   String institutionName = '';
   String institutionType = AppConstants.notSelected;
@@ -707,6 +708,7 @@ class _CensusInstitutionFormScreenState
       }
     }
     if (instituteData != null) {
+      houseHoldId = instituteData.householdId;
       institutionName = instituteData.name;
       institutionType = instituteData.type;
       responsibleFirstName = instituteData.responsibleFirstName;
@@ -744,6 +746,13 @@ class _CensusInstitutionFormScreenState
             children: [
               const Text('Institution Details',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              TextFormField(
+                textInputAction: TextInputAction.next,
+                initialValue: houseHoldId,
+                decoration: const InputDecoration(labelText: 'Household Id'),
+                onChanged: (val) => setState(() => houseHoldId = val),
+                validator: (val) => val!.isEmpty ? 'Required' : null,
+              ),
               TextFormField(
                 initialValue: institutionName,
                 focusNode: institutionNameFocus,
@@ -927,6 +936,7 @@ class _CensusInstitutionFormScreenState
                     },
                   ),
                 ),
+                validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               const SizedBox(height: 20),
               const Text('Community Form',
@@ -967,6 +977,7 @@ class _CensusInstitutionFormScreenState
                   if (_formKey.currentState!.validate()) {
                     final institution = CensusInstitution(
                       rapId: rapId,
+                      householdId: houseHoldId.trim(),
                       name: institutionName,
                       type: institutionType,
                       responsibleFirstName: responsibleFirstName,

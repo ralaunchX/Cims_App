@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:cims/data_model/census_institution.dart';
 import 'package:logger/logger.dart';
 
 import 'package:cims/data_model/llwdsp_social_network_model.dart';
@@ -878,6 +879,43 @@ class ApiServices {
         url,
         headers: _getHeaders(),
         body: jsonData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> censusInstitution({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/census/institution/create/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsed = jsonDecode(jsonData);
+
+    parsed['institution_type'] =
+        AppConstants.institutionMap[parsed['institution_type']];
+
+    final String payload = jsonEncode(parsed);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: payload,
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {

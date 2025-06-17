@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:cims/utils/api_services.dart';
+import 'package:cims/utils/network_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cims/utils/app_prefs.dart';
@@ -19,19 +22,39 @@ class _RapIdEntryScreenState extends State<RapIdEntryScreen> {
   bool isLoading = false;
   late TextEditingController rapIdController;
 
+  bool hasInternet = false;
+  Stream<bool>? _networkStream;
+  StreamSubscription<bool>? _networkSubscription;
+
   @override
-  void initState() {
+  initState() {
     super.initState();
     rapIdController = TextEditingController(text: rapId);
+    checkNetwork();
     // rapId = AppPrefs().getRapId() ?? '';
     // interviewerName = AppPrefs().getInterviewerName(rapId) ?? '';
   }
 
+  checkNetwork() async {
+    hasInternet = await NetworkInfo().isConnected();
+    setState(() {});
+
+    _networkStream = NetworkInfo().onStatusChange;
+    _networkSubscription = _networkStream!.listen((online) {
+      setState(() => hasInternet = online);
+    });
+  }
+
   Future<String> fetchNewRapId() async {
-    var response =
-        await ApiServices.createRapId(interviewerName: interviewerName);
-    int id = response['case_id'];
-    return id.toString();
+    if (hasInternet == true) {
+      var response =
+          await ApiServices.createRapId(interviewerName: interviewerName);
+      int id = response['case_id'];
+      return id.toString();
+    } else {
+      int timestamp = DateTime.now().millisecondsSinceEpoch % 1000000;
+      return 'TEMP$timestamp';
+    }
   }
 
   @override
@@ -40,7 +63,7 @@ class _RapIdEntryScreenState extends State<RapIdEntryScreen> {
       onWillPop: onPop,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Enter RAP Details'),
+          title: Text('Enter RAP Details '),
           centerTitle: true,
         ),
         body: Padding(

@@ -14,9 +14,8 @@ class NetworkInfo {
     return await InternetConnectionChecker().hasConnection;
   }
 
-  Stream<bool> get onStatusChange async* {
-    await for (var _ in Connectivity().onConnectivityChanged) {
-      yield await isConnected();
-    }
-  }
+  Stream<bool> get onStatusChange => Connectivity()
+      .onConnectivityChanged
+      .asyncMap((_) => isConnected())
+      .asBroadcastStream();
 }

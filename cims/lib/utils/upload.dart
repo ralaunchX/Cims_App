@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cims/utils/api_services.dart';
+import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,6 +18,52 @@ class Upload {
       if (key.startsWith('${rapId}_')) {
         keyList.add(key);
       }
+    }
+
+    //logic to change temp keys
+    if (rapId.startsWith('TEMP')) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? interviewerName = prefs.getString('${rapId}_interviewername');
+
+      var response = await ApiServices.createRapId(
+          interviewerName: interviewerName ?? 'N/A');
+      int id = response['case_id'];
+      String newRapId = id.toString();
+      List<String> newKeyList = [];
+      for (String oldKey in keyList) {
+        String newKey = oldKey.replaceFirst('${rapId}_', '${newRapId}_');
+        var value = prefs.get(oldKey);
+
+        if (value is String) {
+          try {
+            Map<String, dynamic> jsonMap = jsonDecode(value);
+
+            if (jsonMap.containsKey('case')) {
+              jsonMap['case'] = newRapId;
+            }
+
+            String updatedJson = jsonEncode(jsonMap);
+            await prefs.setString(newKey, updatedJson);
+          } catch (e) {
+            await prefs.setString(newKey, value);
+          }
+        } else if (value is int) {
+          await prefs.setInt(newKey, value);
+        } else if (value is bool) {
+          await prefs.setBool(newKey, value);
+        } else if (value is double) {
+          await prefs.setDouble(newKey, value);
+        } else if (value is List<String>) {
+          await prefs.setStringList(newKey, value);
+        }
+
+        await prefs.remove(oldKey);
+
+        newKeyList.add(newKey);
+      }
+      await AppPrefs().setRapId(newRapId);
+      rapId = newRapId;
+      keyList = newKeyList;
     }
     print(keyList);
     for (String key in keyList) {

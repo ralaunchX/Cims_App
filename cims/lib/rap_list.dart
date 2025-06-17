@@ -154,6 +154,7 @@ class _RapListScreenState extends State<RapListScreen> {
                                       await Upload.uploadForms(
                                           rapId: currentRapId);
                                       setState(() {
+                                        loadKeys();
                                         isUploading = false;
                                       });
                                     }
@@ -242,6 +243,8 @@ class _RapListScreenState extends State<RapListScreen> {
                     print('Upload error: $e');
                   } finally {
                     setState(() {
+                      loadKeys();
+
                       isUploading = false;
                     });
                   }

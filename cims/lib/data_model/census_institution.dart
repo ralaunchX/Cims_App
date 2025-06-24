@@ -19,6 +19,17 @@ class CensusInstitution {
   final String communityResponsibleFirstName;
   final String communityResponsibleSurname;
   final String communityContactCell;
+
+  final String? papNumber;
+  final String? firstName;
+  final String? lastName;
+  final String? typeOfIdentification;
+  final String? expiryDate;
+  final String? originalVillage;
+  final String? residentialVillage;
+  final String? cellphoneNo;
+  final String? gender;
+
   CensusInstitution({
     required this.rapId,
     required this.householdId,
@@ -39,6 +50,15 @@ class CensusInstitution {
     required this.communityResponsibleFirstName,
     required this.communityResponsibleSurname,
     required this.communityContactCell,
+    required this.papNumber,
+    required this.firstName,
+    required this.lastName,
+    required this.typeOfIdentification,
+    required this.expiryDate,
+    required this.originalVillage,
+    required this.residentialVillage,
+    required this.cellphoneNo,
+    required this.gender,
   });
 
   Map<String, dynamic> toJson() => {
@@ -61,6 +81,15 @@ class CensusInstitution {
         'community_responsible_first_name': communityResponsibleFirstName,
         'community_responsible_surname': communityResponsibleSurname,
         'community_contact_cell': communityContactCell,
+        'pap_number': papNumber,
+        'first_name': firstName,
+        'last_name': lastName,
+        'type_of_identification': typeOfIdentification,
+        'expiry_date': expiryDate,
+        'original_village_name': originalVillage,
+        'residential_village': residentialVillage,
+        'cellphone_no': cellphoneNo,
+        'gender': gender,
       };
 
   factory CensusInstitution.fromJson(Map<String, dynamic> json) {
@@ -85,6 +114,15 @@ class CensusInstitution {
           json['community_responsible_first_name'] ?? '',
       communityResponsibleSurname: json['community_responsible_surname'] ?? '',
       communityContactCell: json['community_contact_cell'] ?? '',
+      papNumber: json['pap_number'],
+      cellphoneNo: json['cellphone_no'],
+      expiryDate: json['expiry_date'],
+      firstName: json['first_name'],
+      lastName: json['last_name'],
+      originalVillage: json['original_village_name'],
+      residentialVillage: json['residential_village'],
+      typeOfIdentification: json['type_of_identification'],
+      gender: json['gender'],
     );
   }
 }

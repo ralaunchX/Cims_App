@@ -25,6 +25,15 @@ class CensusHousehold {
   final String spouseIdNumber;
   final String? spouseIdExpiryDate;
 
+  final String? papNumber;
+  final String? firstName;
+  final String? lastName;
+  final String? typeOfIdentification;
+  final String? expiryDate;
+  final String? originalVillage;
+  final String? residentialVillage;
+  final String? cellphoneNo;
+
   CensusHousehold({
     required this.rapId,
     required this.householdId,
@@ -49,6 +58,14 @@ class CensusHousehold {
     required this.spouseIdType,
     required this.spouseIdNumber,
     required this.spouseIdExpiryDate,
+    required this.papNumber,
+    required this.firstName,
+    required this.lastName,
+    required this.typeOfIdentification,
+    required this.expiryDate,
+    required this.originalVillage,
+    required this.residentialVillage,
+    required this.cellphoneNo,
   });
 
   factory CensusHousehold.fromJson(Map<String, dynamic> json) {
@@ -76,6 +93,14 @@ class CensusHousehold {
       spouseIdType: json['spouse_id_type'] ?? '',
       spouseIdNumber: json['spouse_id_number'] ?? '',
       spouseIdExpiryDate: json['spouse_id_expiry_date'],
+      papNumber: json['pap_number'],
+      cellphoneNo: json['cellphone_no'],
+      expiryDate: json['expiry_date'],
+      firstName: json['first_name'],
+      lastName: json['last_name'],
+      originalVillage: json['original_village_name'],
+      residentialVillage: json['residential_village'],
+      typeOfIdentification: json['type_of_identification'],
     );
   }
 
@@ -104,6 +129,14 @@ class CensusHousehold {
       'spouse_id_type': spouseIdType,
       'spouse_id_number': spouseIdNumber,
       'spouse_id_expiry_date': spouseIdExpiryDate,
+      'pap_number': papNumber,
+      'first_name': firstName,
+      'last_name': lastName,
+      'type_of_identification': typeOfIdentification,
+      'expiry_date': expiryDate,
+      'original_village_name': originalVillage,
+      'residential_village': residentialVillage,
+      'cellphone_no': cellphoneNo
     };
   }
 }

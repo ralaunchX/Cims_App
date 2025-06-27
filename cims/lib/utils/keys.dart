@@ -1,6 +1,8 @@
 class Keys {
   static String loginExpiryTimestamp = 'loginExpiryTimestamp';
   static String rapId = '';
+    static const lastUploadTime = 'lastUploadTime';
+
   static const censusInstitution = 'censusinstitution';
   static const censusHousehold = 'censushousehold';
   static const llwdspResettlement = 'llwdspResettlement';

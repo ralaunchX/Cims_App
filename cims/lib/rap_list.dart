@@ -3,11 +3,13 @@ import 'dart:developer';
 
 import 'package:cims/form_list.dart';
 import 'package:cims/utils/app_prefs.dart';
+import 'package:cims/utils/constants.dart';
 import 'package:cims/utils/keys.dart';
 import 'package:cims/utils/network_info.dart';
 import 'package:cims/utils/upload.dart';
 import 'package:cims/utils/utility.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,8 +62,7 @@ class _RapListScreenState extends State<RapListScreen> {
   Future<void> loadKeys() async {
     final prefs = await SharedPreferences.getInstance();
     final keys = prefs.getKeys().toList();
-    keys.remove('rap_id');
-    keys.remove(Keys.loginExpiryTimestamp);
+    keys.removeWhere((element) => AppConstants.igonreKeys.contains(element));
     final rapIds = keys.map((key) => key.split('_').first).toSet().toList();
     setState(() {
       allRapIds = rapIds;
@@ -85,7 +86,7 @@ class _RapListScreenState extends State<RapListScreen> {
             },
             icon: const Icon(Icons.add, color: Colors.black),
             label: const Text(
-              'New Rap Case',
+              'Add Rap Case',
               style: TextStyle(color: Colors.blue),
             ),
           ),
@@ -215,69 +216,86 @@ class _RapListScreenState extends State<RapListScreen> {
         decoration: const BoxDecoration(
           border: Border(top: BorderSide(color: Colors.grey, width: 0.5)),
         ),
-        child: hasInternet
-            // ? const Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       Icon(Icons.cloud_done, color: Colors.green),
-            //       SizedBox(width: 8),
-            //       Text(
-            //         'Network available, you can sync data',
-            //         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            //         overflow: TextOverflow.ellipsis,
-            //       ),
-            //     ],
-            //   )
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            hasInternet
+                ? SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        setState(() {
+                          isUploading = true;
+                        });
 
-            ? ElevatedButton(
-                onPressed: () async {
-                  setState(() {
-                    isUploading = true;
-                  });
+                        try {
+                          for (String rapId in allRapIds) {
+                            await Upload.uploadForms(rapId: rapId);
+                          }
 
-                  try {
-                    for (String rapId in allRapIds) {
-                      await Upload.uploadForms(rapId: rapId);
-                    }
-                  } catch (e) {
-                    print('Upload error: $e');
-                  } finally {
-                    setState(() {
-                      loadKeys();
-
-                      isUploading = false;
-                    });
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text(
-                  'Upload All Rap Data',
-                  style: TextStyle(fontSize: 16),
-                ),
-              )
-            : const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.wifi_off, color: Colors.red),
-                  SizedBox(width: 8),
-                  Text(
-                    'No Internet Connection',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.red,
+                          final now = DateTime.now();
+                          final prefs = await SharedPreferences.getInstance();
+                          await prefs.setString(
+                              Keys.lastUploadTime, now.toIso8601String());
+                        } catch (e) {
+                          print('Upload error: $e');
+                        } finally {
+                          setState(() {
+                            loadKeys();
+                            isUploading = false;
+                          });
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: const Text(
+                        'Upload All Rap Data',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
+                  )
+                : const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.wifi_off, color: Colors.red),
+                      SizedBox(width: 8),
+                      Text(
+                        'No Internet Connection',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+            const SizedBox(height: 8),
+            FutureBuilder<String?>(
+              future: Utility.getLastUploadTime(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData || snapshot.data == null) {
+                  return const Text(
+                    'Last Uploaded: N/A',
+                    style: TextStyle(fontSize: 14, color: Colors.black),
+                  );
+                }
+                final formattedTime = DateFormat('yyyy-MM-dd HH:mm')
+                    .format(DateTime.parse(snapshot.data!));
+                return Text(
+                  'Last Uploaded: $formattedTime',
+                  style: const TextStyle(fontSize: 14, color: Colors.black),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

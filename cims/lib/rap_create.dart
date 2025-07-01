@@ -80,12 +80,43 @@ class _RapIdEntryScreenState extends State<RapIdEntryScreen> {
                       .toList(),
                   onChanged: (val) {
                     if (val != null) {
-                      setState(() => entryType = val);
+                      setState(() {
+                        entryType = val;
+                        rapIdController.clear();
+                        rapId = '';
+                      });
                     }
                   },
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
+                  initialValue: interviewerName,
+                  decoration: const InputDecoration(
+                    labelText: 'Interviewer Name',
+                  ),
+                  onChanged: (val) => interviewerName = val,
+                  validator: (val) =>
+                      val == null || val.isEmpty ? 'Required' : null,
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  onTap: () async {
+                    if (entryType == 'New' &&
+                        interviewerName.isNotEmpty == true &&
+                        rapId.isEmpty == true) {
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      final newRapId = await fetchNewRapId();
+
+                      setState(() {
+                        rapId = newRapId.trim();
+                        rapIdController.text = rapId;
+                        isLoading = false;
+                      });
+                    }
+                  },
                   controller: rapIdController,
                   readOnly: entryType == 'New',
                   decoration: const InputDecoration(labelText: 'RAP ID'),
@@ -96,54 +127,45 @@ class _RapIdEntryScreenState extends State<RapIdEntryScreen> {
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
                 const SizedBox(height: 20),
-                TextFormField(
-                  initialValue: interviewerName,
-                  decoration:
-                      const InputDecoration(labelText: 'Interviewer Name'),
-                  onChanged: (val) => interviewerName = val,
-                  validator: (val) =>
-                      val == null || val.isEmpty ? 'Required' : null,
-                ),
-                const SizedBox(height: 20),
-                Visibility(
-                  visible: rapId == '' && entryType == 'New',
-                  child: isLoading
-                      ? const CircularProgressIndicator()
-                      : ElevatedButton(
-                          onPressed: () async {
-                            if (interviewerName.isEmpty) {
-                              showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  title: const Text('Missing Information'),
-                                  content: const Text(
-                                      'Please enter the interviewer name.'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                              return;
-                            }
-                            setState(() {
-                              isLoading = true;
-                            });
+                // Visibility(
+                //   visible: rapId == '' && entryType == 'New',
+                //   child: isLoading
+                //       ? const CircularProgressIndicator()
+                //       : ElevatedButton(
+                //           onPressed: () async {
+                //             if (interviewerName.isEmpty) {
+                //               showDialog(
+                //                 context: context,
+                //                 builder: (context) => AlertDialog(
+                //                   title: const Text('Missing Information'),
+                //                   content: const Text(
+                //                       'Please enter the interviewer name.'),
+                //                   actions: [
+                //                     TextButton(
+                //                       onPressed: () =>
+                //                           Navigator.of(context).pop(),
+                //                       child: const Text('OK'),
+                //                     ),
+                //                   ],
+                //                 ),
+                //               );
+                //               return;
+                //             }
+                //             setState(() {
+                //               isLoading = true;
+                //             });
 
-                            final newRapId = await fetchNewRapId();
+                //             final newRapId = await fetchNewRapId();
 
-                            setState(() {
-                              rapId = newRapId.trim();
-                              rapIdController.text = rapId;
-                              isLoading = false;
-                            });
-                          },
-                          child: const Text('Generate RapId'),
-                        ),
-                ),
+                //             setState(() {
+                //               rapId = newRapId.trim();
+                //               rapIdController.text = rapId;
+                //               isLoading = false;
+                //             });
+                //           },
+                //           child: const Text('Generate RapId'),
+                //         ),
+                // ),
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {

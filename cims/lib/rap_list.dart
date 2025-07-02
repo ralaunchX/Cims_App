@@ -137,6 +137,28 @@ class _RapListScreenState extends State<RapListScreen> {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
+                            subtitle: FutureBuilder<String?>(
+                              future: Utility.getLastUploadTime(
+                                  '${currentRapId}_${Keys.lastUploadTime}'),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData ||
+                                    snapshot.data == null) {
+                                  return const Text(
+                                    'Last Uploaded: N/A',
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.black),
+                                  );
+                                }
+                                final formattedTime =
+                                    DateFormat('yyyy-MM-dd HH:mm')
+                                        .format(DateTime.parse(snapshot.data!));
+                                return Text(
+                                  'Last Uploaded: $formattedTime',
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.black),
+                                );
+                              },
+                            ),
                             trailing: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               mainAxisSize: MainAxisSize.min,
@@ -278,7 +300,7 @@ class _RapListScreenState extends State<RapListScreen> {
                   ),
             const SizedBox(height: 8),
             FutureBuilder<String?>(
-              future: Utility.getLastUploadTime(),
+              future: Utility.getLastUploadTime(Keys.lastUploadTime),
               builder: (context, snapshot) {
                 if (!snapshot.hasData || snapshot.data == null) {
                   return const Text(

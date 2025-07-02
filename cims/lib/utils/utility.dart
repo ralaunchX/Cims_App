@@ -176,8 +176,8 @@ class Utility {
     );
   }
 
-  static Future<String?> getLastUploadTime() async {
+  static Future<String?> getLastUploadTime(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(Keys.lastUploadTime);
+    return prefs.getString(key);
   }
 }

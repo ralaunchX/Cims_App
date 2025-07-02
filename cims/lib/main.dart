@@ -119,6 +119,6 @@ class MainApp extends StatelessWidget {
         //     bodyMedium: TextStyle(fontSize: 16),
         //   ),
         // ),
-        initialRoute: initialRoute);
+        initialRoute: '/rapList');
   }
 }

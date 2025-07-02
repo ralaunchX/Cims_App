@@ -66,6 +66,9 @@ class Upload {
       keyList = newKeyList;
     }
     print(keyList);
+    final now = DateTime.now();
+    await prefs.setString(
+        '${rapId}_${Keys.lastUploadTime}', now.toIso8601String());
     for (String key in keyList) {
       try {
         if (key == '${rapId}_interviewername') {

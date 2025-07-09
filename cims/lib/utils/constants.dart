@@ -743,4 +743,10 @@ class AppConstants {
     'School': 'school',
     'Other': 'other',
   };
+  static const List<String> assetType = [AppConstants.notSelected, 'A', 'B'];
+  static const List<String> assetCategory = [
+    AppConstants.notSelected,
+    'Household',
+    'Institution'
+  ];
 }

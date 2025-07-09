@@ -19,34 +19,34 @@ class LlwdspLivestockScreen extends StatefulWidget {
 class _LlwdspLivestockScreenState extends State<LlwdspLivestockScreen> {
   String rapId = Keys.rapId;
   String llwdspLivestockKey = '${Keys.rapId}_${Keys.llwdspLivestock}';
-  final List<String> livestockTypes = [
-    'Bulls',
-    'Cows',
-    'Oxen',
-    'Calves',
-    'Rams',
-    'Ewes',
-    'Lambs',
-    'Buck',
-    'Does',
-    'Kids',
-    'Horse',
-    'Donkey',
-    'Pig',
-    'Chicken',
-    'Duck',
-    'Geese',
-    'Rabbit',
-  ];
+  final Map<String, String> livestockTypesMap = {
+    "1": 'Bulls',
+    "2": 'Cows',
+    "3": 'Oxen',
+    "4": 'Calves',
+    "5": 'Rams',
+    "6": 'Ewes',
+    "7": 'Lambs',
+    "8": 'Buck',
+    "9": 'Does',
+    "10": 'Kids',
+    "11": 'Horse',
+    "12": 'Donkey',
+    "13": 'Pig',
+    "14": 'Chicken',
+    "15": 'Duck',
+    "16": 'Geese',
+    "17": 'Rabbit',
+  };
 
   List<LlwdspLivestockDto> livestockData = [];
 
   @override
   void initState() {
     super.initState();
-    livestockData = livestockTypes
-        .map((e) => LlwdspLivestockDto(
-              type: e,
+    livestockData = livestockTypesMap.entries
+        .map((entry) => LlwdspLivestockDto(
+              type: entry.key,
               owned: 0,
               died: 0,
               slaughtered: 0,
@@ -97,7 +97,10 @@ class _LlwdspLivestockScreenState extends State<LlwdspLivestockScreen> {
                           children: livestockData.map((entry) {
                             return Row(
                               children: [
-                                SizedBox(width: 100, child: Text(entry.type)),
+                                SizedBox(
+                                    width: 100,
+                                    child:
+                                        Text(livestockTypesMap[entry.type]!)),
                                 buildNumberField(entry, 'owned'),
                                 buildNumberField(entry, 'sold'),
                                 buildNumberField(entry, 'slaughtered'),
@@ -172,7 +175,7 @@ class _LlwdspLivestockScreenState extends State<LlwdspLivestockScreen> {
         entry.died = value;
         break;
       case 'price':
-        entry.price = 0;
+        entry.price = value;
         break;
     }
   }

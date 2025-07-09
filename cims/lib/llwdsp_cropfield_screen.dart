@@ -191,6 +191,10 @@ class _LlwdspCropfieldScreenState extends State<LlwdspCropfieldScreen> {
                                 child: TextFormField(
                                   initialValue: field.fieldNumber,
                                   decoration: const InputDecoration(),
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
                                   onChanged: (val) => field.fieldNumber = val,
                                   validator: (val) {
                                     if (val == null || val == '') {

@@ -1,9 +1,16 @@
+import 'package:cims/utils/keys.dart';
+
 class AppConstants {
   static String devUrl = 'https://cims-dev-968023981384.us-east1.run.app/api';
   static const prodUrl = '';
   static int loginValidityDays = 7;
   static const user = 'user1';
   static const password = '12345';
+  static List<String> igonreKeys = [
+    'rap_id',
+    Keys.loginExpiryTimestamp,
+    Keys.lastUploadTime
+  ];
   static const List<String> idTypes = ['None', 'ID', 'Passport'];
   static const String notSelected = '----';
   static const List<String> maritalStatuses = [
@@ -29,31 +36,31 @@ class AppConstants {
 
   static const List<String> routes = [
     notSelected,
-    '1. WTW',
-    '2. Ha Molapo - Ha Phakela',
-    '3. Ha Khabo - Pitsi’s Nek',
-    '4. Literapeng - Levi’s Nek',
-    '5. Pitsi’s Nek - Rampai',
-    '6. Mpharoane - Molapo',
-    '7. Liphakoeng - Qholaqhoe',
-    '8. Ha Majara - ‘Makong',
-    '9. Qalo - Maloseng',
-    '10. Maloseng - Marakabei - Rasekila',
-    '11. Ha Mopeli - Ha Majara',
-    '12. Mpharoane - Makeneng',
-    '13. Levi\'s Nek - Nqechane',
-    '14. Rampai - Shepheseli - Nkoeng',
-    '15. Motsoane - Boribeng',
-    '16. Levi\'s Nek - Maiseng',
-    '17. Ha Sechele - Ha Shepheseli',
-    '18. Rampai - Matlakeng',
-    '19. Mopeli - Majara Junction',
-    '20. Pokane - Qalo',
-    '21. Serutle - Manamela',
-    '22. Qholaqhoe - Mpharoane',
-    '23. Khabo - Molotha - St Dennis',
-    '24. Rasekila - Katamelo',
-    '25. Maloseng - Makhoahla - Selomo',
+    '1. Rampai to Literapeng',
+    '2. Ha Molapo to Ha Matatse',
+    '3. Ha Matatase to Phakela',
+    '4. WTW to Letobong',
+    '5. Letobong to Qholaqhoe (Sekiring)',
+    '6. Literapeng to Levis Nek',
+    '7. Khabo to Molotha',
+    '8. Khukhune Junction to Ha Molapo',
+    '9. Serutle to Mopeli Sekiring',
+    '10. Literapeng to Khabo',
+    '11. Levis Nek to Nqechane',
+    '12. Motsoane to Boribeng',
+    '13. Levis Nek to Maiseng',
+    '14. Khukhune Junction to Mpharoane',
+    '15. Chaba to Makeneng',
+    '16. Majara to Makong',
+    '17. Serutle to Manamela',
+    '18. Maloseng Junction to Ha Selomo',
+    '19. Sechele to Shepheseli',
+    '20. Mopeli to Sechele',
+    '21. WTW to Ha Rasekila',
+    '22. Rampai to Matlakeng',
+    '23. Qholaqhoe (Seboche Junction) to Ha Chaba',
+    '24. Ha Katamelo to Serutle (Manamela Junction)',
+    '25. Majara Junction to Majara Reservoir',
   ];
 
   static const List<String> communityCouncils = [
@@ -67,7 +74,11 @@ class AppConstants {
     'Maisa Phoka C06',
     'Sephokong C07',
   ];
-
+  static const List<String> binaryGenderList = [
+    notSelected,
+    'Male',
+    'Female',
+  ];
   static const List<String> institutionTypes = [
     notSelected,
     'Business',
@@ -274,8 +285,8 @@ class AppConstants {
   static const List<String> irrigationMethods = [
     notSelected,
     'Not irrigated',
-    'Irrigated by hand from water source on site/homestead',
-    'Irrigated by hand by carting water to garden',
+    'Irrigated by hand from site',
+    'Irrigated by hand, carting water',
   ];
 
   static const List<String> fertilizationChoices = [
@@ -356,8 +367,8 @@ class AppConstants {
   static const List<String> frequencyOptionsExpenditure = [
     notSelected,
     'Monthly',
-    'Quarterly',
-    'Annually',
+    'Quarterly (4 times a year)',
+    'Annually (once or twice a year)',
     'Free Service – no expense',
   ];
   static const List<String> transportFrequency = [
@@ -369,20 +380,20 @@ class AppConstants {
   ];
   static const List<String> transportModes = [
     notSelected,
-    'Never Used',
-    'On Foot',
-    'On Horseback/Donkey',
+    'Never used',
+    'On foot',
+    'On horseback/donkey',
     'Taxi (4+1)',
     'Minibus',
-    'Vehicle for Hire',
+    'Vehicle for hire',
     'Own Motor Transport',
   ];
 
   static const List<String> fundingGroupChoices = [
     notSelected,
-    'Self-selected Group',
+    'Self-selected group (Rotating Savings and Credit Association)',
     'Burial Society',
-    'Savings and Credit Clubs',
+    'Savings and Credit Club',
   ];
 
   static const List<String> fundingFrequencyChoices = [
@@ -397,20 +408,20 @@ class AppConstants {
 
   static const List<String> fundingIncomeSourceChoices = [
     notSelected,
-    'Salary from Employment',
-    'Informal Economic Activity',
+    'Salary from employment',
+    'Cash generated from informal economic activity',
     'Savings',
-    'Social Grant',
-    'Gifted (Cash from Family)',
+    'Social grant',
+    'Gifted (cash from Family Member)',
   ];
 
   static const List<String> fundingLivelihoodContributionChoices = [
     notSelected,
     'Pay School Fees',
-    'Acquire Assets',
-    'Pay for Healthcare',
-    'Buy Food/Clothes',
-    'Start/Expand Business',
+    'Acquire Assets such as livestock and farming equipment',
+    'Pay for Health care',
+    'Buy food, clothes',
+    'Capital to start or expand an income-generating activity',
     'Pay for Burial Society Services',
   ];
   static const List<String> relationshipChoices = [
@@ -453,7 +464,7 @@ class AppConstants {
     notSelected,
     'Working for remuneration, formally/informally',
     'Any form of self-employment',
-    'Subsistence farming (Crop Farming, Livestock rearing)',
+    'Subsistence farming (Crop Farming Livestock, Livestock rearing)',
     'School-going/Youngster',
     'Unemployed (18 years or older)',
     'Retired from formal employment',
@@ -471,6 +482,7 @@ class AppConstants {
     'Hearing/deafness',
     'Visual Impairment',
     'Multiple Disability',
+    'None',
   ];
 
   static const List<String> chronicIllnessChoices = [
@@ -483,6 +495,7 @@ class AppConstants {
     'Arthritis',
     'Cancer',
     'Epilepsy',
+    'None',
   ];
   static const List<String> yesNoOption = [
     notSelected,
@@ -713,7 +726,7 @@ class AppConstants {
     "No money to buy food",
     "Not enough land to produce food",
     "Not enough labour to help produce food",
-    "Natural calamities (e.g., bushfire, drought, pests)",
+    "Natural calamities",
     'None'
   ];
 
@@ -722,4 +735,12 @@ class AppConstants {
     "Own produced side dish",
     "Mostly bought side dish",
   ];
+  static const Map<String, String> institutionMap = {
+    'Business': 'business',
+    'Church': 'church',
+    'Community Organisation': 'community_organisation',
+    'Graveyard': 'graveyard',
+    'School': 'school',
+    'Other': 'other',
+  };
 }

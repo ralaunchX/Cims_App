@@ -20,26 +20,26 @@ class LlwdspLivestockDto {
   // Convert to JSON (if needed)
   Map<String, dynamic> toJson() {
     return {
-      'type': type,
-      'owned': owned,
-      'sold': sold,
-      'slaughtered': slaughtered,
-      'stolen': stolen,
-      'died': died,
-      'price': price,
+      'user_question': type,
+      'number_owned': owned,
+      'number_sold': sold,
+      'number_slaughtered': slaughtered,
+      'number_stolen': stolen,
+      'number_died': died,
+      'current_price_per_unit': price,
     };
   }
 
   // From JSON (if needed)
   factory LlwdspLivestockDto.fromJson(Map<String, dynamic> json) {
     return LlwdspLivestockDto(
-      type: json['type'],
-      owned: json['owned'],
-      sold: json['sold'],
-      slaughtered: json['slaughtered'],
-      stolen: json['stolen'],
-      died: json['died'],
-      price: json['price'],
+      type: json['user_question'],
+      owned: json['number_owned'],
+      sold: json['number_sold'],
+      slaughtered: json['number_slaughtered'],
+      stolen: json['number_stolen'],
+      died: json['number_died'],
+      price: json['current_price_per_unit'],
     );
   }
 }
@@ -53,8 +53,8 @@ class LlwdspLivestockListDto {
 
   factory LlwdspLivestockListDto.fromJson(Map<String, dynamic> json) {
     return LlwdspLivestockListDto(
-      rapId: json['rapId'] ?? '',
-      livestock: (json['livestock'] as List<dynamic>)
+      rapId: json['case'] ?? '',
+      livestock: (json['livestock_details'] as List<dynamic>)
           .map((item) => LlwdspLivestockDto.fromJson(item))
           .toList(),
     );
@@ -62,8 +62,8 @@ class LlwdspLivestockListDto {
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
-      'livestock': livestock.map((item) => item.toJson()).toList(),
+      'case': rapId,
+      'livestock_details': livestock.map((item) => item.toJson()).toList(),
     };
   }
 }

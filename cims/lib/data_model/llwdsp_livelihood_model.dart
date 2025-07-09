@@ -28,8 +28,8 @@ class LlwdspLivelihoodModel {
           List<String>.from(json['income_sources_regular'] ?? []),
       otherRegularIncome: json['otherRegularIncome'] ?? '',
       lastMonthIncomeSources:
-          List<String>.from(json['lastMonthIncomeSources'] ?? []),
-      otherLastMonthIncome: json['income_sources_last_month'] ?? '',
+          List<String>.from(json['income_sources_last_month'] ?? []),
+      otherLastMonthIncome: json['otherLastMonthIncome'] ?? '',
       grantsReceived: List<String>.from(json['grants_received'] ?? []),
     );
   }

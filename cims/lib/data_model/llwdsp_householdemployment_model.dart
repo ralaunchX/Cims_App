@@ -14,19 +14,19 @@ class EmploymentInfo {
   });
 
   Map<String, dynamic> toJson() => {
-        'refNo': refNo,
-        'typeOfEmployment': typeOfEmployment,
-        'employmentSector': employmentSector,
-        'employmentCategory': employmentCategory,
-        'placeOfWork': placeOfWork,
+        'ref_no': refNo,
+        'employment_type': typeOfEmployment,
+        'employment_sector': employmentSector,
+        'employment_category': employmentCategory,
+        'place_of_work': placeOfWork,
       };
 
   factory EmploymentInfo.fromJson(Map<String, dynamic> json) => EmploymentInfo(
-        refNo: json['refNo'] ?? '',
-        typeOfEmployment: json['typeOfEmployment'] ?? '',
-        employmentSector: json['employmentSector'] ?? '',
-        employmentCategory: json['employmentCategory'] ?? '',
-        placeOfWork: json['placeOfWork'] ?? '',
+        refNo: json['ref_no'] ?? '',
+        typeOfEmployment: json['employment_type'] ?? '',
+        employmentSector: json['employment_sector'] ?? '',
+        employmentCategory: json['employment_category'] ?? '',
+        placeOfWork: json['place_of_work'] ?? '',
       );
 }
 
@@ -40,14 +40,14 @@ class ListEmploymentInfo {
   });
 
   Map<String, dynamic> toJson() => {
-        'rapId': rapId,
+        'case': rapId,
         'employmentInfoList':
             employmentInfoList.map((e) => e.toJson()).toList(),
       };
 
   factory ListEmploymentInfo.fromJson(Map<String, dynamic> json) =>
       ListEmploymentInfo(
-        rapId: json['rapId'] ?? '',
+        rapId: json['case'] ?? '',
         employmentInfoList: (json['employmentInfoList'] as List)
                 ?.map((e) => EmploymentInfo.fromJson(e))
                 .toList() ??

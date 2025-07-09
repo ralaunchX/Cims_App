@@ -20,25 +20,25 @@ class LlwdspFoodgardensModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
-      'cropsGrown': cropsGrown,
-      'cropsHarvested': cropsHarvested,
-      'gardenChoice': gardenChoice,
-      'cropUse': cropUse,
-      'irrigationMethod': irrigationMethod,
-      'fertilizerType': fertilizerType,
+      'case': rapId,
+      'crops_grown': cropsGrown,
+      'crops_harvested': cropsHarvested,
+      'food_garden_type': gardenChoice,
+      'crop_use': cropUse,
+      'irrigation_method': irrigationMethod,
+      'fertilizer_type': fertilizerType,
     };
   }
 
   factory LlwdspFoodgardensModel.fromJson(Map<String, dynamic> json) {
     return LlwdspFoodgardensModel(
-      rapId: json['rapId'] ?? '',
-      cropsGrown: List<String>.from(json['cropsGrown'] ?? []),
-      cropsHarvested: List<String>.from(json['cropsHarvested'] ?? []),
-      gardenChoice: json['gardenChoice'],
-      cropUse: json['cropUse'],
-      irrigationMethod: json['irrigationMethod'],
-      fertilizerType: json['fertilizerType'],
+      rapId: json['case'] ?? '',
+      cropsGrown: List<String>.from(json['crops_grown'] ?? []),
+      cropsHarvested: List<String>.from(json['crops_harvested'] ?? []),
+      gardenChoice: json['food_garden_type'],
+      cropUse: json['crop_use'],
+      irrigationMethod: json['irrigation_method'],
+      fertilizerType: json['fertilizer_type'],
     );
   }
 }

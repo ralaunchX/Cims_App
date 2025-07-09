@@ -21,21 +21,21 @@ class _LlwdspEnergysourcesScreenState extends State<LlwdspEnergysourcesScreen> {
       '${Keys.rapId}_${Keys.llwdspEnergySources}';
   EnergySourcesDto energySources = EnergySourcesDto(
       rapId: '',
-      electricityLighting: null,
-      gasLighting: null,
-      paraffinLighting: null,
-      woodLighting: null,
-      candleLighting: null,
-      batteryLighting: null,
-      solarLighting: null,
-      generatorLighting: null,
-      brushwoodLighting: null,
-      electricityCooking: null,
-      gasCooking: null,
-      paraffinCooking: null,
-      woodCooking: null,
-      batteryCooking: null,
-      generatorCooking: null);
+      electricityLighting: "No",
+      gasLighting: "No",
+      paraffinLighting: "No",
+      woodLighting: "No",
+      candleLighting: "No",
+      batteryLighting: "No",
+      solarLighting: "No",
+      generatorLighting: "No",
+      brushwoodLighting: "No",
+      electricityCooking: "No",
+      gasCooking: "No",
+      paraffinCooking: "No",
+      woodCooking: "No",
+      batteryCooking: "No",
+      generatorCooking: "No");
 
   @override
   void initState() {
@@ -71,7 +71,8 @@ class _LlwdspEnergysourcesScreenState extends State<LlwdspEnergysourcesScreen> {
     }
   }
 
-  Widget _buildRadioRow(String label, bool? value, Function(bool) onChanged) {
+  Widget _buildRadioRow(
+      String label, String? value, Function(String) onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -80,14 +81,14 @@ class _LlwdspEnergysourcesScreenState extends State<LlwdspEnergysourcesScreen> {
           Expanded(child: Text(label)),
           Row(
             children: [
-              Radio<bool>(
-                value: true,
+              Radio<String>(
+                value: "Yes",
                 groupValue: value,
                 onChanged: (val) => onChanged(val!),
               ),
               const Text("Yes"),
-              Radio<bool>(
-                value: false,
+              Radio<String>(
+                value: "No",
                 groupValue: value,
                 onChanged: (val) => onChanged(val!),
               ),

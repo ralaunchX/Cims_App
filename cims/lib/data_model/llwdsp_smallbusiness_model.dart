@@ -14,19 +14,19 @@ class BusinessInfo {
   });
 
   Map<String, dynamic> toJson() => {
-        'refNo': refNo,
-        'businessType': businessType,
-        'positionInBusiness': positionInBusiness,
-        'useOfIncome': useOfIncome,
-        'numPersonsInvolved': numPersonsInvolved,
+        'ref_no': refNo,
+        'business_type': businessType,
+        'position_in_business': positionInBusiness,
+        'use_of_income': useOfIncome,
+        'num_persons_involved': numPersonsInvolved,
       };
 
   factory BusinessInfo.fromJson(Map<String, dynamic> json) => BusinessInfo(
-        refNo: json['refNo'] ?? '',
-        businessType: json['businessType'] ?? '',
-        positionInBusiness: json['positionInBusiness'] ?? '',
-        useOfIncome: json['useOfIncome'] ?? '',
-        numPersonsInvolved: json['numPersonsInvolved'] ?? '',
+        refNo: json['ref_no'] ?? '',
+        businessType: json['business_type'] ?? '',
+        positionInBusiness: json['position_in_business'] ?? '',
+        useOfIncome: json['use_of_income'] ?? '',
+        numPersonsInvolved: json['num_persons_involved'] ?? '',
       );
 }
 
@@ -37,13 +37,13 @@ class ListBusinessInfo {
   ListBusinessInfo({required this.rapId, required this.businessInfoList});
 
   Map<String, dynamic> toJson() => {
-        'rapId': rapId,
+        'case': rapId,
         'businessInfoList': businessInfoList.map((e) => e.toJson()).toList(),
       };
 
   factory ListBusinessInfo.fromJson(Map<String, dynamic> json) =>
       ListBusinessInfo(
-        rapId: json['rapId'] ?? '',
+        rapId: json['case'] ?? '',
         businessInfoList: (json['businessInfoList'] as List)
             .map((e) => BusinessInfo.fromJson(e))
             .toList(),

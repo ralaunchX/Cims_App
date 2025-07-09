@@ -24,7 +24,7 @@ class _LlwdspFoodmontlyScreenState extends State<LlwdspFoodMontlyScreen> {
     items: AppConstants.months
         .map((month) => MonthlyFoodDto(
               month: month,
-              wasHungry: null,
+              wasHungry: false,
               hungerReason: 'None',
             ))
         .toList(),

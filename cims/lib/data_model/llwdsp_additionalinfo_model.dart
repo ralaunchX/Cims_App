@@ -10,15 +10,15 @@ class HouseholdAdditionalInfoDto {
   });
 
   Map<String, dynamic> toJson() => {
-        'rapId': rapId,
-        'projectComments': projectComments,
-        'interviewerComments': interviewerComments,
+        'case': rapId,
+        'project_comments': projectComments,
+        'interviewer_comments': interviewerComments,
       };
 
   factory HouseholdAdditionalInfoDto.fromJson(Map<String, dynamic> json) =>
       HouseholdAdditionalInfoDto(
-        rapId: json['rapId'] ?? '',
-        projectComments: json['projectComments'],
-        interviewerComments: json['interviewerComments'],
+        rapId: json['case'] ?? '',
+        projectComments: json['project_comments'],
+        interviewerComments: json['interviewer_comments'],
       );
 }

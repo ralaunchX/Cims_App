@@ -21,27 +21,27 @@ class CropFieldEntry {
 
   factory CropFieldEntry.fromJson(Map<String, dynamic> json) {
     return CropFieldEntry(
-      fieldNumber: json['fieldNumber'],
+      fieldNumber: json['field_number'],
       ownership: json['ownership'],
-      cultivationMethod: json['cultivationMethod'],
-      mainCrop: json['mainCrop'],
-      secondCrop: json['secondCrop'],
-      seedType: json['seedType'],
+      cultivationMethod: json['cultivation_method'],
+      mainCrop: json['main_crop'],
+      secondCrop: json['second_crop'],
+      seedType: json['seed_type'],
       fertilization: json['fertilization'],
-      cropUse: json['cropUse'],
+      cropUse: json['crop_use'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'fieldNumber': fieldNumber,
+      'field_number': fieldNumber,
       'ownership': ownership,
-      'cultivationMethod': cultivationMethod,
-      'mainCrop': mainCrop,
-      'secondCrop': secondCrop,
-      'seedType': seedType,
+      'cultivation_method': cultivationMethod,
+      'main_crop': mainCrop,
+      'second_crop': secondCrop,
+      'seed_type': seedType,
       'fertilization': fertilization,
-      'cropUse': cropUse,
+      'crop_use': cropUse,
     };
   }
 }
@@ -64,11 +64,11 @@ class LlwdspCropFieldModel {
 
   factory LlwdspCropFieldModel.fromJson(Map<String, dynamic> json) {
     return LlwdspCropFieldModel(
-      rapId: json['rapId'] ?? '',
-      fieldsOwned: json['fieldsOwned'],
-      fieldsCultivated: json['fieldsCultivated'],
-      selectedNonCultivationReason: json['selectedNonCultivationReason'],
-      cropFields: (json['cropFields'] as List<dynamic>?)
+      rapId: json['case'] ?? '',
+      fieldsOwned: json['fields_owned'],
+      fieldsCultivated: json['fields_cultivated'],
+      selectedNonCultivationReason: json['non_cultivation_reason'],
+      cropFields: (json['crop_field_details'] as List<dynamic>?)
               ?.map((e) => CropFieldEntry.fromJson(e))
               .toList() ??
           [],
@@ -77,11 +77,11 @@ class LlwdspCropFieldModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
-      'fieldsOwned': fieldsOwned,
-      'fieldsCultivated': fieldsCultivated,
-      'selectedNonCultivationReason': selectedNonCultivationReason,
-      'cropFields': cropFields.map((e) => e.toJson()).toList(),
+      'case': rapId,
+      'fields_owned': fieldsOwned,
+      'fields_cultivated': fieldsCultivated,
+      'non_cultivation_reason': selectedNonCultivationReason,
+      'crop_field_details': cropFields.map((e) => e.toJson()).toList(),
     };
   }
 }

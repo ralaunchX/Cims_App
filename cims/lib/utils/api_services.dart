@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'package:cims/data_model/census_institution.dart';
 import 'package:logger/logger.dart';
 
 import 'package:cims/data_model/llwdsp_social_network_model.dart';
@@ -176,6 +178,777 @@ class ApiServices {
         return true;
       } else {
         logger.e(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+        return false;
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form36FoodGardens({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/food-garden/create/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form37CropField({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/cropfields/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form38LiveStock({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/livestock-details/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form39FruitTree({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/fruit-tree-details/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsed = jsonDecode(jsonData);
+    final caseId = int.parse(parsed['case'].toString());
+    final List<Map<String, dynamic>> result =
+        (parsed['trees'] as List).map<Map<String, dynamic>>((tree) {
+      return {
+        'case': caseId,
+        'tree_type': tree['tree_type'],
+        'number': tree['number'],
+        'use': tree['use'],
+      };
+    }).toList();
+
+    final String payload = jsonEncode(result);
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: payload,
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form310FExpenditure({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/expenditure/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsed = jsonDecode(jsonData);
+    final caseId = int.parse(parsed['case'].toString());
+    final List<Map<String, dynamic>> result =
+        (parsed['expenditureList'] as List).map<Map<String, dynamic>>((item) {
+      return {
+        'case': caseId,
+        'expenditure_item': item['expenditure_item'],
+        'frequency': item['frequency'],
+        'last_month': item['last_month'],
+      };
+    }).toList();
+
+    final String payload = jsonEncode(result);
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: payload,
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form311Transport({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/transport/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form312Funding({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/savings-club/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsed = jsonDecode(jsonData);
+
+    final caseId = int.parse(parsed['case'].toString());
+    final List<Map<String, dynamic>> result = (parsed['fundingData'] as List)
+        .map((e) => {
+              ...Map<String, dynamic>.from(e),
+              'case': caseId,
+            })
+        .toList();
+
+    final String payload = jsonEncode(result);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: payload,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form314Energy({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/energy-sources/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsedData = jsonDecode(jsonData);
+
+    final List<Map<String, dynamic>> listData = [parsedData];
+
+    final String jsonString = jsonEncode(listData);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonString,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form315AdditionalInfo({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/resettlement-surveys/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form313FoodSecurity({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/food-security/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form313MonthlyStatus({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/monthly-food-status/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form313FoodProductionConsumption({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/food-production/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form32HouseholdComposition({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/household-members/create/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsed = jsonDecode(jsonData);
+
+    final caseId = int.parse(parsed['case'].toString());
+    final List<Map<String, dynamic>> result = (parsed['members'] as List)
+        .map((e) => {
+              ...Map<String, dynamic>.from(e),
+              'case': caseId,
+              'common_question': 1
+            })
+        .toList();
+
+    final String payload = jsonEncode(result);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: payload,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form32Education({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/education-details/create/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsed = jsonDecode(jsonData);
+
+    final caseId = int.parse(parsed['case'].toString());
+    final List<Map<String, dynamic>> result =
+        (parsed['educationInfoList'] as List)
+            .map((e) => {
+                  ...Map<String, dynamic>.from(e),
+                  'case': caseId,
+                  'common_question': 1
+                })
+            .toList();
+
+    final String payload = jsonEncode(result);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: payload,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form32Employment({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/employment/create/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsed = jsonDecode(jsonData);
+
+    final caseId = int.parse(parsed['case'].toString());
+    final List<Map<String, dynamic>> result =
+        (parsed['employmentInfoList'] as List)
+            .map((e) => {
+                  ...Map<String, dynamic>.from(e),
+                  'case': caseId,
+                  'common_question': 1
+                })
+            .toList();
+
+    final String payload = jsonEncode(result);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: payload,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form32UnEmployment({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/unemployment/create/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsed = jsonDecode(jsonData);
+
+    final caseId = int.parse(parsed['case'].toString());
+    final List<Map<String, dynamic>> result =
+        (parsed['unEmploymentInfoList'] as List)
+            .map((e) => {
+                  ...Map<String, dynamic>.from(e),
+                  'case': caseId,
+                  'common_question': 1
+                })
+            .toList();
+
+    final String payload = jsonEncode(result);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: payload,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form32SkillsKnowledge({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/skills-knowledge/create/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsed = jsonDecode(jsonData);
+
+    final caseId = int.parse(parsed['case'].toString());
+    final List<Map<String, dynamic>> result =
+        (parsed['skillKnowledgeList'] as List)
+            .map((e) => {
+                  ...Map<String, dynamic>.from(e),
+                  'case': caseId,
+                  'common_question': 1
+                })
+            .toList();
+
+    final String payload = jsonEncode(result);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: payload,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> form32BusinessIncome({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/business-details/create/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsed = jsonDecode(jsonData);
+
+    final caseId = int.parse(parsed['case'].toString());
+    final List<Map<String, dynamic>> result =
+        (parsed['businessInfoList'] as List)
+            .map((e) => {
+                  ...Map<String, dynamic>.from(e),
+                  'case': caseId,
+                  'common_question': 1
+                })
+            .toList();
+
+    final String payload = jsonEncode(result);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: payload,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> censusHousehold({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/census/household/create/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsed = jsonDecode(jsonData);
+
+    // final caseId = int.parse(parsed['case'].toString());
+
+    // final String payload = jsonEncode(result);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: jsonData,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> censusInstitution({
+    required String rapId,
+    required String key,
+  }) async {
+    final url = Uri.parse('$baseUrl/census/institution/create/');
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData == null) {
+      throw Exception('No saved data found for key: $key');
+    }
+    final Map<String, dynamic> parsed = jsonDecode(jsonData);
+
+    parsed['institution_type'] =
+        AppConstants.institutionMap[parsed['institution_type']];
+
+    final String payload = jsonEncode(parsed);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: payload,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error posting form: $e');
+    }
+  }
+
+  static Future<dynamic> createRapId({
+    required String interviewerName,
+  }) async {
+    final url = Uri.parse('$baseUrl/rappcases/create/');
+    final prefs = await SharedPreferences.getInstance();
+
+    final payload = {"interviewer_name": interviewerName};
+
+    try {
+      final response = await http.post(
+        url,
+        headers: _getHeaders(),
+        body: json.encode(payload),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception(
           'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
         );
       }

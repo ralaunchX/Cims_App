@@ -15,23 +15,23 @@ class FoodProductionConsumptionDto {
 
   factory FoodProductionConsumptionDto.fromJson(Map<String, dynamic> json) {
     return FoodProductionConsumptionDto(
-      rapId: json['rapId'] ?? '',
+      rapId: json['case'] ?? '',
       selectedStapleMonths:
-          List<String>.from(json['selectedStapleMonths'] ?? []),
-      stapleStorage: json['stapleStorage'],
-      sideDishSource: json['sideDishSource'],
+          List<String>.from(json['staple_consumption_months'] ?? []),
+      stapleStorage: json['staple_storage_method'],
+      sideDishSource: json['side_dish_source'],
       selectedSideDishMonths:
-          List<String>.from(json['selectedSideDishMonths'] ?? []),
+          List<String>.from(json['side_dish_consumption_months'] ?? []),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
-      'selectedStapleMonths': selectedStapleMonths,
-      'stapleStorage': stapleStorage,
-      'sideDishSource': sideDishSource,
-      'selectedSideDishMonths': selectedSideDishMonths,
+      'case': rapId,
+      'staple_consumption_months': selectedStapleMonths,
+      'staple_storage_method': stapleStorage,
+      'side_dish_source': sideDishSource,
+      'side_dish_consumption_months': selectedSideDishMonths,
     };
   }
 }

@@ -11,16 +11,16 @@ class FruitTreeDto {
 
   factory FruitTreeDto.fromJson(Map<String, dynamic> json) {
     return FruitTreeDto(
-      type: json['type'],
-      numberOwned: json['numberOwned'],
+      type: json['tree_type'],
+      numberOwned: json['number'],
       use: json['use'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'type': type,
-      'numberOwned': numberOwned,
+      'tree_type': type,
+      'number': numberOwned,
       'use': use,
     };
   }
@@ -37,7 +37,7 @@ class LlwdspFruitTreeList {
 
   factory LlwdspFruitTreeList.fromJson(Map<String, dynamic> json) {
     return LlwdspFruitTreeList(
-      rapId: json['rapId'],
+      rapId: json['case'],
       trees:
           (json['trees'] as List).map((e) => FruitTreeDto.fromJson(e)).toList(),
     );
@@ -45,7 +45,7 @@ class LlwdspFruitTreeList {
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
+      'case': rapId,
       'trees': trees.map((e) => e.toJson()).toList(),
     };
   }

@@ -1,4 +1,5 @@
 class FundingClubData {
+  String caseId;
   String memberReference;
   String typeOfGroup;
   String contributionFrequency;
@@ -7,6 +8,7 @@ class FundingClubData {
   String contributionToLivelihood;
 
   FundingClubData({
+    required this.caseId,
     required this.memberReference,
     required this.typeOfGroup,
     required this.contributionFrequency,
@@ -15,26 +17,27 @@ class FundingClubData {
     required this.contributionToLivelihood,
   });
 
-  Map<String, dynamic> toJson({required String rapid}) {
+  Map<String, dynamic> toJson() {
     return {
-      'rapid': rapid,
-      'memberReference': memberReference,
-      'typeOfGroup': typeOfGroup,
-      'contributionFrequency': contributionFrequency,
-      'receiptFrequency': receiptFrequency,
-      'sourceOfIncome': sourceOfIncome,
-      'contributionToLivelihood': contributionToLivelihood,
+      'case': caseId,
+      'household_member_ref': memberReference,
+      'type_of_group': typeOfGroup,
+      'contribution_frequency': contributionFrequency,
+      'receipt_frequency': receiptFrequency,
+      'income_source': sourceOfIncome,
+      'livelihood_contribution': contributionToLivelihood,
     };
   }
 
   factory FundingClubData.fromJson(Map<String, dynamic> json) {
     return FundingClubData(
-      memberReference: json['memberReference'] ?? '',
-      typeOfGroup: json['typeOfGroup'],
-      contributionFrequency: json['contributionFrequency'],
-      receiptFrequency: json['receiptFrequency'],
-      sourceOfIncome: json['sourceOfIncome'],
-      contributionToLivelihood: json['contributionToLivelihood'],
+      caseId: json['case'],
+      memberReference: json['household_member_ref'] ?? '',
+      typeOfGroup: json['type_of_group'],
+      contributionFrequency: json['contribution_frequency'],
+      receiptFrequency: json['receipt_frequency'],
+      sourceOfIncome: json['income_source'],
+      contributionToLivelihood: json['livelihood_contribution'],
     );
   }
 }
@@ -47,15 +50,14 @@ class LLwdspListFunding {
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
-      'fundingData':
-          fundingData.map((item) => item.toJson(rapid: rapId)).toList(),
+      'case': rapId,
+      'fundingData': fundingData.map((item) => item.toJson()).toList(),
     };
   }
 
   factory LLwdspListFunding.fromJson(Map<String, dynamic> json) {
     return LLwdspListFunding(
-      rapId: json['rapId'],
+      rapId: json['case'],
       fundingData: (json['fundingData'] as List<dynamic>)
           .map((item) => FundingClubData.fromJson(item))
           .toList(),

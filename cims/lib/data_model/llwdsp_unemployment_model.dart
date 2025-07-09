@@ -10,16 +10,16 @@ class UnemploymentInfo {
   });
 
   Map<String, dynamic> toJson() => {
-        'refNo': refNo,
-        'reasonForUnemployment': reasonForUnemployment,
-        'yearsOfUnemployment': yearsOfUnemployment,
+        'ref_no': refNo,
+        'reason_for_unemployment': reasonForUnemployment,
+        'years_unemployed': yearsOfUnemployment,
       };
 
   factory UnemploymentInfo.fromJson(Map<String, dynamic> json) =>
       UnemploymentInfo(
-        refNo: json['refNo'] ?? '',
-        reasonForUnemployment: json['reasonForUnemployment'] ?? '',
-        yearsOfUnemployment: json['yearsOfUnemployment'] ?? '',
+        refNo: json['ref_no'] ?? '',
+        reasonForUnemployment: json['reason_for_unemployment'] ?? '',
+        yearsOfUnemployment: json['years_unemployed'] ?? '',
       );
 }
 
@@ -33,14 +33,14 @@ class ListUnEmploymentInfo {
   });
 
   Map<String, dynamic> toJson() => {
-        'rapId': rapId,
+        'case': rapId,
         'unEmploymentInfoList':
             unEmploymentInfoList.map((e) => e.toJson()).toList(),
       };
 
   factory ListUnEmploymentInfo.fromJson(Map<String, dynamic> json) =>
       ListUnEmploymentInfo(
-        rapId: json['rapId'] ?? '',
+        rapId: json['case'] ?? '',
         unEmploymentInfoList: (json['unEmploymentInfoList'] as List)
                 .map((e) => UnemploymentInfo.fromJson(e))
                 .toList() ??

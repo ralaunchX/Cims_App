@@ -3,7 +3,7 @@ class HouseholdMemberDto {
   String name;
   String relation;
   String sex;
-  DateTime? dob;
+  String dob;
   String maritalStatus;
   String residentialStatus;
   String educationLevel;
@@ -27,33 +27,33 @@ class HouseholdMemberDto {
 
   factory HouseholdMemberDto.fromJson(Map<String, dynamic> json) {
     return HouseholdMemberDto(
-      refNo: json['refNo'] as String? ?? '',
+      refNo: json['ref_no'] as String? ?? '',
       name: json['name'] as String? ?? '',
-      relation: json['relation'] as String? ?? '',
+      relation: json['relation_to_hh_head'] as String? ?? '',
       sex: json['sex'] as String? ?? '',
-      dob: json['dob'] != null ? DateTime.tryParse(json['dob']) : null,
-      maritalStatus: json['maritalStatus'] as String? ?? '',
-      residentialStatus: json['residentialStatus'] as String? ?? '',
-      educationLevel: json['educationLevel'] as String? ?? '',
-      occupation: json['occupation'] as String? ?? '',
+      dob: json['year_of_birth'] as String ?? '',
+      maritalStatus: json['marital_status'] as String? ?? '',
+      residentialStatus: json['residential_status'] as String? ?? '',
+      educationLevel: json['education_level'] as String? ?? '',
+      occupation: json['main_occupation'] as String? ?? '',
       disability: json['disability'] as String? ?? '',
-      illness: json['illness'] as String? ?? '',
+      illness: json['chronic_illness'] as String? ?? '',
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'refNo': refNo,
+      'ref_no': refNo,
       'name': name,
-      'relation': relation,
+      'relation_to_hh_head': relation,
       'sex': sex,
-      'dob': dob?.toIso8601String(),
-      'maritalStatus': maritalStatus,
-      'residentialStatus': residentialStatus,
-      'educationLevel': educationLevel,
-      'occupation': occupation,
+      'year_of_birth': dob,
+      'marital_status': maritalStatus,
+      'residential_status': residentialStatus,
+      'education_level': educationLevel,
+      'main_occupation': occupation,
       'disability': disability,
-      'illness': illness,
+      'chronic_illness': illness,
     };
   }
 }
@@ -69,7 +69,7 @@ class ListHouseholdMemberDto {
 
   factory ListHouseholdMemberDto.fromJson(Map<String, dynamic> json) {
     return ListHouseholdMemberDto(
-      rapId: json['rapId'] as String,
+      rapId: json['case'] as String,
       members: (json['members'] as List<dynamic>)
           .map((e) => HouseholdMemberDto.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -78,7 +78,7 @@ class ListHouseholdMemberDto {
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
+      'case': rapId,
       'members': members.map((e) => e.toJson()).toList(),
     };
   }

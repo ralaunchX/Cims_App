@@ -43,7 +43,7 @@ class _LlwdspFoodproductionconsumptionState
         selectedStapleMonths = data.selectedStapleMonths;
         stapleStorage = data.stapleStorage;
         sideDishSource = data.sideDishSource;
-        selectedSideDishMonths = data.selectedStapleMonths;
+        selectedSideDishMonths = data.selectedSideDishMonths;
       });
     }
   }
@@ -59,6 +59,15 @@ class _LlwdspFoodproductionconsumptionState
   }
 
   Future<void> submitForm() async {
+    if (sideDishSource == null || stapleStorage == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Select all values'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
     final data = FoodProductionConsumptionDto(
         rapId: rapId,
         selectedStapleMonths: selectedStapleMonths,

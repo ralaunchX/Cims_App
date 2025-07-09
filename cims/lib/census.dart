@@ -94,22 +94,33 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
   String gender = AppConstants.notSelected;
 
   String idNumber = '';
-  String idExpiryDate = '';
+  String? houseHoldId = '';
+
+  String? papNumber;
+  String? firstName;
+  String? lastName;
+  String? typeOfIdentification = 'None';
+  String? expiryDate;
+  String? originalVillage;
+  String? residentialVillage;
+  String? cellphoneNo;
+
+  String? idExpiryDate;
   String spouseIdNumber = '';
-  String spouseIdExpiryDate = '';
+  String? spouseIdExpiryDate;
   String spouseFirstName = '';
   String spouseSurname = '';
   String householdHeadFirstName = '';
   String householdHeadSurname = '';
   String contactCell = '';
   String principalChief = '';
+  String villageName = '';
   String villageChief = '';
   String gpsCoordinates = '';
 
   bool get showIdFields => idType != 'None';
   bool get showSpouseIdFields => spouseIdType != 'None';
-  bool get showSpouseForm =>
-      maritalStatus != 'Single' && maritalStatus != AppConstants.notSelected;
+  bool existingHouseHold = true;
 
   final FocusNode idTypeFocus = FocusNode();
   final FocusNode spouseIdTypeFocus = FocusNode();
@@ -130,12 +141,17 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
   final FocusNode householdHeadSurnameFocus = FocusNode();
   final FocusNode contactCellFocus = FocusNode();
   final FocusNode principalChiefFocus = FocusNode();
+  final FocusNode villageNameFocus = FocusNode();
+
   final FocusNode villageChiefFocus = FocusNode();
   final FocusNode gpsCoordinatesFocus = FocusNode();
 
   String rapId = Keys.rapId;
   String censusHouseKey = '${Keys.rapId}_${Keys.censusHousehold}';
   late TextEditingController gpsCoordinatesController;
+  late TextEditingController idExpiryDateController;
+  late TextEditingController spouseIdExpiryDateController;
+  late TextEditingController expiryDateController;
 
   @override
   void dispose() {
@@ -147,7 +163,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
     routeFocus.dispose();
     communityCouncilFocus.dispose();
     genderFocus.dispose();
-
+    villageNameFocus.dispose();
     idNumberFocus.dispose();
     idExpiryDateFocus.dispose();
     spouseIdNumberFocus.dispose();
@@ -161,6 +177,9 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
     villageChiefFocus.dispose();
     gpsCoordinatesFocus.dispose();
     gpsCoordinatesController.dispose();
+    idExpiryDateController.dispose();
+    spouseIdExpiryDateController.dispose();
+    expiryDateController.dispose();
 
     super.dispose();
   }
@@ -181,13 +200,14 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
 
     if (householdData != null) {
       idType = householdData.idType;
+      houseHoldId = householdData.householdId;
       spouseIdType = householdData.spouseIdType;
       maritalStatus = householdData.maritalStatus;
       marriageType = householdData.marriageType;
       district = householdData.district;
       route = householdData.route;
       communityCouncil = householdData.communityCouncil;
-
+      villageName = householdData.villageName;
       idNumber = householdData.idNumber;
       idExpiryDate = householdData.idExpiryDate;
       spouseIdNumber = householdData.spouseIdNumber;
@@ -201,8 +221,21 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
       principalChief = householdData.principalChief;
       villageChief = householdData.villageChief;
       gpsCoordinates = householdData.gpsCoordinates;
+      papNumber = householdData.papNumber;
+      firstName = householdData.firstName;
+      typeOfIdentification = householdData.typeOfIdentification;
+      originalVillage = householdData.originalVillage;
+      expiryDate = householdData.expiryDate;
+      lastName = householdData.lastName;
+      residentialVillage = householdData.residentialVillage;
+      cellphoneNo = householdData.cellphoneNo;
+      existingHouseHold = houseHoldId?.isNotEmpty ?? true;
     }
     gpsCoordinatesController = TextEditingController(text: gpsCoordinates);
+    idExpiryDateController = TextEditingController(text: idExpiryDate ?? '');
+    spouseIdExpiryDateController =
+        TextEditingController(text: spouseIdExpiryDate ?? '');
+    expiryDateController = TextEditingController(text: expiryDate ?? '');
   }
 
   @override
@@ -218,6 +251,141 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
             children: [
               const Text('Household Head Details',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              CheckboxListTile(
+                title: const Text("Use Existing Household Record"),
+                value: existingHouseHold,
+                onChanged: (val) {
+                  setState(() {
+                    existingHouseHold = val!;
+                  });
+                },
+              ),
+              if (existingHouseHold == true)
+                TextFormField(
+                  textInputAction: TextInputAction.next,
+                  initialValue: houseHoldId,
+                  decoration: const InputDecoration(labelText: 'Household Id'),
+                  onChanged: (val) => setState(() => houseHoldId = val),
+                  validator: (val) =>
+                      (existingHouseHold == true && val!.isEmpty)
+                          ? 'Required'
+                          : null,
+                ),
+              /////
+              if (existingHouseHold == false)
+                Column(
+                  children: [
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      initialValue: papNumber,
+                      decoration:
+                          const InputDecoration(labelText: 'PAP Number'),
+                      onChanged: (val) => setState(() => papNumber = val),
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                    ),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      initialValue: firstName,
+                      decoration:
+                          const InputDecoration(labelText: 'First Name'),
+                      onChanged: (val) => setState(() => firstName = val),
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                    ),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      initialValue: lastName,
+                      decoration: const InputDecoration(labelText: 'Last Name'),
+                      onChanged: (val) => setState(() => lastName = val),
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                    ),
+                    DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                          labelText: 'Identification Type'),
+                      value: typeOfIdentification,
+                      items: AppConstants.idTypes
+                          .map((e) => DropdownMenuItem<String>(
+                              value: e, child: Text(e)))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() => typeOfIdentification = value!);
+                      },
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                    ),
+                    if (typeOfIdentification != 'None')
+                      TextFormField(
+                          controller: expiryDateController,
+                          readOnly: true,
+                          textInputAction: TextInputAction.next,
+                          decoration: const InputDecoration(
+                            labelText: 'Expiry Date',
+                            helperText: 'Format: dd-MM-yyyy',
+                          ),
+                          onTap: () async {
+                            final selected = await Utility.selectDate(context);
+                            if (selected != null) {
+                              setState(() {
+                                var date =
+                                    DateFormat('yyyy-MM-dd').format(selected);
+                                expiryDate = date;
+                                expiryDateController.text = date;
+                              });
+                            }
+                          },
+                          validator: (val) {
+                            if (val == null || val.isEmpty) {
+                              return 'Required';
+                            }
+                          }),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      initialValue: originalVillage,
+                      decoration:
+                          const InputDecoration(labelText: 'Original Village'),
+                      onChanged: (val) => setState(() => originalVillage = val),
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                    ),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      initialValue: residentialVillage,
+                      decoration: const InputDecoration(
+                          labelText: 'Residential Village'),
+                      onChanged: (val) =>
+                          setState(() => residentialVillage = val),
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                    ),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      initialValue: cellphoneNo,
+                      decoration:
+                          const InputDecoration(labelText: 'Cellphone Number'),
+                      onChanged: (val) => setState(() => cellphoneNo = val),
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    ),
+                  ],
+                ),
               TextFormField(
                 focusNode: householdHeadFirstNameFocus,
                 textInputAction: TextInputAction.next,
@@ -276,26 +444,29 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                   validator: (val) => val!.isEmpty ? 'Required' : null,
                 ),
                 TextFormField(
-                  focusNode: idExpiryDateFocus,
-                  textInputAction: TextInputAction.next,
-                  initialValue: idExpiryDate,
-                  decoration: const InputDecoration(
-                    labelText: 'ID Expiry Date',
-                    helperText: 'Format: dd-MM-yyyy',
-                  ),
-                  onChanged: (val) => setState(() => idExpiryDate = val),
-                  validator: (val) {
-                    if (val == null || val.isEmpty) {
-                      return 'Required';
-                    }
-                    try {
-                      DateFormat('dd-MM-yyyy').parseStrict(val);
-                    } catch (_) {
-                      return 'Invalid date format. Use dd-MM-yyyy';
-                    }
-                    return null;
-                  },
-                ),
+                    focusNode: idExpiryDateFocus,
+                    controller: idExpiryDateController,
+                    readOnly: true,
+                    textInputAction: TextInputAction.next,
+                    decoration: const InputDecoration(
+                      labelText: 'ID Expiry Date',
+                      helperText: 'Format: dd-MM-yyyy',
+                    ),
+                    onTap: () async {
+                      final selected = await Utility.selectDate(context);
+                      if (selected != null) {
+                        setState(() {
+                          var date = DateFormat('yyyy-MM-dd').format(selected);
+                          idExpiryDate = date;
+                          idExpiryDateController.text = date;
+                        });
+                      }
+                    },
+                    validator: (val) {
+                      if (val == null || val.isEmpty) {
+                        return 'Required';
+                      }
+                    }),
               ],
               DropdownButtonFormField<String>(
                 focusNode: maritalStatusFocus,
@@ -385,8 +556,20 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                   setState(() => district = value!);
                 },
               ),
+              TextFormField(
+                focusNode: villageNameFocus,
+                initialValue: villageName,
+                textInputAction: TextInputAction.next,
+                decoration: const InputDecoration(labelText: 'Village name'),
+                onFieldSubmitted: (_) {
+                  FocusScope.of(context).requestFocus(routeFocus);
+                },
+                onChanged: (val) => setState(() => villageName = val),
+                validator: (val) => val!.isEmpty ? 'Required' : null,
+              ),
               DropdownButtonFormField<String>(
                 focusNode: routeFocus,
+                isExpanded: true,
                 decoration: const InputDecoration(labelText: 'Route Name'),
                 value: route,
                 items: AppConstants.routes
@@ -425,10 +608,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                 textInputAction: TextInputAction.next,
                 controller: gpsCoordinatesController,
                 onFieldSubmitted: (_) {
-                  showSpouseForm
-                      ? FocusScope.of(context)
-                          .requestFocus(spouseFirstNameFocus)
-                      : FocusScope.of(context).unfocus();
+                  FocusScope.of(context).requestFocus(spouseFirstNameFocus);
                 },
                 decoration: InputDecoration(
                   labelText: 'GPS Coordinates',
@@ -457,7 +637,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                 onChanged: (val) => setState(() => gpsCoordinates = val),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
-              if (showSpouseForm) ...[
+              ...[
                 const SizedBox(height: 20),
                 const Text('Spouse Details',
                     style:
@@ -504,27 +684,30 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                     validator: (val) => val!.isEmpty ? 'Required' : null,
                   ),
                   TextFormField(
-                    focusNode: spouseIdExpiryDateFocus,
-                    textInputAction: TextInputAction.next,
-                    initialValue: spouseIdExpiryDate,
-                    decoration: const InputDecoration(
-                      labelText: 'Spouse ID Expiry Date',
-                      helperText: 'Format: dd-MM-yyyy',
-                    ),
-                    onChanged: (val) =>
-                        setState(() => spouseIdExpiryDate = val),
-                    validator: (val) {
-                      if (val == null || val.isEmpty) {
-                        return 'Required';
-                      }
-                      try {
-                        DateFormat('dd-MM-yyyy').parseStrict(val);
-                      } catch (_) {
-                        return 'Invalid date format. Use dd-MM-yyyy';
-                      }
-                      return null;
-                    },
-                  ),
+                      focusNode: spouseIdExpiryDateFocus,
+                      textInputAction: TextInputAction.next,
+                      controller: spouseIdExpiryDateController,
+                      readOnly: true,
+                      decoration: const InputDecoration(
+                        labelText: 'Spouse ID Expiry Date',
+                        helperText: 'Format: yyyy-MM-dd',
+                      ),
+                      onTap: () async {
+                        final selected = await Utility.selectDate(context);
+                        if (selected != null) {
+                          setState(() {
+                            var date =
+                                DateFormat('yyyy-MM-dd').format(selected);
+                            spouseIdExpiryDate = date;
+                            spouseIdExpiryDateController.text = date;
+                          });
+                        }
+                      },
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return 'Required';
+                        }
+                      }),
                 ],
               ],
               const SizedBox(height: 30),
@@ -533,6 +716,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                   if (_formKey.currentState!.validate()) {
                     final household = CensusHousehold(
                       rapId: rapId,
+                      householdId: houseHoldId?.trim() ?? '',
                       householdHeadFirstName: householdHeadFirstName,
                       householdHeadSurname: householdHeadSurname,
                       gender: gender,
@@ -542,6 +726,7 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                       maritalStatus: maritalStatus,
                       marriageType: marriageType,
                       contactCell: contactCell,
+                      villageName: villageName,
                       communityCouncil: communityCouncil,
                       district: district,
                       route: route,
@@ -553,6 +738,14 @@ class _CensusHouseholdFormScreenState extends State<CensusHouseholdFormScreen> {
                       spouseIdType: spouseIdType,
                       spouseIdNumber: spouseIdNumber,
                       spouseIdExpiryDate: spouseIdExpiryDate,
+                      papNumber: papNumber,
+                      firstName: firstName,
+                      typeOfIdentification: typeOfIdentification,
+                      originalVillage: originalVillage,
+                      expiryDate: expiryDate,
+                      lastName: lastName,
+                      residentialVillage: residentialVillage,
+                      cellphoneNo: cellphoneNo,
                     );
                     final prefs = await SharedPreferences.getInstance();
                     await prefs.setString(
@@ -593,6 +786,17 @@ class _CensusInstitutionFormScreenState
   final _formKey = GlobalKey<FormState>();
   String rapId = Keys.rapId;
   String censusInstituteKey = '${Keys.rapId}_${Keys.censusInstitution}';
+  String? houseHoldId = '';
+
+  String? papNumber;
+  String? firstName;
+  String? lastName;
+  String? typeOfIdentification = 'None';
+  String? expiryDate;
+  String? originalVillage;
+  String? residentialVillage;
+  String? cellphoneNo;
+  String? gender;
 
   String institutionName = '';
   String institutionType = AppConstants.notSelected;
@@ -635,6 +839,9 @@ class _CensusInstitutionFormScreenState
   final FocusNode communityContactCellFocus = FocusNode();
 
   late TextEditingController gpsCoordinatesController;
+  late TextEditingController expiryDateController;
+
+  bool existingHouseHold = true;
 
   @override
   void dispose() {
@@ -656,6 +863,7 @@ class _CensusInstitutionFormScreenState
     communityResponsibleSurnameFocus.dispose();
     communityContactCellFocus.dispose();
     gpsCoordinatesController.dispose();
+    expiryDateController.dispose();
     super.dispose();
   }
 
@@ -673,6 +881,7 @@ class _CensusInstitutionFormScreenState
       }
     }
     if (instituteData != null) {
+      houseHoldId = instituteData.householdId;
       institutionName = instituteData.name;
       institutionType = instituteData.type;
       responsibleFirstName = instituteData.responsibleFirstName;
@@ -693,8 +902,19 @@ class _CensusInstitutionFormScreenState
           instituteData.communityResponsibleFirstName;
       communityResponsibleSurname = instituteData.communityResponsibleSurname;
       communityContactCell = instituteData.communityContactCell;
+      papNumber = instituteData.papNumber;
+      firstName = instituteData.firstName;
+      typeOfIdentification = instituteData.typeOfIdentification;
+      originalVillage = instituteData.originalVillage;
+      expiryDate = instituteData.expiryDate;
+      lastName = instituteData.lastName;
+      residentialVillage = instituteData.residentialVillage;
+      cellphoneNo = instituteData.cellphoneNo;
+      gender = instituteData?.gender;
+      existingHouseHold = houseHoldId?.isNotEmpty ?? true;
     }
     gpsCoordinatesController = TextEditingController(text: gpsCoordinates);
+    expiryDateController = TextEditingController(text: expiryDate ?? '');
   }
 
   @override
@@ -710,6 +930,157 @@ class _CensusInstitutionFormScreenState
             children: [
               const Text('Institution Details',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              CheckboxListTile(
+                title: const Text("Use Existing Household Record"),
+                value: existingHouseHold,
+                onChanged: (val) {
+                  setState(() {
+                    existingHouseHold = val!;
+                  });
+                },
+              ),
+              if (existingHouseHold == true)
+                TextFormField(
+                  textInputAction: TextInputAction.next,
+                  initialValue: houseHoldId,
+                  decoration: const InputDecoration(labelText: 'Household Id'),
+                  onChanged: (val) => setState(() => houseHoldId = val),
+                  validator: (val) =>
+                      (existingHouseHold == true && val!.isEmpty)
+                          ? 'Required'
+                          : null,
+                ),
+              if (existingHouseHold == false)
+                Column(
+                  children: [
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      initialValue: papNumber,
+                      decoration:
+                          const InputDecoration(labelText: 'PAP Number'),
+                      onChanged: (val) => setState(() => papNumber = val),
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                    ),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      initialValue: firstName,
+                      decoration:
+                          const InputDecoration(labelText: 'First Name'),
+                      onChanged: (val) => setState(() => firstName = val),
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                    ),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      initialValue: lastName,
+                      decoration: const InputDecoration(labelText: 'Last Name'),
+                      onChanged: (val) => setState(() => lastName = val),
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                    ),
+                    DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(labelText: 'Gender'),
+                      value: gender,
+                      items: AppConstants.genderList
+                          .map(
+                              (e) => DropdownMenuItem(value: e, child: Text(e)))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() => gender = value!);
+                      },
+                      validator: (val) {
+                        if (val == null || val == AppConstants.notSelected) {
+                          return 'Please select Gender';
+                        }
+                        return null;
+                      },
+                    ),
+                    DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                          labelText: 'Identification Type'),
+                      value: typeOfIdentification,
+                      items: AppConstants.idTypes
+                          .map((e) => DropdownMenuItem<String>(
+                              value: e, child: Text(e)))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() => typeOfIdentification = value!);
+                      },
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                    ),
+                    if (typeOfIdentification != 'None')
+                      TextFormField(
+                          controller: expiryDateController,
+                          readOnly: true,
+                          textInputAction: TextInputAction.next,
+                          decoration: const InputDecoration(
+                            labelText: 'Expiry Date',
+                            helperText: 'Format: dd-MM-yyyy',
+                          ),
+                          onTap: () async {
+                            final selected = await Utility.selectDate(context);
+                            if (selected != null) {
+                              setState(() {
+                                var date =
+                                    DateFormat('yyyy-MM-dd').format(selected);
+                                expiryDate = date;
+                                expiryDateController.text = date;
+                              });
+                            }
+                          },
+                          validator: (val) {
+                            if (val == null || val.isEmpty) {
+                              return 'Required';
+                            }
+                          }),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      initialValue: originalVillage,
+                      decoration:
+                          const InputDecoration(labelText: 'Original Village'),
+                      onChanged: (val) => setState(() => originalVillage = val),
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                    ),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      initialValue: residentialVillage,
+                      decoration: const InputDecoration(
+                          labelText: 'Residential Village'),
+                      onChanged: (val) =>
+                          setState(() => residentialVillage = val),
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                    ),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      initialValue: cellphoneNo,
+                      decoration:
+                          const InputDecoration(labelText: 'Cellphone Number'),
+                      onChanged: (val) => setState(() => cellphoneNo = val),
+                      validator: (val) =>
+                          (existingHouseHold == false && val!.isEmpty)
+                              ? 'Required'
+                              : null,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    ),
+                  ],
+                ),
               TextFormField(
                 initialValue: institutionName,
                 focusNode: institutionNameFocus,
@@ -829,6 +1200,7 @@ class _CensusInstitutionFormScreenState
               ),
               DropdownButtonFormField<String>(
                 focusNode: routeFocus,
+                isExpanded: true,
                 decoration: const InputDecoration(labelText: 'Route Name'),
                 value: route,
                 items: AppConstants.routes
@@ -892,6 +1264,7 @@ class _CensusInstitutionFormScreenState
                     },
                   ),
                 ),
+                validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               const SizedBox(height: 20),
               const Text('Community Form',
@@ -932,6 +1305,7 @@ class _CensusInstitutionFormScreenState
                   if (_formKey.currentState!.validate()) {
                     final institution = CensusInstitution(
                       rapId: rapId,
+                      householdId: houseHoldId?.trim() ?? '',
                       name: institutionName,
                       type: institutionType,
                       responsibleFirstName: responsibleFirstName,
@@ -950,6 +1324,15 @@ class _CensusInstitutionFormScreenState
                           communityResponsibleFirstName,
                       communityResponsibleSurname: communityResponsibleSurname,
                       communityContactCell: communityContactCell,
+                      papNumber: papNumber,
+                      firstName: firstName,
+                      typeOfIdentification: typeOfIdentification,
+                      originalVillage: originalVillage,
+                      expiryDate: expiryDate,
+                      lastName: lastName,
+                      gender: gender,
+                      residentialVillage: residentialVillage,
+                      cellphoneNo: cellphoneNo,
                     );
                     final prefs = await SharedPreferences.getInstance();
                     await prefs.setString(

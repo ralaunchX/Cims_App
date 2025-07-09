@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cims/utils/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -173,5 +174,10 @@ class Utility {
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
     );
+  }
+
+  static Future<String?> getLastUploadTime(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key);
   }
 }

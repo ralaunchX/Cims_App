@@ -6,7 +6,9 @@ import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/constants.dart';
 import 'package:cims/utils/keys.dart';
 import 'package:cims/utils/submit_button.dart';
+import 'package:cims/utils/utility.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LlwdspHouseholdcompositionScreen extends StatefulWidget {
@@ -26,7 +28,7 @@ class _LlwdspHouseholdcompositionScreenState
       name: '',
       relation: AppConstants.notSelected,
       sex: AppConstants.notSelected,
-      dob: null,
+      dob: '',
       maritalStatus: AppConstants.notSelected,
       residentialStatus: AppConstants.notSelected,
       educationLevel: AppConstants.notSelected,
@@ -61,7 +63,7 @@ class _LlwdspHouseholdcompositionScreenState
           name: '',
           relation: AppConstants.notSelected,
           sex: AppConstants.notSelected,
-          dob: null,
+          dob: '',
           maritalStatus: AppConstants.notSelected,
           residentialStatus: AppConstants.notSelected,
           educationLevel: AppConstants.notSelected,
@@ -73,19 +75,6 @@ class _LlwdspHouseholdcompositionScreenState
 
   void _removeRow(int index) {
     setState(() => members.removeAt(index));
-  }
-
-  Future<void> _selectDate(int index) async {
-    final now = DateTime.now();
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: now,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2100),
-    );
-    if (picked != null) {
-      setState(() => members[index].dob = picked);
-    }
   }
 
   Widget _buildRow(int index) {
@@ -113,7 +102,7 @@ class _LlwdspHouseholdcompositionScreenState
             width: 100,
             value: m.sex,
             hint: 'Sex',
-            items: AppConstants.genderList,
+            items: AppConstants.binaryGenderList,
             onChanged: (val) => m.sex = val),
         _datePickerField(index),
         _dropdownField(
@@ -211,19 +200,29 @@ class _LlwdspHouseholdcompositionScreenState
 
   Widget _datePickerField(int index) {
     final m = members[index];
+
     return SizedBox(
       width: 180,
       child: Padding(
         padding: const EdgeInsets.all(4),
         child: TextFormField(
+          key: ValueKey(m.dob),
           readOnly: true,
-          onTap: () => _selectDate(index),
-          controller: TextEditingController(
-              text: m.dob == null
-                  ? ''
-                  : '${m.dob!.day.toString().padLeft(2, '0')}/${m.dob!.month.toString().padLeft(2, '0')}/${m.dob!.year}'),
           decoration: const InputDecoration(
-              suffixIcon: Icon(Icons.calendar_today), hintText: 'dd/mm/yyyy'),
+            labelText: 'Date of Birth',
+            suffixIcon: Icon(Icons.calendar_today),
+          ),
+          onTap: () async {
+            final selected = await Utility.selectDate(context);
+            if (selected != null) {
+              setState(() {
+                var date = DateFormat('yyyy-MM-dd').format(selected);
+                m.dob = date;
+              });
+            }
+          },
+          validator: (val) => val!.isEmpty ? 'Required' : null,
+          initialValue: m.dob,
         ),
       ),
     );

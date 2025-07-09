@@ -10,15 +10,15 @@ class ExpenditureDto {
   });
 
   Map<String, dynamic> toJson() => {
-        'item': item,
+        'expenditure_item': item,
         'frequency': frequency,
-        'occurredLastMonth': occurredLastMonth,
+        'last_month': occurredLastMonth,
       };
 
   factory ExpenditureDto.fromJson(Map<String, dynamic> json) => ExpenditureDto(
-        item: json['item'] ?? '',
+        item: json['expenditure_item'] ?? '',
         frequency: json['frequency'] ?? '',
-        occurredLastMonth: json['occurredLastMonth'] ?? false,
+        occurredLastMonth: json['last_month'] ?? false,
       );
 }
 
@@ -33,7 +33,7 @@ class LlwdspExpenditureList {
 
   factory LlwdspExpenditureList.fromJson(Map<String, dynamic> json) {
     return LlwdspExpenditureList(
-      rapId: json['rapId'],
+      rapId: json['case'],
       expenditureList: (json['expenditureList'] as List)
           .map((e) => ExpenditureDto.fromJson(e))
           .toList(),
@@ -42,7 +42,7 @@ class LlwdspExpenditureList {
 
   Map<String, dynamic> toJson() {
     return {
-      'rapId': rapId,
+      'case': rapId,
       'expenditureList': expenditureList.map((e) => e.toJson()).toList(),
     };
   }

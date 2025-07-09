@@ -7,14 +7,14 @@ class MonthlyFoodDto {
 
   Map<String, dynamic> toJson() => {
         'month': month,
-        'wasHungry': wasHungry,
-        'hungerReason': hungerReason,
+        'was_hungry': wasHungry,
+        'hunger_reasons': hungerReason,
       };
 
   factory MonthlyFoodDto.fromJson(Map<String, dynamic> json) => MonthlyFoodDto(
         month: json['month'],
-        wasHungry: json['wasHungry'],
-        hungerReason: json['hungerReason'],
+        wasHungry: json['was_hungry'],
+        hungerReason: json['hunger_reasons'],
       );
 }
 
@@ -26,14 +26,14 @@ class ListMonthlyFoodDto {
   ListMonthlyFoodDto({required this.rapId, required this.items});
 
   Map<String, dynamic> toJson() => {
-        'rapId': rapId,
-        'items': items.map((item) => item.toJson()).toList(),
+        'case': rapId,
+        'monthly_food_status': items.map((item) => item.toJson()).toList(),
       };
 
   factory ListMonthlyFoodDto.fromJson(Map<String, dynamic> json) =>
       ListMonthlyFoodDto(
-        rapId: json['rapId'],
-        items: (json['items'] as List)
+        rapId: json['case'],
+        items: (json['monthly_food_status'] as List)
             .map((e) => MonthlyFoodDto.fromJson(e))
             .toList(),
       );

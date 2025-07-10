@@ -23,6 +23,16 @@ class _FormListScreenState extends State<FormListScreen> {
       'route': '/assetDetails',
       'key': Keys.assetDetails
     },
+    {
+      'title': '1.3 Asset Registration - Beneficiary Details',
+      'route': '/assetBeneficiary',
+      'key': Keys.assetBeneficiary
+    },
+    {
+      'title': '1.4 Asset Registration - CoOwner Details',
+      'route': '/assetCoowner',
+      'key': Keys.assetCoowner
+    },
     {'title': '02 Census Form', 'route': '/census'},
     {
       'title': '3.1 LLWDSP Phase III Resettlement Action Plan Survey',

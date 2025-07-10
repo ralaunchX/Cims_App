@@ -30,4 +30,6 @@ class Keys {
       'llwdspFoodProductionConsumpion';
   static const assetsHouseHold = 'assetsHouseHold';
   static const assetDetails = 'assetDetails';
+  static const assetBeneficiary = 'assetBeneficiary';
+  static const assetCoowner = 'assetCoowner';
 }

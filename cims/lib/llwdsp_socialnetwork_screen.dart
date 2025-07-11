@@ -107,7 +107,7 @@ class _LlwdspSocialnetworkScreenState extends State<LlwdspSocialnetworkScreen> {
               const Text("Household Giving Support",
                   style: TextStyle(fontWeight: FontWeight.bold)),
               buildDropdown(
-                label: 'Support Category',
+                label: 'Household Giving Support',
                 value: givingSupportCategory,
                 itemsMap: AppConstants.householdGivingSupportChoicesMap,
                 onChanged: (val) => setState(() {
@@ -137,14 +137,6 @@ class _LlwdspSocialnetworkScreenState extends State<LlwdspSocialnetworkScreen> {
               const Text("Household Receiving Support",
                   style: TextStyle(fontWeight: FontWeight.bold)),
               buildDropdown(
-                label: 'Support Category',
-                value: receivingSupportCategory,
-                itemsMap: AppConstants.householdGivingSupportChoicesMap,
-                onChanged: (val) => setState(() {
-                  receivingSupportCategory = val ?? 0;
-                }),
-              ),
-              buildDropdown(
                 label: 'Frequency',
                 value: receivingSupportFrequency,
                 itemsMap: AppConstants.frequencyChoicesMap,
@@ -158,6 +150,14 @@ class _LlwdspSocialnetworkScreenState extends State<LlwdspSocialnetworkScreen> {
                 itemsMap: AppConstants.relationSupportedHouseholdChoicesMap,
                 onChanged: (val) => setState(() {
                   receivingSupportRelation = val ?? 0;
+                }),
+              ),
+              buildDropdown(
+                label: 'Household Receiving Support',
+                value: receivingSupportCategory,
+                itemsMap: AppConstants.householdGivingSupportChoicesMap,
+                onChanged: (val) => setState(() {
+                  receivingSupportCategory = val ?? 0;
                 }),
               ),
               const SizedBox(height: 24),

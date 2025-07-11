@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:cims/data_model/resettlement_llwdsp.dart';
 import 'package:cims/utils/app_prefs.dart';
 import 'package:cims/utils/keys.dart';
@@ -47,6 +48,8 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
   final FocusNode gpsNorthingFocus = FocusNode();
   final FocusNode gpsEastingFocus = FocusNode();
   late TextEditingController dateController;
+  late TextEditingController gpsNorthingController;
+  late TextEditingController gpsEastingController;
 
   @override
   void initState() {
@@ -72,6 +75,8 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
       gpsNorthing = resettlementData.gpsNorthing;
       gpsEasting = resettlementData.gpsEasting;
     }
+    gpsNorthingController = TextEditingController(text: gpsNorthing);
+    gpsEastingController = TextEditingController(text: gpsEasting);
     dateController = TextEditingController(text: date);
   }
 
@@ -89,7 +94,8 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
     gpsNorthingFocus.dispose();
     gpsEastingFocus.dispose();
     dateController.dispose();
-
+    gpsEastingController.dispose();
+    gpsNorthingController.dispose();
     super.dispose();
   }
 
@@ -251,16 +257,72 @@ class _LlwdspResettlementState extends State<LlwdspResettlement> {
               ),
               TextFormField(
                 focusNode: gpsNorthingFocus,
+                controller: gpsNorthingController,
                 textInputAction: TextInputAction.next,
-                initialValue: gpsNorthing,
-                decoration: const InputDecoration(labelText: 'GPS Northing'),
                 onChanged: (val) => gpsNorthing = val,
+                decoration: InputDecoration(
+                  labelText: 'GPS Northing',
+                  helperText: 'Click on Location Icon To Autofill',
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.location_on),
+                    onPressed: () async {
+                      try {
+                        gpsNorthingController.text = 'Wait...';
+                        gpsEastingController.text = 'Wait...';
+
+                        final coords = await Utility.getCurrentCoordinates();
+                        setState(() {
+                          final cordList = coords?.split(',');
+                          gpsNorthing = cordList![0];
+                          gpsEasting = cordList![1];
+                          gpsNorthingController.text = gpsNorthing;
+                          gpsEastingController.text = gpsEasting;
+                        });
+                      } catch (e) {
+                        gpsNorthingController.text = gpsNorthing;
+                        gpsEastingController.text = gpsEasting;
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(e.toString())),
+                        );
+                      }
+                    },
+                  ),
+                ),
               ),
               TextFormField(
                 focusNode: gpsEastingFocus,
+                controller: gpsEastingController,
                 textInputAction: TextInputAction.next,
-                initialValue: gpsEasting,
-                decoration: const InputDecoration(labelText: 'GPS Easting'),
+                decoration: InputDecoration(
+                  labelText: 'GPS Easting',
+                  helperText: 'Click on Location Icon To Autofill',
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.location_on),
+                    onPressed: () async {
+                      try {
+                        gpsNorthingController.text = 'Wait...';
+                        gpsEastingController.text = 'Wait...';
+
+                        final coords = await Utility.getCurrentCoordinates();
+                        setState(() {
+                          final cordList = coords?.split(',');
+                          gpsNorthing = cordList![0];
+                          gpsEasting = cordList![1];
+                          gpsNorthingController.text = gpsNorthing;
+                          gpsEastingController.text = gpsEasting;
+                        });
+                      } catch (e) {
+                        gpsNorthingController.text = gpsNorthing;
+                        gpsEastingController.text = gpsEasting;
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(e.toString())),
+                        );
+                      }
+                    },
+                  ),
+                ),
                 onChanged: (val) => gpsEasting = val,
               ),
               const SizedBox(height: 30),

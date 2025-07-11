@@ -743,7 +743,27 @@ class AppConstants {
     'School': 'school',
     'Other': 'other',
   };
-  static const List<String> assetType = [AppConstants.notSelected, 'A', 'B'];
+  static const List<String> assetType = [
+    AppConstants.notSelected,
+    'Residential Plot',
+    'Business Plot',
+    'Agricultural Fields/Arable Land',
+    'Food Garden',
+    'Primary Dwelling House',
+    'Outbuilding/Secondary Structure',
+    'Toilet',
+    'Business Structure',
+    'Kraal, Stable, Pigsty, Chicken Coop',
+    'Fencing',
+    'Graves',
+    'Fruit Trees',
+    'Saplings (Fruit Trees)',
+    'Timber Trees',
+    'Thickets',
+    'Agave/Aloes/Prickly Pear',
+    'Reeds',
+    'Other (specify)',
+  ];
   static const List<String> assetCategory = [
     AppConstants.notSelected,
     'Household',

@@ -63,10 +63,9 @@ class _AssetHouseholdScreenState extends State<AssetHouseholdScreen> {
         residentialVillage = data.residentialVillage;
         occupation = data.occupation;
         cellphone = data.cellphone;
-        idExpiryDateController =
-            TextEditingController(text: idExpiryDate ?? '');
       });
     }
+    idExpiryDateController = TextEditingController(text: idExpiryDate ?? '');
   }
 
   Future<void> saveForm() async {

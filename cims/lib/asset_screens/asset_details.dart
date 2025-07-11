@@ -66,9 +66,9 @@ class _AssetDetailsState extends State<AssetDetailsScreen> {
         assetCategory = data.assetCategory;
         village = data.village;
         gpsCoordinates = data.gpsCoordinates;
-        gpsCoordinatesController = TextEditingController(text: gpsCoordinates);
       });
     }
+    gpsCoordinatesController = TextEditingController(text: gpsCoordinates);
   }
 
   @override

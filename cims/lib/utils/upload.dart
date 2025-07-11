@@ -206,6 +206,26 @@ class Upload {
           if (res == true) {
             await formUploadSuccess(key);
           }
+        } else if (key == '${rapId}_${Keys.assetsHouseHold}') {
+          var res = await ApiServices.assetHousehold1(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.assetDetails}') {
+          var res = await ApiServices.assetDetails2(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.assetBeneficiary}') {
+          var res = await ApiServices.assetBeneficiary3(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
+        } else if (key == '${rapId}_${Keys.assetCoowner}') {
+          var res = await ApiServices.assetCoOwner4(rapId: rapId, key: key);
+          if (res == true) {
+            await formUploadSuccess(key);
+          }
         }
       } catch (e) {
         print('Error uploading for key $key');

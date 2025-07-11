@@ -15,19 +15,19 @@ class AssetDetailsDto {
   });
 
   Map<String, dynamic> toJson() => {
-        'rapId': rapId,
-        'assetType': assetType,
-        'assetCategory': assetCategory,
+        'case': rapId,
+        'asset_type': assetType,
+        'asset_category': assetCategory,
         'village': village,
-        'gpsCoordinates': gpsCoordinates,
+        'gps_coordinates': gpsCoordinates,
       };
 
   factory AssetDetailsDto.fromJson(Map<String, dynamic> json) =>
       AssetDetailsDto(
-        rapId: json['rapId'],
-        assetType: json['assetType'],
-        assetCategory: json['assetCategory'],
+        rapId: json['case'],
+        assetType: json['asset_type'],
+        assetCategory: json['asset_category'],
         village: json['village'],
-        gpsCoordinates: json['gpsCoordinates'],
+        gpsCoordinates: json['gps_coordinates'],
       );
 }

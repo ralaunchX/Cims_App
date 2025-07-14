@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:cims/utils/keys.dart';
 import 'package:flutter/material.dart';
@@ -179,5 +180,15 @@ class Utility {
   static Future<String?> getLastUploadTime(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
+  }
+
+  static Future<File?> pickImageFromGallery() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      return File(pickedFile.path);
+    }
+    return null;
   }
 }

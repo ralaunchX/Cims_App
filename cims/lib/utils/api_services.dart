@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:cims/data_model/census_institution.dart';
 import 'package:logger/logger.dart';
 
@@ -19,6 +20,13 @@ class ApiServices {
       'accept': 'application/json',
       'Content-Type': 'application/json',
       // 'Authorization': 'Bearer $bearerToken',
+    };
+  }
+
+  static Map<String, String> _fileHeaders() {
+    return {
+      'accept': 'application/json',
+      // 'Authorization': 'Bearer your_token', // if needed
     };
   }
 
@@ -968,14 +976,32 @@ class ApiServices {
     if (jsonData == null) {
       throw Exception('No saved data found for key: $key');
     }
+
     final Map<String, dynamic> parsed = jsonDecode(jsonData);
 
+    final String? imagePath = parsed['upload_photographs'];
+
     try {
-      final response = await http.post(
-        url,
-        headers: _getHeaders(),
-        body: jsonData,
-      );
+      var request = http.MultipartRequest("POST", url);
+      request.headers.addAll(_fileHeaders());
+
+      parsed.forEach((fieldKey, value) {
+        if (fieldKey != 'upload_photographs' && value != null) {
+          request.fields[fieldKey] = value.toString();
+        }
+      });
+
+      if (imagePath != null && imagePath.isNotEmpty) {
+        final file = File(imagePath);
+        if (await file.exists()) {
+          request.files.add(await http.MultipartFile.fromPath(
+            'upload_photographs',
+            imagePath,
+          ));
+        }
+      }
+
+      final response = await http.Response.fromStream(await request.send());
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         return true;
@@ -1000,25 +1026,47 @@ class ApiServices {
     if (jsonData == null) {
       throw Exception('No saved data found for key: $key');
     }
+
     final Map<String, dynamic> parsed = jsonDecode(jsonData);
+    final request = http.MultipartRequest('POST', url)
+      ..headers.addAll(_fileHeaders());
 
-    // final caseId = int.parse(parsed['case'].toString());
+    if (parsed['asset_contract'] != null) {
+      final assetContractFile = File(parsed['asset_contract']);
+      if (await assetContractFile.exists()) {
+        request.files.add(await http.MultipartFile.fromPath(
+          'upload_asset_contract',
+          assetContractFile.path,
+        ));
+      }
+    }
 
-    // final String payload = jsonEncode(result);
+    if (parsed['photographs_of_affected_assets'] != null) {
+      final photoAssetFile = File(parsed['photographs_of_affected_assets']);
+      if (await photoAssetFile.exists()) {
+        request.files.add(await http.MultipartFile.fromPath(
+          'upload_photographs_of_affected_assets',
+          photoAssetFile.path,
+        ));
+      }
+    }
+
+    parsed.forEach((key, value) {
+      if (key != 'asset_contract' &&
+          key != 'photographs_of_affected_assets' &&
+          value != null) {
+        request.fields[key] = value.toString();
+      }
+    });
 
     try {
-      final response = await http.post(
-        url,
-        headers: _getHeaders(),
-        body: jsonData,
-      );
+      final response = await request.send();
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         return true;
       } else {
-        throw Exception(
-          'Error: ${response.statusCode} - ${response.reasonPhrase}\n${response.body}',
-        );
+        final respStr = await response.stream.bytesToString();
+        throw Exception('Error: ${response.statusCode} - $respStr');
       }
     } catch (e) {
       throw Exception('Error posting form: $e');

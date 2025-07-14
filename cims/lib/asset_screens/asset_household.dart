@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cims/data_model/asset_household_model.dart';
 import 'package:cims/utils/app_prefs.dart';
@@ -36,6 +37,8 @@ class _AssetHouseholdScreenState extends State<AssetHouseholdScreen> {
   String occupation = '';
   String cellphone = '';
   bool get showIdFields => identificationType != 'None';
+  File? _photo;
+
   late TextEditingController idExpiryDateController;
 
   @override
@@ -47,9 +50,11 @@ class _AssetHouseholdScreenState extends State<AssetHouseholdScreen> {
   Future<void> _loadSavedData() async {
     final prefs = AppPrefs().prefs;
     final saved = prefs?.getString(assetHouseHoldKey);
+
     if (saved != null) {
       final decoded = jsonDecode(saved);
       final data = AssetHouseholdDto.fromJson(decoded);
+
       setState(() {
         routeName = data.routeName;
         papNumber = data.papNumber;
@@ -63,6 +68,7 @@ class _AssetHouseholdScreenState extends State<AssetHouseholdScreen> {
         residentialVillage = data.residentialVillage;
         occupation = data.occupation;
         cellphone = data.cellphone;
+        _photo = data.photo != null ? File(data.photo!) : null;
       });
     }
     idExpiryDateController = TextEditingController(text: idExpiryDate ?? '');
@@ -71,20 +77,20 @@ class _AssetHouseholdScreenState extends State<AssetHouseholdScreen> {
   Future<void> saveForm() async {
     if (_formKey.currentState!.validate()) {
       final dto = AssetHouseholdDto(
-        rapId: rapId,
-        routeName: routeName,
-        papNumber: papNumber,
-        firstName: firstName,
-        lastName: lastName,
-        gender: gender,
-        identificationType: identificationType,
-        idNumber: idNumber,
-        idExpiryDate: idExpiryDate ?? '',
-        originalVillage: originalVillage,
-        residentialVillage: residentialVillage,
-        occupation: occupation,
-        cellphone: cellphone,
-      );
+          rapId: rapId,
+          routeName: routeName,
+          papNumber: papNumber,
+          firstName: firstName,
+          lastName: lastName,
+          gender: gender,
+          identificationType: identificationType,
+          idNumber: idNumber,
+          idExpiryDate: idExpiryDate ?? '',
+          originalVillage: originalVillage,
+          residentialVillage: residentialVillage,
+          occupation: occupation,
+          cellphone: cellphone,
+          photo: _photo?.path);
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(assetHouseHoldKey, jsonEncode(dto.toJson()));
@@ -256,6 +262,55 @@ class _AssetHouseholdScreenState extends State<AssetHouseholdScreen> {
                     return null;
                   },
                 ),
+                const SizedBox(height: 16),
+                const Text('Upload photographs:'),
+                const SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () async {
+                    final picked = await Utility.pickImageFromGallery();
+                    if (picked != null) {
+                      setState(() {
+                        _photo = picked;
+                      });
+                    }
+                  },
+                  child: AbsorbPointer(
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: _photo == null
+                            ? 'No file chosen'
+                            : _photo!.path.split('/').last,
+                        suffixIcon: ElevatedButton(
+                          onPressed: () async {
+                            final picked = await Utility.pickImageFromGallery();
+                            if (picked != null) {
+                              setState(() {
+                                _photo = picked;
+                              });
+                            }
+                          },
+                          child: Text('Choose file'),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.zero,
+                        ),
+                        filled: true,
+                      ),
+                      readOnly: true,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                if (_photo != null)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.file(
+                      _photo!,
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 const SizedBox(height: 20),
                 CommonSubmitButton(onPressed: saveForm)
               ],

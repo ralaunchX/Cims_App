@@ -13,6 +13,26 @@ class FormListScreen extends StatefulWidget {
 
 class _FormListScreenState extends State<FormListScreen> {
   final forms = [
+    {
+      'title': '1.1 Asset Registration - HouseHold Information',
+      'route': '/assetsHouseHold',
+      'key': Keys.assetsHouseHold
+    },
+    {
+      'title': '1.2 Asset Registration - Asset Details',
+      'route': '/assetDetails',
+      'key': Keys.assetDetails
+    },
+    {
+      'title': '1.3 Asset Registration - Beneficiary Details',
+      'route': '/assetBeneficiary',
+      'key': Keys.assetBeneficiary
+    },
+    {
+      'title': '1.4 Asset Registration - CoOwner Details',
+      'route': '/assetCoowner',
+      'key': Keys.assetCoowner
+    },
     {'title': '02 Census Form', 'route': '/census'},
     {
       'title': '3.1 LLWDSP Phase III Resettlement Action Plan Survey',

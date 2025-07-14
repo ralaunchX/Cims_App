@@ -1,3 +1,7 @@
+import 'package:cims/asset_screens/asset_beneficiary.dart';
+import 'package:cims/asset_screens/asset_coowner.dart';
+import 'package:cims/asset_screens/asset_details.dart';
+import 'package:cims/asset_screens/asset_household.dart';
 import 'package:cims/census.dart';
 import 'package:cims/food_forms.dart';
 import 'package:cims/form_list.dart';
@@ -107,6 +111,10 @@ class MainApp extends StatelessWidget {
               const LlwdspFoodMontlyScreen(),
           '/llwdspFoodProductionConsumpion': (context) =>
               const LlwdspFoodproductionconsumption(),
+          '/assetsHouseHold': (context) => const AssetHouseholdScreen(),
+          '/assetDetails': (context) => const AssetDetailsScreen(),
+          '/assetBeneficiary': (context) => const AssetBeneficiaryScreen(),
+          '/assetCoowner': (context) => const AssetCoOwnerScreen(),
         },
         // theme: ThemeData(
         //   inputDecorationTheme: const InputDecorationTheme(

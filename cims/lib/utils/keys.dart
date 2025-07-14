@@ -1,7 +1,7 @@
 class Keys {
   static String loginExpiryTimestamp = 'loginExpiryTimestamp';
   static String rapId = '';
-    static const lastUploadTime = 'lastUploadTime';
+  static const lastUploadTime = 'lastUploadTime';
 
   static const censusInstitution = 'censusinstitution';
   static const censusHousehold = 'censushousehold';
@@ -26,5 +26,10 @@ class Keys {
   static const llwdspAdditionalInfo = 'llwdspAdditionalInfo';
   static const llwdspFoodSecurity = 'llwdspFoodSecurity';
   static const llwdspFoodMonthlyStatus = 'llwdspFoodMonthlyStatus';
-  static const llwdspFoodProductionConsumpion = 'llwdspFoodProductionConsumpion';
+  static const llwdspFoodProductionConsumpion =
+      'llwdspFoodProductionConsumpion';
+  static const assetsHouseHold = 'assetsHouseHold';
+  static const assetDetails = 'assetDetails';
+  static const assetBeneficiary = 'assetBeneficiary';
+  static const assetCoowner = 'assetCoowner';
 }

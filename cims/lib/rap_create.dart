@@ -18,7 +18,7 @@ class _RapIdEntryScreenState extends State<RapIdEntryScreen> {
   final _formKey = GlobalKey<FormState>();
   String rapId = '';
   String interviewerName = '';
-  String entryType = 'Existing'; // default selected
+  String? entryType;
   bool isLoading = false;
   late TextEditingController rapIdController;
 
@@ -75,6 +75,8 @@ class _RapIdEntryScreenState extends State<RapIdEntryScreen> {
                 DropdownButtonFormField<String>(
                   decoration: const InputDecoration(labelText: 'Entry Type'),
                   value: entryType,
+                  validator: (val) =>
+                      val == null || val.isEmpty ? 'Required' : null,
                   items: ['Existing', 'New']
                       .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                       .toList(),
@@ -119,7 +121,16 @@ class _RapIdEntryScreenState extends State<RapIdEntryScreen> {
                   },
                   controller: rapIdController,
                   readOnly: entryType == 'New',
-                  decoration: const InputDecoration(labelText: 'RAP ID'),
+                  decoration: InputDecoration(
+                    labelText: entryType == 'Existing'
+                        ? 'Enter Existing RAP ID'
+                        : entryType == 'New'
+                            ? 'New RAP ID'
+                            : 'RAP ID',
+                    helperText: entryType == 'New'
+                        ? 'Fill Interviewer Name and Tap to Autofill RAP ID'
+                        : null,
+                  ),
                   onChanged: (val) => rapIdController.text = rapId = val.trim(),
                   validator: (val) =>
                       val == null || val.isEmpty ? 'Required' : null,

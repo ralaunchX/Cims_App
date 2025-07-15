@@ -131,7 +131,7 @@ class _RapListScreenState extends State<RapListScreen> {
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 8),
                             title: Text(
-                              currentRapId,
+                              'RAP ID:$currentRapId',
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -180,6 +180,8 @@ class _RapListScreenState extends State<RapListScreen> {
                                         loadKeys();
                                         isUploading = false;
                                       });
+                                      await showAlertDialog(context, 'Success',
+                                          'RAP ID $currentRapId Data Uploaded Successfully.');
                                     }
                                   },
                                   itemBuilder: (context) => [
@@ -267,6 +269,8 @@ class _RapListScreenState extends State<RapListScreen> {
                             isUploading = false;
                           });
                         }
+                        await showAlertDialog(context, 'Success',
+                            'All RAP Data uploaded successfully.');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -278,7 +282,7 @@ class _RapListScreenState extends State<RapListScreen> {
                         ),
                       ),
                       child: const Text(
-                        'Upload All Rap Data',
+                        'Upload All RAP Data',
                         style: TextStyle(fontSize: 16),
                       ),
                     ),
@@ -318,6 +322,23 @@ class _RapListScreenState extends State<RapListScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  static Future<void> showAlertDialog(
+      BuildContext context, String title, String message) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
       ),
     );
   }

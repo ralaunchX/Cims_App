@@ -24,12 +24,12 @@ class _LlwdspSocialnetworkScreenState extends State<LlwdspSocialnetworkScreen> {
   String llwdspSocialNetworkKey = '${Keys.rapId}_${Keys.llwdspSocialNetwork}';
 
   int givingSupportCategory = 0;
-  int givingSupportFrequency = 0;
-  int givingSupportRelation = 0;
+  int? givingSupportFrequency;
+  int? givingSupportRelation;
 
   int receivingSupportCategory = 0;
-  int receivingSupportFrequency = 0;
-  int receivingSupportRelation = 0;
+  int? receivingSupportFrequency;
+  int? receivingSupportRelation;
 
   @override
   void initState() {
@@ -114,44 +114,50 @@ class _LlwdspSocialnetworkScreenState extends State<LlwdspSocialnetworkScreen> {
                   givingSupportCategory = val ?? 0;
                 }),
               ),
-              buildDropdown(
-                label: 'Frequency',
-                value: givingSupportFrequency,
-                itemsMap: AppConstants.frequencyChoicesMap,
-                onChanged: (val) => setState(() {
-                  givingSupportFrequency = val ?? 0;
-                }),
-              ),
-              buildDropdown(
-                label: 'Relation to Supported Household',
-                value: givingSupportRelation,
-                itemsMap: AppConstants.relationSupportedHouseholdChoicesMap,
-                onChanged: (val) => setState(() {
-                  givingSupportRelation = val ?? 0;
-                }),
-              ),
+              if (givingSupportCategory != 99)
+                Column(children: [
+                  buildDropdown(
+                    label: 'Frequency',
+                    value: givingSupportFrequency ?? 0,
+                    itemsMap: AppConstants.frequencyChoicesMap,
+                    onChanged: (val) => setState(() {
+                      givingSupportFrequency = val ?? 0;
+                    }),
+                  ),
+                  buildDropdown(
+                    label: 'Relation to Supported Household',
+                    value: givingSupportRelation ?? 0,
+                    itemsMap: AppConstants.relationSupportedHouseholdChoicesMap,
+                    onChanged: (val) => setState(() {
+                      givingSupportRelation = val ?? 0;
+                    }),
+                  ),
+                ]),
               const SizedBox(height: 32),
               const Text(
                   'Q.  Ask if this household receives support from another household in this village or elsewhere, what type of support is received, the frequency of support received and the household’s relationship to the household providing support'),
               const SizedBox(height: 24),
               const Text("Household Receiving Support",
                   style: TextStyle(fontWeight: FontWeight.bold)),
-              buildDropdown(
-                label: 'Frequency',
-                value: receivingSupportFrequency,
-                itemsMap: AppConstants.frequencyChoicesMap,
-                onChanged: (val) => setState(() {
-                  receivingSupportFrequency = val ?? 0;
-                }),
-              ),
-              buildDropdown(
-                label: 'Relation to Supporting Household',
-                value: receivingSupportRelation,
-                itemsMap: AppConstants.relationSupportedHouseholdChoicesMap,
-                onChanged: (val) => setState(() {
-                  receivingSupportRelation = val ?? 0;
-                }),
-              ),
+              if (receivingSupportCategory != 99)
+                Column(children: [
+                  buildDropdown(
+                    label: 'Frequency',
+                    value: receivingSupportFrequency ?? 0,
+                    itemsMap: AppConstants.frequencyChoicesMap,
+                    onChanged: (val) => setState(() {
+                      receivingSupportFrequency = val ?? 0;
+                    }),
+                  ),
+                  buildDropdown(
+                    label: 'Relation to Supporting Household',
+                    value: receivingSupportRelation ?? 0,
+                    itemsMap: AppConstants.relationSupportedHouseholdChoicesMap,
+                    onChanged: (val) => setState(() {
+                      receivingSupportRelation = val ?? 0;
+                    }),
+                  ),
+                ]),
               buildDropdown(
                 label: 'Household Receiving Support',
                 value: receivingSupportCategory,

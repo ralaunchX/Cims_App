@@ -43,7 +43,9 @@ class _LlwdspExpenditureScreenState extends State<LlwdspExpenditureScreen> {
 
   void _addRow() {
     setState(() => expenditureList.add(ExpenditureDto(
-        frequency: AppConstants.notSelected, item: AppConstants.notSelected)));
+          frequency: AppConstants.notSelected,
+          item: AppConstants.notSelected,
+        )));
   }
 
   void _removeRow(int index) {
@@ -68,6 +70,22 @@ class _LlwdspExpenditureScreenState extends State<LlwdspExpenditureScreen> {
             validator: (val) => val == null || val == AppConstants.notSelected
                 ? 'Required'
                 : null,
+          ),
+        ),
+        const SizedBox(width: 10),
+        SizedBox(
+          width: 300,
+          child: TextFormField(
+            initialValue: data.others,
+            decoration: const InputDecoration(hintText: 'Specify Other'),
+            validator: (val) {
+              if (data.item == 'Other (specify)' &&
+                  (val == null || val.isEmpty)) {
+                return 'Required';
+              }
+              return null;
+            },
+            onChanged: (val) => setState(() => data.others = val),
           ),
         ),
         const SizedBox(width: 10),
@@ -137,7 +155,7 @@ class _LlwdspExpenditureScreenState extends State<LlwdspExpenditureScreen> {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
-                    width: 950,
+                    width: 1250,
                     child: Column(
                       children: [
                         Container(
@@ -151,6 +169,16 @@ class _LlwdspExpenditureScreenState extends State<LlwdspExpenditureScreen> {
                                 width: 300,
                                 child: Text(
                                   'Expenditure Item',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 300,
+                                child: Text(
+                                  'Other Item',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),

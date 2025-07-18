@@ -342,14 +342,12 @@ class ApiServices {
     final Map<String, dynamic> parsed = jsonDecode(jsonData);
     final caseId = int.parse(parsed['case'].toString());
     final List<Map<String, dynamic>> result =
-        (parsed['expenditureList'] as List).map<Map<String, dynamic>>((item) {
-      return {
-        'case': caseId,
-        'expenditure_item': item['expenditure_item'],
-        'frequency': item['frequency'],
-        'last_month': item['last_month'],
-      };
-    }).toList();
+        (parsed['expenditureList'] as List)
+            .map((e) => {
+                  ...Map<String, dynamic>.from(e),
+                  'case': caseId,
+                })
+            .toList();
 
     final String payload = jsonEncode(result);
     try {

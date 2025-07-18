@@ -1,22 +1,26 @@
 class ExpenditureDto {
   String item;
   String frequency;
+  String? others;
   bool occurredLastMonth;
 
   ExpenditureDto({
     this.item = '',
     this.frequency = '',
+    this.others,
     this.occurredLastMonth = false,
   });
 
   Map<String, dynamic> toJson() => {
         'expenditure_item': item,
+        'others': others,
         'frequency': frequency,
         'last_month': occurredLastMonth,
       };
 
   factory ExpenditureDto.fromJson(Map<String, dynamic> json) => ExpenditureDto(
         item: json['expenditure_item'] ?? '',
+        others: json['others'],
         frequency: json['frequency'] ?? '',
         occurredLastMonth: json['last_month'] ?? false,
       );

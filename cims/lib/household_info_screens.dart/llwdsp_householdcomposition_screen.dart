@@ -27,6 +27,7 @@ class _LlwdspHouseholdcompositionScreenState
       refNo: '',
       name: '',
       relation: AppConstants.notSelected,
+      others: null,
       sex: AppConstants.notSelected,
       dob: '',
       maritalStatus: AppConstants.notSelected,
@@ -64,6 +65,7 @@ class _LlwdspHouseholdcompositionScreenState
           relation: AppConstants.notSelected,
           sex: AppConstants.notSelected,
           dob: '',
+          others: null,
           maritalStatus: AppConstants.notSelected,
           residentialStatus: AppConstants.notSelected,
           educationLevel: AppConstants.notSelected,
@@ -97,7 +99,18 @@ class _LlwdspHouseholdcompositionScreenState
             value: m.relation,
             hint: 'Relation',
             items: AppConstants.relationshipChoices,
-            onChanged: (val) => m.relation = val),
+            onChanged: (val) {
+              setState(() {
+                m.relation = val;
+              });
+            }),
+        _inputField(
+          width: 300,
+          hint: 'Specify Other',
+          onChanged: (val) => m.others = val,
+          value: m.others ?? '',
+          isRequired: m.relation == 'Other (SPECIFY)',
+        ),
         _dropdownField(
             width: 100,
             value: m.sex,
@@ -160,6 +173,7 @@ class _LlwdspHouseholdcompositionScreenState
       {required double width,
       required String hint,
       required void Function(String) onChanged,
+      bool isRequired = true,
       required String value}) {
     return SizedBox(
       width: width,
@@ -167,8 +181,14 @@ class _LlwdspHouseholdcompositionScreenState
           padding: const EdgeInsets.all(4),
           child: TextFormField(
             initialValue: value,
+            decoration: InputDecoration(hintText: hint),
             onChanged: onChanged,
-            validator: (val) => val!.isEmpty || val == '' ? 'Required' : null,
+            validator: (val) {
+              if (isRequired && (val == null || val.isEmpty)) {
+                return 'Required';
+              }
+              return null;
+            },
           )),
     );
   }
@@ -243,7 +263,7 @@ class _LlwdspHouseholdcompositionScreenState
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
-                    width: 2450,
+                    width: 2750,
                     child: Column(
                       children: [
                         _buildTableHeader(),
@@ -287,6 +307,7 @@ class _LlwdspHouseholdcompositionScreenState
           _HeaderCell('Ref No.', width: 80),
           _HeaderCell('Name & Surname', width: 250),
           _HeaderCell('Relation to HH Head', width: 250),
+          _HeaderCell('Other Relation', width: 300),
           _HeaderCell('Sex (M/F)', width: 100),
           _HeaderCell('Year of Birth', width: 180),
           _HeaderCell('Marital Status', width: 130),

@@ -51,35 +51,43 @@ class _HouseholdListState extends State<HouseholdList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('HouseHold Info ${Keys.rapId}')),
-      body: ListView.builder(
-        itemCount: householdForms.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: ListTile(
-              tileColor: AppPrefs().prefs!.containsKey(
-                      '${Keys.rapId}_${householdForms[index]['key']}')
-                  ? Colors.green
-                  : Colors.transparent,
-              leading: const Icon(Icons.description),
-              title: Text(householdForms[index]['title']),
-              onTap: () async {
-                final result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => householdForms[index]['widget'],
-                  ),
-                );
-                if (result == true) {
-                  setState(() {});
-                }
-              },
-            ),
-          );
-        },
+    return WillPopScope(
+      onWillPop: onPop,
+      child: Scaffold(
+        appBar: AppBar(title: Text('HouseHold Info ${Keys.rapId}')),
+        body: ListView.builder(
+          itemCount: householdForms.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: ListTile(
+                tileColor: AppPrefs().prefs!.containsKey(
+                        '${Keys.rapId}_${householdForms[index]['key']}')
+                    ? Colors.green
+                    : Colors.transparent,
+                leading: const Icon(Icons.description),
+                title: Text(householdForms[index]['title']),
+                onTap: () async {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => householdForms[index]['widget'],
+                    ),
+                  );
+                  if (result == true) {
+                    setState(() {});
+                  }
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
+  }
+
+  Future<bool> onPop() async {
+    Navigator.pop(context, true);
+    return true;
   }
 }

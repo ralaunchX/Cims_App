@@ -37,37 +37,44 @@ class _CensusFormsScreenState extends State<CensusFormsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Census Forms ${Keys.rapId}')),
-      body: ListView.builder(
-        itemCount: censusForms.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: ListTile(
-              tileColor: AppPrefs()
-                      .prefs!
-                      .containsKey('${Keys.rapId}_${censusForms[index]['key']}')
-                  ? Colors.green
-                  : Colors.transparent,
-              leading: const Icon(Icons.description),
-              title: Text(censusForms[index]['title']),
-              onTap: () async {
-                final result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => censusForms[index]['widget'],
-                  ),
-                );
-                if (result == true) {
-                  setState(() {});
-                }
-              },
-            ),
-          );
-        },
+    return WillPopScope(
+      onWillPop: onPop,
+      child: Scaffold(
+        appBar: AppBar(title: Text('Census Forms ${Keys.rapId}')),
+        body: ListView.builder(
+          itemCount: censusForms.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: ListTile(
+                tileColor: AppPrefs().prefs!.containsKey(
+                        '${Keys.rapId}_${censusForms[index]['key']}')
+                    ? Colors.green
+                    : Colors.transparent,
+                leading: const Icon(Icons.description),
+                title: Text(censusForms[index]['title']),
+                onTap: () async {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => censusForms[index]['widget'],
+                    ),
+                  );
+                  if (result == true) {
+                    setState(() {});
+                  }
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
+  }
+
+  Future<bool> onPop() async {
+    Navigator.pop(context, true);
+    return true;
   }
 }
 

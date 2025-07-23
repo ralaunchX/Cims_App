@@ -2,7 +2,7 @@ import 'package:cims/utils/keys.dart';
 
 class AppConstants {
   static String devUrl = 'https://cims-dev-968023981384.us-east1.run.app/api';
-  static const prodUrl = '';
+  static const prodUrl = 'https://cims-968023981384.us-east1.run.app/api';
   static int loginValidityDays = 30;
   static const user = 'user1';
   static const password = '12345';

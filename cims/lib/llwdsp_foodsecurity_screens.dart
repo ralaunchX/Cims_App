@@ -20,7 +20,7 @@ class _LlwdspFoodsecurityScreensState extends State<LlwdspFoodsecurityScreens> {
   final String rapId = Keys.rapId;
   final String llwdspFoodSecurityKey =
       '${Keys.rapId}_${Keys.llwdspFoodSecurity}';
-  bool? foodShortage;
+  bool? foodShortage = false;
   String? selectedStapleFood = AppConstants.notSelected;
   String? selectedStapleSource = AppConstants.notSelected;
 

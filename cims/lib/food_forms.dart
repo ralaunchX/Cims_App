@@ -33,36 +33,44 @@ class _FoodFormsScreenState extends State<FoodFormsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Food Security Forms${Keys.rapId}')),
-      body: ListView.builder(
-        itemCount: foodForms.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: ListTile(
-              tileColor: AppPrefs()
-                      .prefs!
-                      .containsKey('${Keys.rapId}_${foodForms[index]['key']}')
-                  ? Colors.green
-                  : Colors.transparent,
-              leading: const Icon(Icons.description),
-              title: Text(foodForms[index]['title']),
-              onTap: () async {
-                final result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => foodForms[index]['widget'],
-                  ),
-                );
-                if (result == true) {
-                  setState(() {});
-                }
-              },
-            ),
-          );
-        },
+    return WillPopScope(
+      onWillPop: onPop,
+      child: Scaffold(
+        appBar: AppBar(title: Text('Food Security Forms${Keys.rapId}')),
+        body: ListView.builder(
+          itemCount: foodForms.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: ListTile(
+                tileColor: AppPrefs()
+                        .prefs!
+                        .containsKey('${Keys.rapId}_${foodForms[index]['key']}')
+                    ? Colors.green
+                    : Colors.transparent,
+                leading: const Icon(Icons.description),
+                title: Text(foodForms[index]['title']),
+                onTap: () async {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => foodForms[index]['widget'],
+                    ),
+                  );
+                  if (result == true) {
+                    setState(() {});
+                  }
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
+  }
+
+  Future<bool> onPop() async {
+    Navigator.pop(context, true);
+    return true;
   }
 }

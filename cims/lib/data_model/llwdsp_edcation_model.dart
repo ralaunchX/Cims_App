@@ -1,15 +1,18 @@
 class EducationInfo {
   String refNo;
   String attendingSchool;
-  String schoolLevel;
-  String reasonForNonAttendance;
+  String? schoolLevel;
+  String? reasonForNonAttendance;
+  String? otherSchool;
+  String? otherNonAttendance;
 
-  EducationInfo({
-    required this.refNo,
-    required this.attendingSchool,
-    required this.schoolLevel,
-    required this.reasonForNonAttendance,
-  });
+  EducationInfo(
+      {required this.refNo,
+      required this.attendingSchool,
+      required this.schoolLevel,
+      required this.reasonForNonAttendance,
+      required this.otherNonAttendance,
+      required this.otherSchool});
 
   Map<String, dynamic> toJson() {
     return {
@@ -17,16 +20,19 @@ class EducationInfo {
       'attending_school': attendingSchool,
       'school_level': schoolLevel,
       'non_attendance_reason': reasonForNonAttendance,
+      'others_non_attendance_reason': otherNonAttendance,
+      'others_school_level': otherSchool
     };
   }
 
   factory EducationInfo.fromJson(Map<String, dynamic> json) {
     return EducationInfo(
-      refNo: json['ref_no'] ?? '',
-      attendingSchool: json['attending_school'] ?? '',
-      schoolLevel: json['school_level'] ?? '',
-      reasonForNonAttendance: json['non_attendance_reason'] ?? '',
-    );
+        refNo: json['ref_no'] ?? '',
+        attendingSchool: json['attending_school'] ?? '',
+        schoolLevel: json['school_level'],
+        reasonForNonAttendance: json['non_attendance_reason'],
+        otherNonAttendance: json['others_non_attendance_reason'],
+        otherSchool: json['others_school_level']);
   }
 }
 

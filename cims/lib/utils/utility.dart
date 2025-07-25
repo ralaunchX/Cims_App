@@ -191,4 +191,9 @@ class Utility {
     }
     return null;
   }
+
+  static Future<bool> refreshOnPop(BuildContext context) async {
+    Navigator.pop(context, true);
+    return true;
+  }
 }

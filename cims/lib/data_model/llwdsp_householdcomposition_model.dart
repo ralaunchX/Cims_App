@@ -10,6 +10,7 @@ class HouseholdMemberDto {
   String occupation;
   String disability;
   String illness;
+  String? others;
 
   HouseholdMemberDto({
     required this.refNo,
@@ -23,6 +24,7 @@ class HouseholdMemberDto {
     required this.occupation,
     required this.disability,
     required this.illness,
+    required this.others,
   });
 
   factory HouseholdMemberDto.fromJson(Map<String, dynamic> json) {
@@ -38,6 +40,7 @@ class HouseholdMemberDto {
       occupation: json['main_occupation'] as String? ?? '',
       disability: json['disability'] as String? ?? '',
       illness: json['chronic_illness'] as String? ?? '',
+      others: json['others'],
     );
   }
 
@@ -54,6 +57,7 @@ class HouseholdMemberDto {
       'main_occupation': occupation,
       'disability': disability,
       'chronic_illness': illness,
+      'others': others
     };
   }
 }

@@ -6,6 +6,7 @@ class AssetDetailsDto {
   final String village;
   final String gpsCoordinates;
   final String? contract;
+  final String? other;
   final String? affectedPhoto;
 
   AssetDetailsDto({
@@ -15,6 +16,7 @@ class AssetDetailsDto {
     required this.village,
     required this.gpsCoordinates,
     required this.contract,
+    required this.other,
     required this.affectedPhoto,
   });
 
@@ -24,18 +26,19 @@ class AssetDetailsDto {
         'asset_category': assetCategory,
         'village': village,
         'gps_coordinates': gpsCoordinates,
+        'other': other,
         'photographs_of_affected_assets': affectedPhoto,
         'asset_contract': contract,
       };
 
   factory AssetDetailsDto.fromJson(Map<String, dynamic> json) =>
       AssetDetailsDto(
-        rapId: json['case'],
-        assetType: json['asset_type'],
-        assetCategory: json['asset_category'],
-        village: json['village'],
-        gpsCoordinates: json['gps_coordinates'],
-        affectedPhoto: json['photographs_of_affected_assets'],
-        contract: json['asset_contract'],
-      );
+          rapId: json['case'],
+          assetType: json['asset_type'],
+          assetCategory: json['asset_category'],
+          village: json['village'],
+          gpsCoordinates: json['gps_coordinates'],
+          affectedPhoto: json['photographs_of_affected_assets'],
+          contract: json['asset_contract'],
+          other: json['other']);
 }

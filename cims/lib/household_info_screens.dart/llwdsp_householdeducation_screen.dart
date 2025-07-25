@@ -21,22 +21,24 @@ class _LlwdspHouseholdEducationScreenState
     extends State<LlwdspHouseholdEducationScreen> {
   List<EducationInfo> educationList = [
     EducationInfo(
-      refNo: '',
-      attendingSchool: AppConstants.notSelected,
-      schoolLevel: AppConstants.notSelected,
-      reasonForNonAttendance: AppConstants.notSelected,
-    )
+        refNo: '',
+        attendingSchool: AppConstants.notSelected,
+        schoolLevel: null,
+        reasonForNonAttendance: null,
+        otherNonAttendance: null,
+        otherSchool: null)
   ];
   final _formKey = GlobalKey<FormState>();
   String rapId = Keys.rapId;
   String llwdspEducationKey = '${Keys.rapId}_${Keys.llwdspHouseholdEducation}';
 
   void _addRow() => setState(() => educationList.add(EducationInfo(
-        refNo: '',
-        attendingSchool: AppConstants.notSelected,
-        schoolLevel: AppConstants.notSelected,
-        reasonForNonAttendance: AppConstants.notSelected,
-      )));
+      refNo: '',
+      attendingSchool: AppConstants.notSelected,
+      schoolLevel: null,
+      reasonForNonAttendance: null,
+      otherNonAttendance: null,
+      otherSchool: null)));
   void _removeRow(int index) => setState(() => educationList.removeAt(index));
 
   @override
@@ -68,7 +70,7 @@ class _LlwdspHouseholdEducationScreenState
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
-                    width: 1200,
+                    width: 1800,
                     child: Column(
                       children: [
                         _buildHeader(),
@@ -117,7 +119,9 @@ class _LlwdspHouseholdEducationScreenState
           _HeaderCell('Ref No.', width: 100),
           _HeaderCell('Attending School', width: 180),
           _HeaderCell('School Level', width: 280),
+          _HeaderCell('Others school level	', width: 300),
           _HeaderCell('Reason for Non-Attendance', width: 400),
+          _HeaderCell('Others non attendance reason', width: 300),
           SizedBox(width: 100),
         ],
       ),
@@ -145,26 +149,46 @@ class _LlwdspHouseholdEducationScreenState
         ),
         _dropdownField(
             width: 280,
-            value: info.schoolLevel,
+            value: info.schoolLevel ?? AppConstants.notSelected,
             hint: 'Select Level',
             items: AppConstants.schoolLevelChoices,
+            isRequired: info.attendingSchool == 'Yes',
             onChanged: (val) {
               setState(
                 () => info.schoolLevel = val,
               );
             }),
+        _textField(
+            width: 300,
+            hint: 'Others school level	',
+            value: info.otherSchool ?? '',
+            isRequired: info.attendingSchool == 'Yes' &&
+                info.schoolLevel == 'Other (Specify)',
+            onChanged: (val) => setState(() {
+                  info.otherSchool = val;
+                })),
         _dropdownField(
             width: 400,
-            value: info.reasonForNonAttendance,
+            value: info.reasonForNonAttendance ?? AppConstants.notSelected,
             hint: 'Select Reason',
             items: AppConstants.nonAttendanceReasonChoices,
+            isRequired: info.attendingSchool == 'No',
             onChanged: (val) {
               setState(
                 () => info.reasonForNonAttendance = val,
               );
             }),
+        _textField(
+            width: 300,
+            hint: 'Others non attendance reason',
+            value: info.otherNonAttendance ?? '',
+            isRequired: info.attendingSchool == 'No' &&
+                info.reasonForNonAttendance == 'Other (Specify)',
+            onChanged: (val) => setState(() {
+                  info.otherNonAttendance = val;
+                })),
         const SizedBox(
-          width: 50,
+          width: 20,
         ),
         SizedBox(
           width: 150,
@@ -183,6 +207,7 @@ class _LlwdspHouseholdEducationScreenState
     required String hint,
     required String value,
     required void Function(String) onChanged,
+    bool isRequired = true,
   }) {
     return SizedBox(
       width: width,
@@ -191,7 +216,12 @@ class _LlwdspHouseholdEducationScreenState
         child: TextFormField(
           initialValue: value,
           onChanged: onChanged,
-          validator: (val) => val!.isEmpty || val == '' ? 'Required' : null,
+          validator: (val) {
+            if (isRequired && (val == null || val.isEmpty)) {
+              return 'Required';
+            }
+            return null;
+          },
           decoration: InputDecoration(hintText: hint),
         ),
       ),
@@ -204,6 +234,7 @@ class _LlwdspHouseholdEducationScreenState
     required String hint,
     required List<String> items,
     required void Function(String) onChanged,
+    bool isRequired = true,
   }) {
     return SizedBox(
       width: width,
@@ -213,9 +244,15 @@ class _LlwdspHouseholdEducationScreenState
           isExpanded: true,
           value: value.isEmpty ? null : value,
           onChanged: (val) => onChanged(val!),
-          validator: (val) => val == null || val == AppConstants.notSelected
-              ? 'Required'
-              : null,
+          validator: (val) {
+            if (isRequired &&
+                (val == null ||
+                    val.isEmpty ||
+                    val == AppConstants.notSelected)) {
+              return 'Required';
+            }
+            return null;
+          },
           decoration: InputDecoration(hintText: hint),
           items: items
               .map((e) => DropdownMenuItem(value: e, child: Text(e)))

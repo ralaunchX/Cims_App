@@ -23,6 +23,7 @@ class _AssetDetailsState extends State<AssetDetailsScreen> {
   final String assetDetailsKey = '${Keys.rapId}_${Keys.assetDetails}';
   String assetType = AppConstants.notSelected;
   String assetCategory = AppConstants.notSelected;
+  String? otherAssetTypes;
   String village = '';
   String gpsCoordinates = '';
   File? _contract;
@@ -38,6 +39,7 @@ class _AssetDetailsState extends State<AssetDetailsScreen> {
           assetCategory: assetCategory,
           village: village,
           gpsCoordinates: gpsCoordinates,
+          other: otherAssetTypes,
           affectedPhoto: _affectedAsset?.path,
           contract: _contract?.path);
       final prefs = await SharedPreferences.getInstance();
@@ -71,6 +73,7 @@ class _AssetDetailsState extends State<AssetDetailsScreen> {
         assetCategory = data.assetCategory;
         village = data.village;
         gpsCoordinates = data.gpsCoordinates;
+        otherAssetTypes = data.other;
         _contract = data.contract != null ? File(data.contract!) : null;
         _affectedAsset =
             data.affectedPhoto != null ? File(data.affectedPhoto!) : null;
@@ -106,6 +109,16 @@ class _AssetDetailsState extends State<AssetDetailsScreen> {
                           : null,
                   onChanged: (val) => setState(() => assetType = val!),
                 ),
+                const SizedBox(height: 16),
+                if (assetType == 'Other (specify)')
+                  TextFormField(
+                    initialValue: otherAssetTypes,
+                    decoration: const InputDecoration(
+                        labelText: 'Specify Other', hintText: 'enter type'),
+                    onChanged: (val) => otherAssetTypes = val.trim(),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? 'Required' : null,
+                  ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
                   isExpanded: true,
